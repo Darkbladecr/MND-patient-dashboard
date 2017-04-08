@@ -1,0 +1,5 @@
+mutation deletePicture($token: String!, $_id: String!) {
+	admin(token: $token) {
+		deletePicture(_id: $_id)
+	}
+}

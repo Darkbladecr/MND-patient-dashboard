@@ -1,0 +1,81 @@
+<div id="samples" class="page-layout carded left-sidenav" layout="row">
+	<!-- TOP BACKGROUND -->
+	<div class="top-bg md-accent-bg"></div>
+	<!-- / TOP BACKGROUND -->
+	<!-- LEFT SIDENAV -->
+	<md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav" ms-scroll ms-sidenav-helper>
+		<!-- SIDENAV CONTENT -->
+		<md-content class="content" flex ms-scroll>
+			<div class="navigation-simple" layout="column">
+				<md-button class="tag item" aria-label="load question {{$index}}" ng-repeat="recall in $ctrl.recalls | limitTo: ($ctrl.todo.marks.length + 1)" ng-click="$ctrl.selectRecall($index)" ng-class="[{'selected':recall._id===$ctrl.selected._id}, {'completed':$ctrl.isCompleted(recall._id)}]">
+					<md-icon md-font-icon="icon-label" class="s16"></md-icon>
+					<span class="title">{{$index + 1}}</span>
+				</md-button>
+			</div>
+		</md-content>
+		<!-- / SIDENAV CONTENT -->
+	</md-sidenav>
+	<!-- / LEFT SIDENAV -->
+	<!-- CENTER -->
+	<div class="center" layout="column" flex>
+		<!-- CONTENT HEADER -->
+		<div class="header" layout="row" layout-align="start center">
+			<div class="md-whiteframe-4dp" flex layout="row" layout-align="start center" style="background-color:#fff;">
+				<md-button class="md-icon-button sidenav-toggle" ng-click="$ctrl.toggleSidenav('main-sidenav')" hide-gt-xs aria-label="Toggle sidenav">
+					<md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+				</md-button>
+				<md-button ng-click="$ctrl.toggleSidenav('main-sidenav')" hide-xs hide-gt-md aria-label="Toggle sidenav">
+					Select Question
+				</md-button>
+				<div class="question-progress" flex layout="column" layout-align="center center">
+					<h3>Review Questions: {{$ctrl.recalls.length - $ctrl.metadata.remaining + 1}} out of {{$ctrl.recalls.length}}</h3>
+					<div class="quiz-progress-bar progress-bar-incomplete" layout="row">
+						<div class="progress-bar-inset progress-bar-red" style="width: {{$ctrl.metadata.red / $ctrl.recalls.length * 100}}%;"></div>
+						<div class="progress-bar-inset progress-bar-amber" style="width: {{$ctrl.metadata.amber / $ctrl.recalls.length * 100}}%;"></div>
+						<div class="progress-bar-inset progress-bar-green" style="width: {{$ctrl.metadata.green / $ctrl.recalls.length * 100}}%;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- / CONTENT HEADER -->
+		<!-- CONTENT CARD -->
+		<div id="toastBounds" class="content-card" layout="column" flex md-swipe-right="$ctrl.swipe(-1)" md-swipe-left="$ctrl.swipe(1)">
+			<!-- CONTENT -->
+			<div class="content" layout="row" flex style="padding: 0px;">
+				<!-- Todo list pane -->
+				<md-content id="recall-card" class="recall-card" flex layout-padding ms-scroll du-scroll-container>
+					<div ng-if="!$ctrl.recalls.length" layout="row" layout-align="center center" style="height:100%;">
+						<md-progress-circular md-mode="indeterminate" md-diameter="125" class="md-accent"></md-progress-circular>
+					</div>
+					<md-content layout="column" flex ng-if="$ctrl.recalls.length">
+						<div class="test-text" ng-bind-html="$ctrl.selected.question"></div>
+						<center ng-if="!$ctrl.answered">
+							<md-button class="md-raised md-accent button-show-answer" ng-click="$ctrl.toggleCard()">Show Answer</md-button>
+						</center>
+						<div class="recall-score" ng-if="$ctrl.answered">
+							<h3>How well did you know it?</h3>
+							<md-button ng-repeat="i in [1,2,3,4,5]" class="md-raised score-{{i}}" ng-click="$ctrl.scoreMark(i)" ng-disabled="$ctrl.isCompleted($ctrl.selected._id)">
+								<div class="selected" ng-if="$ctrl.findScore($ctrl.selected._id) === i"></div>
+								{{i}}
+								<div class="selected-icon" ng-if="$ctrl.findScore($ctrl.selected._id) === i">&#10004;</div>
+							</md-button>
+						</div>
+						<div id="answer-section" class="question-explanation" ng-if="$ctrl.answered">
+							<div layout="row" layout-align="start center">
+								<md-icon md-font-icon="icon-bookmark-outline" class="icon"></md-icon>
+								<h2 class="section-letter"> {{$ctrl.selected.categories.join('; ')}}</h2>
+								<span flex>
+							</div>
+							<hr />
+							<div class="test-text" lightgallery html="$ctrl.selected.explanation"></div>
+						</div>
+					</md-content>
+				</md-content>
+				<!-- / Todo list pane -->
+			</div>
+			<!-- / CONTENT -->
+		</div>
+		<!-- / CONTENT CARDb-->
+	</div>
+	<!-- / CENTER -->
+</div>

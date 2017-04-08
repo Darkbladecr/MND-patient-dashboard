@@ -1,0 +1,57 @@
+#terms-conditions {
+    height: 100%;
+    background: url('/assets/images/backgrounds/background.jpg') no-repeat;
+	background-color: #6EE2FD;
+    background-size: cover;
+
+    #terms-conditions-form-wrapper {
+        flex: 1 0 auto;
+        padding: 5% 15%;
+
+        #terms-conditions-form {
+            padding: 32px;
+            text-align: left;
+            background: #FFFFFF;
+
+            .logo {
+                width: 128px;
+                height: 128px;
+                line-height: 128px;
+                font-size: 86px;
+                font-weight: 500;
+				text-align: center;
+                margin: 32px auto;
+                color: #FFFFFF;
+                border-radius: 2px;
+            }
+
+            .title {
+                text-align: center;
+            }
+        }
+    }
+}
+
+// RESPONSIVE
+@media screen and (max-width: $layout-breakpoint-xs) {
+
+    #terms-conditions {
+
+        #terms-conditions-form-wrapper {
+            padding: 16px;
+
+            #terms-conditions-form {
+                padding: 24px;
+                width: 100%;
+
+                form {
+
+                    .md-button {
+                        width: 90%;
+                    }
+                }
+            }
+        }
+    }
+
+}

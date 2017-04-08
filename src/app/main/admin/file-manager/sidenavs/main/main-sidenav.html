@@ -1,0 +1,52 @@
+<md-sidenav class="main-sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav" ms-scroll ms-sidenav-helper>
+	<!-- SIDENAV HEADER -->
+	<div class="header" layout="column" layout-align="space-between start">
+
+		<div class="logo" layout="row" layout-align="start center">
+			<span class="logo-icon">
+            <md-icon md-font-icon="icon-folder" class="icon s24"></md-icon>
+        </span>
+			<span class="logo-text">File Manager</span>
+		</div>
+
+		<div class="topic">
+			<div class="title">Topic</div>
+			<md-select class="account-selection simplified" ng-model="$ctrl.selectedTopic._id" placeholder="Select a Topic">
+				<md-option ng-value="null" ng-click="$ctrl.reset()">All topics</md-option>
+				<md-option ng-repeat="topic in $ctrl.topics" ng-value="topic._id" ng-click="$ctrl.onTopicSelected(topic)">{{topic.name}}</md-option>
+			</md-select>
+		</div>
+
+	</div>
+	<!-- / SIDENAV HEADER -->
+
+	<!-- SIDENAV CONTENT -->
+	<div class="content">
+
+		<div class="navigation-simple" layout="column">
+			<md-button class="item" aria-label="inbox">
+				<div class="context" layout="row" layout-align="start center">
+					<md-icon md-font-icon="icon-folder" class="s16"></md-icon>
+					<div class="title">My Files</div>
+				</div>
+			</md-button>
+
+			<md-button class="item" aria-label="starred">
+				<div class="context" layout="row" layout-align="start center">
+					<md-icon md-font-icon="icon-star" class="s16"></md-icon>
+					<div class="title">Starred</div>
+				</div>
+			</md-button>
+
+			<md-button class="item" aria-label="starred" ng-click="$ctrl.reset()">
+				<div class="context" layout="row" layout-align="start center">
+					<md-icon md-font-icon="icon-clock" class="s16"></md-icon>
+					<div class="title">Recent</div>
+				</div>
+			</md-button>
+
+		</div>
+
+	</div>
+	<!-- / SIDENAV CONTENT -->
+</md-sidenav>

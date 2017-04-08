@@ -1,0 +1,17 @@
+query getUser($token:String!, $_id:String){
+    admin(token:$token){
+        user(_id:$_id){
+            _id
+            username
+            firstName
+            lastName
+            classYear
+            graduationYear
+            university
+			examDate
+            createdAt
+            lastActivity
+            accessLevel
+        }
+    }
+}

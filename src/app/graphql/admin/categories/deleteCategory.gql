@@ -1,0 +1,5 @@
+mutation deleteCategory($token:String!, $categoryId:String!, $topicId:String!){
+    admin(token:$token){
+        deleteCategory(categoryId:$categoryId, topicId:$topicId)
+    }
+}

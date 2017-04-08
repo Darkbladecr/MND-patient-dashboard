@@ -1,0 +1,131 @@
+@import '../../../variables';
+$score-1: #e82e48;
+$score-3: #ffd964;
+$score-5: #41e932;
+#dashboard-project {
+	> .center {
+		> .header {
+			height: 160px;
+			min-height: 160px;
+			max-height: 160px;
+			padding-bottom: 0;
+
+			.selected-project {
+				background: rgba(0, 0, 0, 0.12);
+				color: #FFFFFF;
+				padding: 8px 16px;
+				height: 40px;
+				line-height: 24px;
+				font-size: 16px;
+			}
+
+			.project-selector {
+				margin-left: 1px;
+				border-radius: 0;
+				background: rgba(0, 0, 0, 0.12);
+
+				md-icon {
+					color: #FFFFFF;
+				}
+			}
+		}
+
+		> .content {
+			background: none;
+			padding: 0;
+
+			.task-scores {
+				margin: 0;
+				padding: 0;
+				list-style-type: none;
+				text-align: center;
+				font-family: "Open Sans",helvetica,sans-serif;
+
+				li {
+					text-align: center;
+					display: inline-block;
+					width: 37px;
+					min-height: 52px;
+				}
+				.score-indicator {
+					padding-top: 7px;
+					border-radius: 6px;
+					height: 32px;
+					width: 32px;
+					font-size: 14px;
+					color: #fff;
+					background: #ccc;
+					text-align: center;
+					display: inline-block;
+
+					&.red {
+						background: $score-1;
+					}
+
+					&.amber {
+						background: $score-3;
+					}
+
+					&.green {
+						background: $score-5;
+					}
+				}
+
+				.score-count {
+					font-size: 14px;
+				}
+			}
+
+
+
+			.card-title {
+				font-size: 20px;
+				padding: 24px 24px 0;
+			}
+
+			.card-caption {
+				padding: 0 24px;
+			}
+
+			> md-tabs {
+				> md-tabs-wrapper {
+					background: #FFFFFF;
+					box-shadow: $whiteframe-shadow-1dp;
+					padding: 0 24px;
+
+					md-tabs-canvas {
+						height: 56px;
+
+						md-pagination-wrapper {
+							height: 56px;
+						}
+
+						.md-tab {
+							padding: 16px 24px;
+							text-transform: none;
+						}
+					}
+				}
+
+				&:not(.md-dynamic-height) {
+					md-tabs-content-wrapper {
+						top: 56px;
+					}
+				}
+
+				> md-tabs-content-wrapper {
+					md-tab-content {
+						padding: 12px;
+					}
+				}
+			}
+		}
+	}
+
+	.md-table {
+		.column-center {
+			text-align: center;
+		}
+	}
+
+}

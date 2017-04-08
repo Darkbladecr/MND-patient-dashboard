@@ -1,0 +1,18 @@
+<md-dialog>
+	<md-dialog-content class="md-dialog-content">
+		<h2 class="md-title">Select Subscription</h2>
+		<div class="md-dialog-content-body">
+			<h3>Choose a Plan</h3>
+			<div class="plan">
+				<md-radio-group ng-model="$ctrl.plan" required>
+					<md-radio-button ng-value="$ctrl.plan1" class="md-primary">1 month <b>£10</b></md-radio-button>
+					<md-radio-button ng-value="$ctrl.plan2" class="md-primary">3 months <b>£15</b> </md-radio-button>
+				</md-radio-group>
+			</div>
+		</div>
+	</md-dialog-content>
+	<md-dialog-actions>
+		<md-button ng-click="$ctrl.cancel()">Cancel</md-button>
+		<md-button class="md-raised md-accent" ng-click="$ctrl.save()">Save</md-button>
+	</md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,5 @@
+mutation deleteQuestion($token:String! $_id:String!){
+    admin(token:$token){
+        deleteQuestion(_id:$_id)
+    }
+}

@@ -1,0 +1,10 @@
+query getTopics($token: String!) {
+	restricted(token: $token) {
+		topics {
+			_id
+			name
+			questionCount
+			recallCount
+		}
+	}
+}

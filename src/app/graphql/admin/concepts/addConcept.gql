@@ -1,0 +1,8 @@
+mutation addConcept($token:String!, $topic:String!, $name:String!){
+    admin(token:$token){
+        addConcept(name:$name, topic:$topic){
+            _id
+            name
+        }
+    }
+}

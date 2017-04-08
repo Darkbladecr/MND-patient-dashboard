@@ -1,0 +1,109 @@
+<div id="admin" class="page-layout carded left-sidenav" layout="row">
+	<!-- TOP BACKGROUND -->
+	<div class="top-bg md-accent-bg"></div>
+	<!-- / TOP BACKGROUND -->
+	<!-- LEFT SIDENAV -->
+	<md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav" ms-scroll ms-sidenav-helper>
+		<admin-question-sidenav
+			title="Recalls"
+			add-title="ADD QUESTION"
+			add-element="$ctrl.addRecall(event)"
+			import-title="IMPORT QUESTIONS"
+			import-callback="$ctrl.getRecalls()"
+			import-location="'/api/importer/recalls'"
+			elements="$ctrl.topics"
+			on-element-selected="$ctrl.onTopicSelected(element)"
+			element-selected="$ctrl.selectedTopic"
+			sub-title="Cateogries"
+			sub-elements="$ctrl.categories"
+			on-subelement-selected="$ctrl.onCategorySelected(subelement)"
+			subelement-selected="$ctrl.selectedCategory"
+			reset-filters="$ctrl.resetFilters()">
+		</admin-question-sidenav>
+	</md-sidenav>
+	<!-- / LEFT SIDENAV -->
+	<!-- CENTER -->
+	<div class="center" layout="column" flex>
+		<!-- CONTENT HEADER -->
+		<div class="header" layout="row" layout-align="start center">
+			<div class="search-wrapper md-whiteframe-4dp" flex layout="row" layout-align="start center">
+				<md-button class="md-icon-button sidenav-toggle" ng-click="$ctrl.toggleSidenav('main-sidenav')" hide-gt-md aria-label="Toggle sidenav">
+					<md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+				</md-button>
+				<div class="search" flex layout="row" layout-align="start center">
+					<md-icon md-font-icon="icon-magnify" class="icon s24"></md-icon>
+					<input flex ng-model="$ctrl.search.text" type="text" placeholder="Search for a question" ng-model-options="{ debounce: 500 }" autocomplete="off">
+					<span flex></span>
+					<md-button class="md-icon-button" ng-click="$ctrl.search.text = ''" ng-show="$ctrl.search.text.length > 0" aria-label="Clear Search">
+						<md-icon md-font-icon="icon-close" class="icon s24"></md-icon>
+					</md-button>
+				</div>
+			</div>
+		</div>
+		<!-- / CONTENT HEADER -->
+		<!-- CONTENT CARD -->
+		<div class="content-card" layout="column" flex>
+			<!-- CONTENT TOOLBAR -->
+			<div id="toastBounds" class="toolbar" layout="row" layout-align="space-between center">
+				<md-toolbar class="md-table-toolbar md-default" ng-hide="$ctrl.options.rowSelection && $ctrl.selected.length">
+					<div class="md-toolbar-tools">
+						<span>Recall Manager</span>
+						<span flex></span>
+						<md-select class="toolbar-select" ng-model="$ctrl.search.author" ng-if="$ctrl.administrator" ng-change="$ctrl.getRecalls()" placeholder="Select Author">
+							<md-option value="">All authors</md-option>
+							<md-option ng-repeat="author in $ctrl.authors" value="{{author._id}}">{{author.firstName}} {{author.lastName}}</md-option>
+						</md-select>
+					</div>
+				</md-toolbar>
+				<md-toolbar class="md-table-toolbar alternate" ng-show="$ctrl.options.rowSelection && $ctrl.selected.length">
+					<div class="md-toolbar-tools">
+						<md-button class="md-icon-button" ng-click="$ctrl.selected = []">
+							<md-icon md-font-icon="icon-close" aria-label="close" class="icon" style="color: white;"></md-icon>
+						</md-button>
+						<span>{{$ctrl.selected.length}} {{$ctrl.selected.length > 1 ? 'questions' : 'question'}} selected</span>
+						<span flex></span>
+						<md-button class="md-raised" ngclipboard data-clipboard-text="{{$ctrl.selected[0]._id}}" ng-show="$ctrl.selected.length === 1">
+							<md-icon md-font-icon="icon-content-paste" class="icon" aria-label="Copy ID"></md-icon> Copy ID
+						</md-button>
+						<md-button class="md-raised" ng-click="$ctrl.editRecall($event, $ctrl.selected[0])" ng-show="$ctrl.selected.length === 1">
+							<md-icon md-font-icon="icon-pencil" class="icon" aria-label="edit"></md-icon> Edit</md-button>
+						<md-button class="md-raised" ng-click="$ctrl.deleteConfirm($event)" ng-show="$ctrl.selected.length > 0">
+							<md-icon md-font-icon="icon-delete" class="icon" aria-label="delete"></md-icon> Delete</md-button>
+					</div>
+				</md-toolbar>
+			</div>
+			<!-- / CONTENT TOOLBAR -->
+			<!-- CONTENT -->
+			<div class="content" layout="row" flex style="padding: 0px;">
+				<!-- Todo list pane -->
+				<md-content id="list-pane" class="todo-list-pane" flex ms-scroll>
+					<md-content layout="column" flex ng-cloak>
+						<md-table-container>
+							<table md-table md-row-select="$ctrl.options.rowSelection" ng-model="$ctrl.selected" multiple="false" md-progress="$ctrl.promise">
+								<thead md-head md-order="$ctrl.query.order">
+									<tr md-row>
+										<th md-column><span>Categories</span></th>
+										<th md-column md-order-by="author" md-desc hide-xs hide-sm>Author</th>
+										<th md-column md-order-by="question"><span>Question</span></th>
+									</tr>
+								</thead>
+								<tbody md-body>
+									<tr md-row md-select="question" md-auto-select="$ctrl.options.autoSelect" ng-repeat="question in $ctrl.recalls | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit">
+										<td md-cell>{{question.categoryNames.join('; ')}}</td>
+										<td md-cell hide-xs hide-sm>{{question.author.firstName}} {{question.author.lastName}}</td>
+										<td md-cell>{{question.question | htmlToPlainText}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</md-table-container>
+						<md-table-pagination md-limit="$ctrl.query.limit" md-limit-options="$ctrl.query.limitOptions" md-page="$ctrl.query.page" md-total="{{$ctrl.recalls.length}}" md-on-paginate="$ctrl.pageChange()" md-page-select="$ctrl.options.pageSelector" md-boundary-links="$ctrl.options.boundaryLinks"></md-table-pagination>
+					</md-content>
+				</md-content>
+				<!-- / Todo list pane -->
+			</div>
+			<!-- / CONTENT -->
+		</div>
+		<!-- / CONTENT CARDb-->
+	</div>
+	<!-- / CENTER -->
+</div>

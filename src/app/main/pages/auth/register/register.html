@@ -1,0 +1,104 @@
+<div id="register" class="flex-scrollable" layout="column" ms-scroll>
+	<div id="register-form-wrapper" layout="column" layout-align="center center">
+		<div id="register-form" class="md-whiteframe-8dp">
+			<div class="logo md-accent-bg">
+				<span>Q</span>
+			</div>
+			<md-button class="md-accent" ng-click="vm.samples()">Try Sample Questions</md-button>
+			<form name="registerForm" ng-submit="vm.submit()" autocomplete="off" novalidate>
+				<div class="title">Choose a Plan</div>
+				<div class="plan">
+					<md-radio-group ng-model="vm.form.plan" required>
+						<md-radio-button ng-value="vm.plan1" class="md-primary">1 month <b>£10</b></md-radio-button>
+						<md-radio-button ng-value="vm.plan2" class="md-primary">3 months <b>£15</b> </md-radio-button>
+					</md-radio-group>
+				</div>
+				<div class="title">Create an account</div>
+				<md-input-container class="md-block" md-no-float>
+					<input name="firstName" ng-model="vm.form.firstName" placeholder="First Name" required>
+					<div ng-messages="registerForm.firstName.$error" role="alert">
+						<div ng-message="required">
+							<span>First name is required</span>
+						</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block" md-no-float>
+					<input name="lastName" ng-model="vm.form.lastName" placeholder="Last Name" required>
+					<div ng-messages="registerForm.lastName.$error" role="alert">
+						<div ng-message="required">
+							<span>Last name is required</span>
+						</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block" md-no-float style="height: 58px;">
+					<label>University</label>
+					<md-select ng-model="vm.form.university">
+						<md-option ng-repeat="uni in vm.universities" ng-value="uni">{{::uni}}</md-option>
+					</md-select>
+				</md-input-container>
+				<md-input-container class="md-block" md-no-float style="height: 58px;">
+					<label>Choose Class</label>
+					<md-select ng-model="vm.form.classYear" ng-change="vm.changeYears(vm.form.classYear)">
+						<md-option ng-repeat="class in vm.classes" ng-value="class">{{::class}}</md-option>
+					</md-select>
+				</md-input-container>
+				<md-input-container class="md-block" md-no-float style="height: 58px;">
+					<label>Graduation Year</label>
+					<md-select ng-model="vm.form.graduationYear">
+						<md-option ng-repeat="year in vm.years | orderBy:'valueOf()'" ng-value="year">{{year}}</md-option>
+					</md-select>
+				</md-input-container>
+				<md-input-container class="md-block" md-no-float>
+					<input type="email" name="email" ng-model="vm.form.username" ng-change="vm.checkUsername()" placeholder="Email" ng-pattern="/^.+@.+\..+$/" required>
+					<div ng-messages="registerForm.email.$error" role="alert" multiple>
+						<div ng-message="required">
+							<span>Email field is required</span>
+						</div>
+						<div ng-message="pattern">
+							<span>Email must be a valid e-mail address</span>
+						</div>
+						<div ng-message="available">
+							<span>This email address is already registered</span>
+						</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block" md-no-float>
+					<input type="password" name="password" ng-model="vm.form.password" placeholder="Password" ng-minlength="6" required>
+					<div ng-messages="registerForm.password.$error" role="alert" multiple>
+						<div ng-message="required">
+							<span>Password field is required</span>
+						</div>
+						<div ng-message="minlength">
+							<span>Passwords must be at least 6 characters long</span>
+						</div>
+					</div>
+				</md-input-container>
+				<md-input-container class="md-block" md-no-float>
+					<input type="password" name="passwordConfirm" ng-model="vm.form.passwordConfirm" placeholder="Password (Confirm)" ng-pattern="{{vm.form.password}}" required>
+					<div ng-messages="registerForm.passwordConfirm.$error" role="alert" multiple>
+						<div ng-message="required">
+							<span>Password (Confirm) field is required</span>
+						</div>
+						<div ng-message="pattern">
+							<span>Passwords must match</span>
+						</div>
+					</div>
+				</md-input-container>
+				<div class="terms" layout="row" layout-align="center center">
+					<md-checkbox name="terms" ng-model="vm.form.terms" aria-label="I read and accept" required></md-checkbox>
+					<div layout="row" layout-sm="column" layout-align="start center">
+						<span>I have read and accept the</span>
+						<a ui-sref="app.pages_terms-conditions" class="md-accent-color">terms and conditions</a>
+					</div>
+				</div>
+				<md-button type="submit" class="md-raised md-accent submit-button" aria-label="CREATE MY ACCOUNT" ng-disabled="registerForm.$invalid || registerForm.$pristine">
+					CREATE MY ACCOUNT
+				</md-button>
+			</form>
+			<div class="login" layout="row" layout-xs="column" layout-align="center center">
+				<span class="text">Already have an account?</span>
+				<a class="link" ui-sref="app.pages_auth_login">Log in</a>
+			</div>
+		</div>
+	</div>
+</div>

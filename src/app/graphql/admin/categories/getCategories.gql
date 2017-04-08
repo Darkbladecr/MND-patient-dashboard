@@ -1,0 +1,10 @@
+query getCategories($token:String!){
+    restricted(token:$token){
+        categories{
+            _id
+            name
+			questionCount
+			recallCount
+        }
+    }
+}

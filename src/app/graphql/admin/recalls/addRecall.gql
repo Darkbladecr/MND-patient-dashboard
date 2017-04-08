@@ -1,0 +1,23 @@
+mutation addRecall($token: String!, $data: RecallInput!) {
+	admin(token: $token) {
+		addRecall(data: $data) {
+			_id
+			question
+			author {
+				firstName
+				lastName
+			}
+			category {
+				name
+			}
+			concept {
+				_id
+				name
+			}
+			topic {
+				_id
+				name
+			}
+		}
+	}
+}

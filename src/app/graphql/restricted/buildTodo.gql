@@ -1,0 +1,29 @@
+mutation buildTodo($token: String!, $categories: [String!]!) {
+  restricted(token: $token) {
+    buildTodo(categories: $categories) {
+      _id
+      createdBy {
+        _id
+      }
+      timeTaken
+      topics {
+        name
+      }
+      categories {
+        name
+      }
+      marks {
+        recall
+      }
+      recalls {
+        _id
+        question
+        explanation
+		linked_question
+		category {
+		  name
+		}
+      }
+    }
+  }
+}

@@ -1,0 +1,94 @@
+<div id="samples" class="page-layout carded left-sidenav" layout="row">
+	<!-- TOP BACKGROUND -->
+	<div class="top-bg md-accent-bg"></div>
+	<!-- / TOP BACKGROUND -->
+	<!-- LEFT SIDENAV -->
+	<md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav" ms-scroll ms-sidenav-helper>
+		<!-- SIDENAV CONTENT -->
+		<md-content class="content" flex ms-scroll>
+			<div class="navigation-simple" layout="column">
+				<md-button class="tag item" aria-label="load question {{$index}}" ng-repeat="question in $ctrl.questions" ng-click="$ctrl.selectQuestion($index)" ng-class="[{'selected':question._id===$ctrl.selected._id}, {'correct':$ctrl.isCompleted(question._id) && $ctrl.isAnsweredCorrectly(question._id)}, {'incorrect':$ctrl.isCompleted(question._id) && !$ctrl.isAnsweredCorrectly(question._id)}]">
+					<md-icon md-font-icon="icon-label" class="s16"></md-icon>
+					<span class="title">{{$index + 1}}</span>
+				</md-button>
+			</div>
+		</md-content>
+		<!-- / SIDENAV CONTENT -->
+	</md-sidenav>
+	<!-- / LEFT SIDENAV -->
+	<!-- CENTER -->
+	<div class="center" layout="column" flex>
+		<!-- CONTENT HEADER -->
+		<div class="header" layout="row" layout-align="start center">
+			<div class="md-whiteframe-4dp" flex layout="row" layout-align="start center" style="background-color:#fff;">
+				<md-button class="md-icon-button sidenav-toggle" ng-click="$ctrl.toggleSidenav('main-sidenav')" hide-gt-xs aria-label="Toggle sidenav">
+					<md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+				</md-button>
+				<md-button ng-click="$ctrl.toggleSidenav('main-sidenav')" hide-xs hide-gt-md aria-label="Toggle sidenav">
+					Select Question
+				</md-button>
+				<div class="question-progress" flex layout="column" layout-align="center center">
+					<h3>Review Questions: {{$ctrl.marksheet.marks.length}} out of {{$ctrl.questions.length}}</h3>
+					<md-progress-linear layout="column" md-mode="determinate" class="md-accent" value="{{$ctrl.metadata.completed}}"></md-progress-linear>
+				</div>
+			</div>
+		</div>
+		<!-- / CONTENT HEADER -->
+		<!-- CONTENT CARD -->
+		<div id="toastBounds" class="content-card" layout="column" flex md-swipe-right="$ctrl.swipe(-1)" md-swipe-left="$ctrl.swipe(1)">
+			<!-- CONTENT -->
+			<div class="content" layout="row" flex style="padding: 0px;">
+				<!-- Todo list pane -->
+				<md-content id="question-card" class="question-card" flex layout-padding ms-scroll du-scroll-container>
+					<div ng-if="!$ctrl.questions.length" layout="row" layout-align="center center" style="height:100%;">
+						<md-progress-circular md-mode="indeterminate" md-diameter="125" class="md-accent"></md-progress-circular>
+					</div>
+					<div id="question-section" layout="column" ng-if="$ctrl.questions.length">
+						<div class="test-text" ng-bind-html="$ctrl.selected.question"></div>
+						<div layout="column" layout-gt-sm="row" layout-align="center center">
+							<md-list id="answer-section" class="choices-list" flex du-smooth-scroll>
+								<md-radio-group ng-model="$ctrl.guess">
+									<md-list-item ng-repeat="choice in $ctrl.selected.choices track by choice.label" ng-click="$ctrl.guess = choice.label" ng-class="[$ctrl.choiceClass(choice.label)]" ng-disabled="$ctrl.answered">
+										<md-radio-button ng-value="choice.label" ng-disabled="$ctrl.answered" aria-label="{{choice.name}}">
+											<span ng-bind-html="choice.name">{{choice.label}}</span>
+										</md-radio-button>
+									</md-list-item>
+								</md-radio-group>
+							</md-list>
+							<div ng-if="$ctrl.answered && $ctrl.selected.totalVotes > 10" class="answer-stats md-whiteframe-2dp" flex="100" flex-gt-sm="20" layout-align="center center">
+								<center>
+									<h3>Question statistics</h3>
+								</center>
+								<div class="progress" ng-repeat="choice in $ctrl.selected.choices track by choice.label">
+									<div class="progress-bar" role="progressbar" aria-valuenow="{{choice.votes / $ctrl.selected.highestVotes * 100 | number:0 }}" aria-valuemin="0" aria-valuemax="100" ng-class="[{'correct':choice.answer}, {'incorrect':!choice.answer}]" style="min-width: 2em; width:{{choice.votes / $ctrl.selected.highestVotes * 100 | number:0 }}%;">
+										{{choice.votes / $ctrl.selected.totalVotes * 100 | number:0 }}%
+									</div>
+								</div>
+								<p>{{$ctrl.choicePercentage() | number:0}}% of students answered this question correctly.</p>
+							</div>
+						</div>
+						<center ng-if="!$ctrl.answered">
+							<md-button class="md-raised md-accent button-show-answer" ng-click="$ctrl.answerQuestion()" ng-disabled="!$ctrl.guess">Show Answer</md-button>
+						</center>
+						<div class="question-explanation" ng-if="$ctrl.answered">
+							<center>
+								<md-button class="md-raised md-accent button-show-answer" ng-click="$ctrl.nextQuestion(1)" ng-disabled="!$ctrl.guess">Next Question</md-button>
+							</center>
+							<div layout="row" layout-align="start center">
+								<md-icon md-font-icon="icon-bookmark-outline" class="icon"></md-icon>
+								<h2 class="section-letter"> {{$ctrl.selected.categories.join('; ')}}</h2>
+								<span flex></span>
+							</div>
+							<hr />
+							<div class="test-text" lightgallery html="$ctrl.selected.explanation"></div>
+						</div>
+					</div>
+				</md-content>
+				<!-- / Todo list pane -->
+			</div>
+			<!-- / CONTENT -->
+		</div>
+		<!-- / CONTENT CARDb-->
+	</div>
+	<!-- / CENTER -->
+</div>

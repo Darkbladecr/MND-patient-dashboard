@@ -1,0 +1,49 @@
+<div layout="row" layout-align="start center" style="height:64px;">
+    <div layout="row" layout-align="start center" flex>
+        <md-button id="navigation-toggle" class="md-icon-button" ng-click="vm.toggleSidenav('navigation')" hide-gt-sm aria-label="Toggle navigation">
+            <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+        </md-button>
+    </div>
+    <div layout="row" layout-align="start center">
+        <md-progress-circular id="toolbar-progress" ng-if="$root.loadingProgress" class="md-accent" md-mode="indeterminate" md-diameter="64">
+        </md-progress-circular>
+        <md-button class="md-icon-button" ng-click="vm.feedback()">
+            <md-tooltip md-direction="left">
+                Send Feedback
+            </md-tooltip>
+            <md-icon md-font-icon="icon-bug" class="icon" aria-label="feedback"></md-icon>
+        </md-button>
+        <md-menu-bar id="user-menu" ng-if="vm.loggedIn">
+            <md-menu md-position-mode="left bottom">
+                <md-button class="user-button" ng-click="$mdMenu.open($event)" aria-label="User settings">
+                    <div layout="row" layout-align="space-between center">
+                        <div class="avatar-wrapper">
+                            <img md-menu-align-target class="avatar" src="/assets/images/avatars/profile.jpg">
+                            <md-icon md-font-icon ng-class="vm.userStatus.icon" ng-style="{'color': vm.userStatus.color }" class="icon status s16">
+                            </md-icon>
+                        </div>
+                        <span class="username" hide show-gt-sm>{{vm.currentUser.firstName}} {{vm.currentUser.lastName}}</span>
+                        <md-icon md-font-icon="icon-chevron-down" class="icon s16" hide-xs></md-icon>
+                    </div>
+                </md-button>
+                <md-menu-content width="3">
+                    <md-menu-item class="md-indent" ui-sref="app.restricted_settings">
+                        <md-icon md-font-icon="icon-account" class="icon"></md-icon>
+                        <md-button>My Settings</md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon="icon-logout" class="icon"></md-icon>
+                        <md-button ng-click="vm.logout()">Logout</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+		<md-button ng-if="!vm.loggedIn" class="md-raised md-accent" ng-click="vm.subscribe()">Subscribe Now</md-button>
+		<!-- TODO Implement the Quick Panel in some way -->
+        <!-- <div class="toolbar-separator"></div>
+        <md-button id="quick-panel-toggle" class="md-icon-button" ng-click="vm.toggleSidenav('quick-panel')" aria-label="Toggle quick panel">
+            <md-icon md-font-icon="icon-format-list-bulleted" class="icon"></md-icon>
+        </md-button> -->
+    </div>
+</div>

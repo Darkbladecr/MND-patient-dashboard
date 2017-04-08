@@ -1,0 +1,23 @@
+query searchPictures($token: String!, $topic: [String]) {
+	admin(token: $token) {
+		pictures(topic: $topic) {
+			_id
+			name
+			caption
+			path
+			path_thumb
+			path_resized
+			topic {
+				_id
+				name
+			}
+			owner {
+				_id
+				firstName
+				lastName
+			}
+			createdAt
+			lastModified
+		}
+	}
+}

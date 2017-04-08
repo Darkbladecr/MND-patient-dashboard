@@ -1,0 +1,271 @@
+<div id="dashboard-project" class="page-layout simple right-sidenav" layout="row">
+
+	<!-- CENTER -->
+	<div class="center" flex ms-scroll>
+
+		<!-- HEADER -->
+		<div class="header md-accent-bg" layout="column" layout-align="space-between">
+			<div layout="column" layout-align="start start">
+				<span class="md-display-1 font-weight-300">Welcome back, {{$ctrl.user.firstName}}!</span>
+				<span class="md-subhead" ng-if="$ctrl.examCountdown">
+					<md-icon md-font-icon="icon-calendar-clock" style="color:white; padding-right:30px;margin-bottom:5px;"></md-icon>
+					<span style="font-size:20px;font-weight:800;">{{$ctrl.examCountdown}}</span> {{$ctrl.countdownMessage}}
+				</span>
+			</div>
+
+		</div>
+		<!-- / HEADER -->
+
+		<!-- CONTENT -->
+		<div class="content">
+			<md-tabs md-dynamic-height>
+				<md-tab label="Ques Cards">
+					<!-- WIDGET GROUP -->
+					<div class="widget-group" layout="row" flex="100" layout-wrap>
+						<ms-widget layout="row" flex="100" flex-gt-sm="50">
+							<ms-widget-front class="white-bg">
+								<div class="simple-table-container" ms-responsive-table>
+									<div class="card-title">
+										Daily Review
+									</div>
+									<p class="card-caption">These are the suggested Ques Cards based on your previous performance according to our space repetition algorithm.</p>
+
+									<center ng-if="!$ctrl.dailyTask">
+										<h3 class="card-caption">This will automatically be generated every night for you once you have completed more than 20 Ques cards.</h3>
+									</center>
+
+									<md-list ng-if="$ctrl.dailyTask">
+										<md-divider></md-divider>
+										<md-list-item ng-click="$ctrl.reviewRecalls($ctrl.dailyTask._id)">
+											<div layout="column" style="padding: 10px 0px" flex>
+												<p>
+													<span>Daily Review:</span>
+													<span ng-if="$ctrl.dailyTask.recalls.length !== $ctrl.dailyTask.marks.length">({{$ctrl.dailyTask.recalls.length - $ctrl.dailyTask.marks.length}} Ques cards)</span>
+													<span ng-if="$ctrl.dailyTask.recalls.length === $ctrl.dailyTask.marks.length">(Completed)</span>
+												</p>
+												<div class="quiz-progress-bar progress-bar-incomplete" layout="row">
+													<div class="progress-bar-inset progress-bar-red" style="width: {{$ctrl.dailyTask.red / $ctrl.dailyTask.recalls.length * 100}}%;"></div>
+													<div class="progress-bar-inset progress-bar-amber" style="width: {{$ctrl.dailyTask.amber / $ctrl.dailyTask.recalls.length * 100}}%;"></div>
+													<div class="progress-bar-inset progress-bar-green" style="width: {{$ctrl.dailyTask.green / $ctrl.dailyTask.recalls.length * 100}}%;"></div>
+												</div>
+											</div>
+										</md-list-item>
+									</md-list>
+									<md-tabs ng-if="$ctrl.dailyTask">
+										<md-tab label="Task Details">
+											<h3>Today's Ques card stack is made up of:</h3>
+											<ul class="task-scores">
+												<li>
+													<div class="score-indicator red">1-2</div>
+													<span class="score-count">
+														{{::$ctrl.user.dailyTask.scores.red}}
+													</span>
+												</li>
+												<li>
+													<div class="score-indicator amber">3</div>
+													<span class="score-count">
+														{{::$ctrl.user.dailyTask.scores.amber}}
+													</span>
+												</li>
+												<li>
+													<div class="score-indicator green">4-5</div>
+													<span class="score-count">
+														{{::$ctrl.user.dailyTask.scores.green}}
+													</span>
+												</li>
+											</ul>
+											<md-list>
+												<md-divider ng-repeat-start="coverage in $ctrl.dailyTask.coverage"></md-divider>
+												<md-list-item class="md-2-line" ng-repeat-end>
+													<md-icon md-font-icon="icon-bookmark-outline" class="icon"></md-icon>
+													<div class="md-list-item-text">
+														<h3>{{coverage.topic}}</h3>
+														<p>{{coverage.num}} Questions</p>
+													</div>
+												</md-list-item>
+											</md-list>
+										</md-tab>
+										<md-tab label="Prioritization">
+											<h3>Risk of Forgetting</h3>
+											<p class="card-caption">These are all the cards that you have previously seen and scored, which have been ranked based on our space repetition algorithm for the risk of forgetting, and thus will be added to your daily review.</p>
+											<b>High Risk</b>
+											<md-divider ng-repeat-start="i in [10,9,8,7,6,5,4,3,2,1]"></md-divider>
+											<md-list-item ng-repeat-end>
+												<div class="md-list-item-text" style="width:100px;">
+													<p>Risk {{i / 10 | number: 1}}</p>
+												</div>
+												<md-progress-linear md-mode="determinate" value="{{$ctrl.user.dailyTask.priority['risk'+i.toString()] / $ctrl.completedRecalls * 100}}"></md-progress-linear>
+												<span style="min-width:70px; text-align:center;" class="text-boxed">{{$ctrl.user.dailyTask.priority['risk'+i.toString()]}} Cards</span>
+											</md-list-item>
+											<b>Low Risk</b>
+										</md-tab>
+									</md-tabs>
+								</div>
+							</ms-widget-front>
+						</ms-widget>
+
+						<ms-widget layout="row" flex="100" flex-gt-sm="50">
+							<ms-widget-front class="white-bg">
+								<div class="simple-table-container" ms-responsive-table>
+									<div class="card-title">
+										Recent Ques Card Reviews
+									</div>
+									<p class="card-caption">Recently attempted cards available for 24 hours.</p>
+
+									<center ng-if="$ctrl.todos.length === 0">
+										<h3 class="card-caption">You have not reviewed any extra Ques Cards today.</h3>
+									</center>
+
+									<md-list ng-if="$ctrl.todos.length !== 0">
+										<md-divider ng-repeat-start="todo in $ctrl.todos"></md-divider>
+										<md-list-item ng-repeat-end ng-click="$ctrl.reviewRecalls(todo._id)">
+											<div layout="column" style="padding: 10px 0px" flex>
+												<p>
+													<span ng-if="!todo.dailyTask">{{todo.topics}}</span>
+													<span ng-if="todo.recalls.length !== todo.marks.length">({{todo.recalls.length - todo.marks.length}} Ques cards)</span>
+													<span ng-if="todo.recalls.length === todo.marks.length">(Completed)</span>
+												</p>
+												<div class="quiz-progress-bar progress-bar-incomplete" layout="row">
+													<div class="progress-bar-inset progress-bar-red" style="width: {{todo.red / todo.recalls.length * 100}}%;"></div>
+													<div class="progress-bar-inset progress-bar-amber" style="width: {{todo.amber / todo.recalls.length * 100}}%;"></div>
+													<div class="progress-bar-inset progress-bar-green" style="width: {{todo.green / todo.recalls.length * 100}}%;"></div>
+												</div>
+											</div>
+										</md-list-item>
+									</md-list>
+								</div>
+							</ms-widget-front>
+						</ms-widget>
+					</div>
+				</md-tab>
+
+				<md-tab label="Review Questions">
+					<div class="widget-group" layout="row" flex="100" layout-wrap>
+						<ms-widget layout="row" flex="100">
+							<ms-widget-front class="white-bg">
+
+								<div class="simple-table-container" ms-responsive-table>
+
+									<md-toolbar class="md-table-toolbar md-default" ng-hide="$ctrl.options.rowSelection && $ctrl.selected.length">
+										<div class="md-toolbar-tools">
+											<span style="font-size:20px;">Previous Questions</span>
+											<div flex></div>
+										</div>
+									</md-toolbar>
+									<md-toolbar class="md-table-toolbar alternate" ng-show="$ctrl.options.rowSelection && $ctrl.selected.length">
+										<div class="md-toolbar-tools">
+											<md-button class="md-icon-button" ng-click="$ctrl.selected = []" aria-label="Remove selection">
+												<md-icon md-font-icon="icon-close" class="icon" style="color:#fff"></md-icon>
+											</md-button>
+											<span>{{$ctrl.selected.length}} {{$ctrl.selected.length > 1 ? 'marksheets' : 'marksheet'}} selected</span>
+											<span flex></span>
+											<md-button class="md-raised" ng-click="$ctrl.review()" ng-show="$ctrl.selected.length === 1">
+												<md-icon md-font-icon="icon-eye" class="icon" style="padding-right:30px;"></md-icon>Review</md-button>
+											<!-- <md-button class="md-raised" ng-click="$ctrl.deleteConfirm($event)" ng-show="$ctrl.selected.length > 0"><ng-md-icon icon="delete" aria-label="delete"></ng-md-icon> Delete</md-button> -->
+										</div>
+									</md-toolbar>
+									<md-table-container>
+										<table md-table md-row-select="$ctrl.options.rowSelection" ng-model="$ctrl.selected">
+											<thead md-head md-order="$ctrl.query.order">
+												<tr md-row>
+													<th md-column md-order-by="topics"><span>Topics</span></th>
+													<th md-column md-order-by="categories"><span>Categories</span></th>
+													<th md-column class="column-center"><span>Progress</span></th>
+													<th md-column class="column-center" md-numeric md-order-by="createdAt" md-desc>Date Started</th>
+													<th md-column md-numeric hide-xs hide-sm md-order-by="percentage" md-desc>Correct (%)</th>
+													<th md-column md-numeric hide-xs hide-sm md-order-by="timeTaken" md-desc>Time Taken</th>
+												</tr>
+											</thead>
+											<tbody md-body>
+												<tr md-row md-select="marksheet" md-auto-select="$ctrl.options.autoSelect" ng-repeat="marksheet in $ctrl.marksheets | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit">
+													<td md-cell>{{marksheet.topics}}</td>
+													<td md-cell>{{marksheet.categories}}</td>
+													<td md-cell class="column-center">
+														{{marksheet.marks.length}}/{{marksheet.questions.length}}
+														<md-progress-linear md-mode="determinate" class="md-accent" value="{{marksheet.marks.length / marksheet.questions.length * 100}}"></md-progress-linear>
+													</td>
+													<td md-cell hide-gt-xs class="column-center">{{marksheet.createdAt | date:'shortDate'}}</td>
+													<td md-cell hide-xs class="column-center">{{marksheet.createdAt | date:'short'}}</td>
+													<td md-cell hide-xs hide-sm>{{marksheet.percentage}}%</td>
+													<td md-cell hide-xs hide-sm>{{marksheet.timeTaken / 1000 / 60 | number: 0}} mins</td>
+												</tr>
+											</tbody>
+										</table>
+									</md-table-container>
+									<md-table-pagination md-limit="$ctrl.query.limit" md-page="$ctrl.query.page" md-total="{{$ctrl.marksheets.length}}" md-page-select="$ctrl.options.pageSelector" md-boundary-links="$ctrl.options.boundaryLinks"></md-table-pagination>
+								</div>
+							</ms-widget-front>
+						</ms-widget>
+					</div>
+				</md-tab>
+
+				<md-tab label="Progress">
+					<div class="widget-group" layout="row" flex="100" layout-wrap>
+						<ms-widget layout="row" flex="100">
+							<ms-widget-front class="white-bg">
+								<div class="simple-table-container" ms-responsive-table>
+									<div layout="row">
+										<div class="table-title">
+											Topic Progress
+										</div>
+										<span flex></span>
+										<!-- <md-menu class="table-title">
+											<md-button class="md-icon-button" ng-click="$mdOpenMenu()" aria-label="more">
+												<md-icon md-font-icon="icon-dots-vertical"></md-icon>
+											</md-button>
+
+											<md-menu-content width="3">
+												<md-menu-item>
+													<md-button ng-click="flipWidget()" aria-label="Detail">
+														Details
+													</md-button>
+												</md-menu-item>
+												<md-menu-item>
+													<md-button ng-click="refreshWidget()" aria-label="Refresh">
+														Refresh
+													</md-button>
+												</md-menu-item>
+												<md-menu-item>
+													<md-button ng-click="refreshWidget()" aria-label="Reset Progress">
+														Reset Progress
+													</md-button>
+												</md-menu-item>
+											</md-menu-content>
+										</md-menu> -->
+									</div>
+
+									<center ng-if="$ctrl.user.progressReport.length === 0">
+										<h3>You have not answered any questions. Go ahead and start your first test!</h3>
+									</center>
+
+									<table class="simple" ng-if="$ctrl.user.progressReport.length !== 0">
+										<thead>
+											<tr>
+												<th>Topic</th>
+												<th>Answered (%)</th>
+												<th>Correct (%)</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr ng-repeat="row in $ctrl.user.progressReport">
+												<td><span class="text-boxed m-0 white-fg" ng-class="[$ctrl.boxedClass(row, 'bg')]">{{row.topic.name}}</span></td>
+												<td><span>{{row.answered}}%</span></td>
+												<td><span ng-class="[$ctrl.boxedClass(row, 'fg')]">{{row.correct}}%</span></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</ms-widget-front>
+						</ms-widget>
+					</div>
+				</md-tab>
+			</md-tabs>
+
+		</div>
+		<!-- / CONTENT -->
+
+	</div>
+	<!-- / CENTER -->
+
+</div>

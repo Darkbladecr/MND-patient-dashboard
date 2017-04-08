@@ -1,0 +1,80 @@
+@import '~angular-material/angular-material';
+@import '~animate.css';
+
+@import 'partials/reset';
+@import 'partials/variables';
+@import 'partials/mixins';
+@import 'partials/angular-material-extend';
+@import 'partials/layouts-template';
+@import 'partials/layouts-page';
+@import 'partials/animations';
+@import 'partials/colors';
+@import 'partials/icons';
+@import 'partials/material';
+@import 'partials/typography';
+
+@import 'partials/plugins/angular-google-map';
+@import 'partials/plugins/angular-moment-picker';
+@import 'partials/plugins/c3';
+@import 'partials/plugins/chartist';
+@import 'partials/plugins/chartjs';
+@import 'partials/plugins/datatable';
+@import 'partials/plugins/highlight';
+@import 'partials/plugins/nvd3';
+@import 'partials/plugins/perfect-scrollbar';
+@import 'partials/plugins/text-angular';
+
+@import 'partials/helpers';
+@import 'partials/print';
+
+// core/directives
+@import '../directives/ms-card/ms-card';
+@import '../directives/ms-form-wizard/ms-form-wizard';
+@import '../directives/ms-info-bar/ms-info-bar';
+@import '../directives/ms-masonry/ms-masonry';
+@import '../directives/ms-material-color-picker/ms-material-color-picker';
+@import '../directives/ms-nav/ms-nav';
+@import '../directives/ms-navigation/ms-navigation';
+@import '../directives/ms-responsive-table/ms-responsive-table';
+@import '../directives/ms-scroll/ms-scroll';
+@import '../directives/ms-search-bar/ms-search-bar';
+@import '../directives/ms-shortcuts/ms-shortcuts';
+@import '../directives/ms-splash-screen/ms-splash-screen';
+@import '../directives/ms-stepper/ms-stepper';
+@import '../directives/ms-stepper/templates/horizontal/horizontal';
+@import '../directives/ms-stepper/templates/vertical/vertical';
+@import '../directives/ms-timeline/ms-timeline';
+@import '../directives/ms-widget/ms-widget';
+
+// core/theme-options
+@import '../theme-options/theme-options';
+
+// navigation/layouts
+@import '../../navigation/layouts/horizontal-navigation/navigation';
+@import '../../navigation/layouts/vertical-navigation/navigation';
+@import '../../navigation/layouts/vertical-navigation-fullwidth-toolbar-2/navigation';
+
+// toolbar/layouts
+@import '../../toolbar/toolbar';
+@import '../../toolbar/layouts/content-with-toolbar/toolbar';
+@import '../../toolbar/layouts/horizontal-navigation/toolbar';
+@import '../../toolbar/layouts/vertical-navigation-fullwidth-toolbar-2/toolbar';
+
+// quick-panel/tabs
+@import '../../quick-panel/quick-panel';
+@import '../../quick-panel/tabs/activity/activity-tab';
+@import '../../quick-panel/tabs/chat/chat-tab';
+@import '../../quick-panel/tabs/today/today-tab';
+
+// main/pages
+@import '../../main/pages/auth/login/login';
+@import '../../main/pages/auth/activate/activate';
+@import '../../main/pages/auth/register/register';
+@import '../../main/pages/auth/forgot-password/forgot-password';
+@import '../../main/pages/auth/reset-password/reset-password';
+@import '../../main/pages/auth/terms-conditions/terms-conditions';
+@import '../../main/pages/errors/404/error-404';
+@import '../../main/pages/errors/500/error-500';
+@import '../../main/pages/invoice/views/compact/compact';
+@import '../../main/pages/invoice/views/modern/modern';
+@import '../../main/pages/maintenance/maintenance';

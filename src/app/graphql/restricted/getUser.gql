@@ -1,0 +1,63 @@
+query getUser($token: String!) {
+	restricted(token: $token) {
+		user {
+			_id
+			username
+			firstName
+			lastName
+			classYear
+			graduationYear
+			university
+			examDate
+			createdAt
+			lastActivity
+			accessLevel
+			stripe {
+				id
+				object
+				account_balance
+				created
+				currency
+				email
+				sources {
+					id
+					brand
+					country
+					exp_month
+					exp_year
+					last4
+				}
+			}
+			subscription {
+				id
+				cancel_at_period_end
+				canceled_at
+				created
+				current_period_end
+				current_period_start
+				ended_at
+				plan {
+					amount
+					created
+					currency
+					interval
+					interval_count
+					name
+					trial_period_days
+				}
+				status
+			}
+			plan
+			activeUntil
+			progressReport {
+				topic {
+					_id
+					name
+				}
+				answered
+				correct
+				# standardDeviation
+			}
+		}
+	}
+}

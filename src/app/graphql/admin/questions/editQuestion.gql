@@ -1,0 +1,23 @@
+mutation editQuestion($token:String!, $_id:String!, $data:QuestionInput!){
+    admin(token:$token){
+        editQuestion(_id:$_id, data:$data){
+			_id
+            question
+            author {
+                firstName
+                lastName
+            }
+            category {
+                name
+            }
+			concept {
+				_id
+				name
+			}
+            topic {
+                _id
+                name
+            }
+		}
+    }
+}

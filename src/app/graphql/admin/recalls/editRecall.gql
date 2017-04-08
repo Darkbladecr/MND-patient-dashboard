@@ -1,0 +1,23 @@
+mutation editRecall($token:String!, $_id:String!, $data:RecallInput!){
+    admin(token:$token){
+        editRecall(_id:$_id, data:$data){
+			_id
+            question
+            author {
+                firstName
+                lastName
+            }
+            category {
+                name
+            }
+			concept {
+				_id
+				name
+			}
+            topic {
+                _id
+                name
+            }
+		}
+    }
+}

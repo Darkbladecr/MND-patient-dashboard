@@ -1,0 +1,14 @@
+mutation registerUser($user:RegisterUser!){
+    registerUser(data:$user){
+		_id
+		username
+		firstName
+		lastName
+		# classYear
+		# graduationYear
+		# university
+		createdAt
+		lastActivity
+		accessLevel
+	}
+}

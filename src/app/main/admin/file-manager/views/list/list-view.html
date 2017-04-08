@@ -1,0 +1,46 @@
+<!-- LIST VIEW -->
+<table class="simple list-view">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th hide show-gt-sm>Type</th>
+            <th hide-xs>Topic</th>
+			<th hide-xs>Owner</th>
+            <th hide show-gt-md>Created At</th>
+            <th hide show-gt-md>Last Modified</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!--<tr ng-repeat="folder in $ctrl.folders | filter:global.search" ng-click="$ctrl.select(folder)"
+            ng-class="{'selected' : $ctrl.selected === folder}">
+            <td class="file-icon">
+                <i class="icon-{{folder.type}}"></i>
+            </td>
+            <td class="name">{{folder.name}}</td>
+            <td class="type" hide show-gt-sm>{{folder.type}}</td>
+            <td class="owner" hide-xs>{{folder.owner}}</td>
+            <td class="size" hide-xs>{{folder.size === '' ? '-': folder.size}}</td>
+            <td class="last-modified" hide show-gt-md>{{folder.modified}}</td>
+            <td class="show-details" hide-gt-md>
+                <md-button class="md-icon-button sidenav-toggle" ng-click="$ctrl.toggleDetails(folder)" aria-label="Toggle details sidenav">
+                    <md-icon md-font-icon="icon-information-outline"></md-icon>
+                </md-button>
+            </td>
+        </tr>-->
+
+        <tr ng-repeat="file in $ctrl.files" ng-click="$ctrl.toggleDetails({file: file})" ng-class="{'selected' : $ctrl.selected._id === file._id}">
+            <td class="file-icon">
+                <i class="icon-{{file.type}}"></i>
+            </td>
+            <td class="name">{{file.name}}</td>
+            <td class="type" hide show-gt-sm>{{file.type}}</td>
+            <td class="topic" hide-xs>{{file.topic.name}}</td>
+			<td class="owner" hide-xs>{{file.owner.firstName}} {{file.owner.lastName}}</td>
+            <td class="created-at" hide show-gt-md>{{file.createdAt | date}}</td>
+			<td class="last-modified" hide show-gt-md>{{file.lastModified | date}}</td>
+        </tr>
+    </tbody>
+</table>
+<!-- / LIST VIEW -->

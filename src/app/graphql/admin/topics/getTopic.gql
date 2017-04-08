@@ -1,0 +1,20 @@
+query getTopic($token:String!, $_id:String!){
+    restricted(token:$token){
+        topic(_id:$_id){
+            _id
+            name
+            categories{
+                _id
+                name
+				questionCount
+				recallCount
+            }
+			concepts{
+				_id
+				name
+				questionCount
+				recallCount
+			}
+        }
+    }
+}

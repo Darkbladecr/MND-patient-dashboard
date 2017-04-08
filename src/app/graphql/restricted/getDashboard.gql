@@ -1,0 +1,43 @@
+query getDashboard($token: String!) {
+	restricted(token: $token) {
+		user {
+			_id
+			username
+			firstName
+			lastName
+			classYear
+			graduationYear
+			university
+			examDate
+			progressReport {
+				topic {
+					_id
+					name
+				}
+				answered
+				correct
+				# standardDeviation
+			}
+			dailyTask {
+				_id
+				scores {
+					green
+					amber
+					red
+				}
+				priority {
+					risk10
+					risk9
+					risk8
+					risk7
+					risk6
+					risk5
+					risk4
+					risk3
+					risk2
+					risk1
+				}
+			}
+		}
+	}
+}

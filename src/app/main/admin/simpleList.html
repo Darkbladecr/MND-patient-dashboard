@@ -1,0 +1,28 @@
+<md-content layout="column" flex ng-cloak>
+    <md-table-container>
+        <table md-table
+            md-row-select="$ctrl.options.rowSelection"
+            md-progress="$ctrl.promise">
+            <thead md-head md-order="$ctrl.query.order">
+                <tr md-row>
+                    <th md-column md-order-by="name">Name</th>
+                    <th md-column>Delete</th>
+                </tr>
+            </thead>
+            <tbody md-body>
+                <tr md-row md-select="item" md-auto-select="$ctrl.options.autoSelect" ng-repeat="item in $ctrl.items | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit">
+                    <td md-cell ng-click="$ctrl.editDialog({event: $event, item: item})">{{item.name}}</td>
+                    <td md-cell ng-click="$ctrl.deleteDialog({event: $event, item: item})"><md-icon md-font-icon="icon-delete" class="icon" aria-label="delete"></md-icon></td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+    <md-table-pagination
+        md-limit="$ctrl.query.limit"
+        md-limit-options="$ctrl.query.limitOptions"
+        md-page="$ctrl.query.page"
+        md-on-paginate="$ctrl.pageChange()"
+        md-total="{{$ctrl.items.length}}"
+        md-page-select="$ctrl.options.pageSelector"
+        md-boundary-links="$ctrl.options.boundaryLinks"></md-table-pagination>
+</md-content>

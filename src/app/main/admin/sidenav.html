@@ -1,0 +1,49 @@
+<!-- SIDENAV HEADER -->
+<div class="header" layout="column" layout-align="space-between">
+	<div class="logo" layout="row" layout-align="start center">
+		<span class="logo-icon">
+            <md-icon md-font-icon="icon-forum" class="s24"></md-icon>
+        </span>
+		<span class="logo-text">{{$ctrl.title}}</span>
+	</div>
+	<md-select class="project-selection simplified" ng-if="$ctrl.elements.length" ng-model="$ctrl.elementSelected._id" placeholder="Select Topic">
+		<md-option ng-repeat="topic in $ctrl.elements" ng-value="topic._id" ng-click="$ctrl.onElementSelected({element: topic})">{{topic.name}}</md-option>
+	</md-select>
+</div>
+<!-- / SIDENAV HEADER -->
+<!-- SIDENAV CONTENT -->
+<md-content class="content" flex ms-scroll>
+	<div class="add-task-button">
+		<md-button class="md-accent md-raised" ng-click="$ctrl.addElement({event: $event})">
+			{{$ctrl.addTitle}}
+		</md-button>
+	</div>
+	<div id="file-uploader" class="add-task-button" ng-if="$ctrl.importTitle"
+		flow-init="$ctrl.flowOptions"
+		flow-file-added="!!{md:1}[$file.getExtension()]"
+      	flow-files-submitted="$flow.upload()"
+		flow-file-success="$ctrl.uploadComplete($file, $message, $flow)"
+		flow-file-error="$ctrl.uploadError($file, $message, $flow)">
+		<md-button flow-btn flow-attrs="{accept:'.md, text/markdown'}" class="md-accent md-raised">
+			<md-tooltip md-direction="bottom">Markdown (.md) files</md-tooltip>
+			{{$ctrl.importTitle}}
+		</md-button>
+		<md-progress-linear md-mode="determinate" value="{{$flow.files[0].progress() * 100}}" ng-if="$flow.files.length"></md-progress-linear>
+	</div>
+	<div class="navigation-simple" layout="column">
+		<md-button class="item" aria-label="All Tasks" ng-class="{'selected':(!$ctrl.subelementSelected._id)}" ng-click="$ctrl.resetFilters()">
+			<div layout="row" layout-align="start center">
+				<md-icon md-font-icon="icon-view-headline" class="s16"></md-icon>
+				<span class="title">All {{$ctrl.title}}</span>
+			</div>
+		</md-button>
+		<div class="item subheader">
+			{{$ctrl.subTitle}}
+		</div>
+		<md-button class="tag item" aria-label="tag {{subelement}}" ng-repeat="subelement in $ctrl.subElements | orderBy:'name'" ng-click="$ctrl.onSubelementSelected({subelement: subelement})" ng-class="{'selected':subelement._id===$ctrl.subelementSelected._id}">
+			<md-icon md-font-icon="icon-label" class="s16"></md-icon>
+			<span class="title">{{subelement.name}}</span>
+		</md-button>
+	</div>
+</md-content>
+<!-- / SIDENAV CONTENT -->

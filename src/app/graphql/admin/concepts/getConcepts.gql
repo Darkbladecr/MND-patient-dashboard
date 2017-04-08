@@ -1,0 +1,8 @@
+query getConcepts($token:String!){
+    restricted(token:$token){
+        concepts{
+            _id
+            name
+        }
+    }
+}

@@ -1,0 +1,190 @@
+<div id="settings" class="page-layout simple right-sidenav" layout="row">
+
+	<!-- CENTER -->
+	<div class="center" flex ms-scroll>
+
+		<!-- HEADER -->
+		<div class="header md-accent-bg" layout="column">
+			<div layout="column" layout-align="start center">
+				<span class="md-display-1 font-weight-300">{{$ctrl.user.firstName}} {{$ctrl.user.lastName}}</span>
+				<span flex></span>
+				<span class="md-subhead">Member since {{$ctrl.user.createdAt | date:'longDate'}}</span>
+			</div>
+
+		</div>
+		<!-- / HEADER -->
+
+		<div class="content-card" layout="column" flex ng-cloak>
+			<!-- CONTENT -->
+			<div class="content" layout="row" flex style="padding: 0px;">
+				<!-- WIDGET GROUP -->
+				<div class="widget-group" layout="row" flex="100" layout-wrap>
+
+					<ms-widget flippable="true" layout="column" flex="100" flex-gt-xs="50">
+
+						<!-- Front -->
+						<ms-widget-front class="white-bg">
+							<div layout="column" layout-align="center center" layout-padding flex>
+								<span class="md-headline">Account Details</span>
+								<form name="accountDetailsForm" ng-submit="$ctrl.updateAccountDetails()" layout="column" layout-align="center center" flex>
+									<md-input-container>
+										<label>Email</label>
+										<input name="username" ng-model="$ctrl.user.username" disabled readonly>
+									</md-input-container>
+									<md-input-container>
+										<label>First Name</label>
+										<input name="firstName" ng-model="$ctrl.user.firstName" autocomplete="off" required>
+									</md-input-container>
+									<md-input-container>
+										<label>Last Name</label>
+										<input name="lastName" ng-model="$ctrl.user.lastName" autocomplete="off" required>
+									</md-input-container>
+									<md-input-container>
+										<label>Class Year</label>
+										<md-select ng-model="$ctrl.user.classYear" ng-change="$ctrl.changeYears($ctrl.user.classYear)">
+											<md-option ng-repeat="class in $ctrl.classes" ng-value="class">{{::class}}</md-option>
+										</md-select>
+									</md-input-container>
+									<md-input-container>
+										<label>Graduation Year</label>
+										<md-select ng-model="$ctrl.user.graduationYear">
+											<md-option ng-repeat="year in $ctrl.years | orderBy:'valueOf()'" ng-value="year">{{year}}</md-option>
+										</md-select>
+									</md-input-container>
+									<div>
+										Exam Date:
+										<md-datepicker ng-model="$ctrl.user.examDate"></md-datepicker>
+									</div>
+									<br />
+									<md-button type="submit" class="md-raised md-accent submit-button" aria-label="Update Details" ng-disabled="accountDetailsForm.$invalid">
+										Update Details
+									</md-button>
+								</form>
+							</div>
+						</ms-widget-front>
+						<!-- / Front -->
+
+					</ms-widget>
+
+					<ms-widget flippable="true" layout="column" flex="100" flex-gt-xs="50">
+
+						<!-- Front -->
+						<ms-widget-front class="white-bg">
+							<div layout="column" layout-align="center center" layout-padding flex>
+								<span class="md-headline">Change Your Password</span>
+								<form name="passwordForm" ng-submit="$ctrl.updatePassword()" layout="column" layout-align="center center" flex>
+									<md-input-container class="md-block" md-no-float>
+										<label>Current Password</label>
+										<input type="password" name="oldPassword" ng-model="$ctrl.passwordForm.oldPassword" ng-minlength="6" required>
+										<div ng-messages="passwordForm.oldPassword.$error" role="alert" multiple>
+											<div ng-message="required">
+												<span>Password field is required</span>
+											</div>
+											<div ng-message="minlength">
+												<span>Passwords must be at least 6 characters long</span>
+											</div>
+										</div>
+									</md-input-container>
+									<md-input-container class="md-block" md-no-float>
+										<label>New Password</label>
+										<input type="password" name="password" ng-model="$ctrl.passwordForm.password" ng-minlength="6" required>
+										<div ng-messages="passwordForm.password.$error" role="alert" multiple>
+											<div ng-message="required">
+												<span>Password field is required</span>
+											</div>
+											<div ng-message="minlength">
+												<span>Passwords must be at least 6 characters long</span>
+											</div>
+										</div>
+									</md-input-container>
+									<md-input-container class="md-block" md-no-float>
+										<label>Confirm New Password</label>
+										<input type="password" name="passwordConfirm" ng-model="$ctrl.passwordForm.passwordConfirm" ng-pattern="{{$ctrl.passwordForm.password}}" required>
+										<div ng-messages="passwordForm.passwordConfirm.$error" role="alert" multiple>
+											<div ng-message="required">
+												<span>Password (Confirm) field is required</span>
+											</div>
+											<div ng-message="pattern">
+												<span>Passwords must match</span>
+											</div>
+										</div>
+									</md-input-container>
+									<md-button type="submit" class="md-raised md-accent submit-button" aria-label="Update Password" ng-disabled="passwordForm.$invalid || passwordForm.$pristine">
+										Update Password
+									</md-button>
+								</form>
+							</div>
+						</ms-widget-front>
+						<!-- / Front -->
+
+					</ms-widget>
+
+					<ms-widget flippable="true" layout="column" flex="100">
+
+						<!-- Front -->
+						<ms-widget-front class="white-bg">
+							<div class="simple-table-container" ms-responsive-table>
+								<div class="table-title">
+									Subscription Status <span class="text-boxed m-0 white-fg" style="font-size:20px;" ng-class="[{'green-bg': !$ctrl.expired}, {'red-bg': $ctrl.expired}]">{{$ctrl.expired ? 'Expired' : 'Active'}}</span>
+								</div>
+								<span class="md-subhead" style="padding:0 24px;">
+										Registered {{$ctrl.user.stripe.sources[0].brand}}:
+										<md-icon md-font-icon="icon-credit-card" class="icon" aria-label="credit card"></md-icon>
+										<span class="text-boxed" style="font-size:16px;">****{{$ctrl.user.stripe.sources[0].last4}}</span> Expiry: {{$ctrl.user.stripe.sources[0].exp_month}}/{{$ctrl.user.stripe.sources[0].exp_year}}
+								</span>
+								<table class="simple">
+									<thead>
+										<tr>
+											<th>Plan</th>
+											<th>Status</th>
+											<th hide-xs>Invoice amount</th>
+											<th>Expiry Date</th>
+											<th>Autorenew</th>
+											<th>Manage Subscription</th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr ng-repeat="subscription in $ctrl.user.subscription">
+											<td><span>{{subscription.plan.name}}</span></td>
+											<td><span class="text-boxed m-0 white-fg" ng-class="[{'green-bg': !subscription.cancel_at_period_end}, {'red-bg': subscription.cancel_at_period_end}]">{{subscription.status}}</span></td>
+											<td hide-xs><span>£{{subscription.plan.amount / 100 | number:2}}</span></td>
+											<td><span>{{subscription.current_period_end * 1000 | date:'longDate'}}</span></td>
+											<td>
+												<md-icon md-font-icon="icon-checkbox-marked-circle" class="icon" aria-label="true" ng-if="!subscription.cancel_at_period_end"></md-icon>
+												<md-icon md-font-icon="icon-cancel" class="icon" aria-label="false" ng-if="subscription.cancel_at_period_end"></md-icon>
+											</td>
+											<td>
+												<md-button class="md-raised md-warn" ng-if="!subscription.cancel_at_period_end" ng-click="$ctrl.cancelSubscription(subscription.id, true)">Remove Autorenew</md-button>
+												<md-button class="md-raised md-accent" ng-if="subscription.cancel_at_period_end" ng-click="$ctrl.reenableSubscription(subscription.id, subscription.plan)">Re-enable</md-button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div layout="row" layout-xs="column" layout-align="center center" layout-padding style="text-align: center;">
+									<div ng-if="$ctrl.expired" flex>
+										<md-button class="md-raised md-accent submit-button" ng-click="$ctrl.addSubscription($event)">Add a Subscription</md-button>
+									</div>
+									<span ng-if="$ctrl.expired" flex="20"></span>
+									<div flex>
+										<md-button class="md-raised md-accent submit-button" ng-click="$ctrl.changeCard()">Change Payment Card</md-button>
+									</div>
+								</div>
+							</div>
+						</ms-widget-front>
+						<!-- / Front -->
+
+					</ms-widget>
+
+				</div>
+				<!-- / WIDGET GROUP -->
+			</div>
+			<!-- / CONTENT -->
+		</div>
+		<!-- / CONTENT CARD-->
+
+
+	</div>
+	<!-- / CENTER -->
+
+</div>

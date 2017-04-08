@@ -1,0 +1,7 @@
+mutation editAccessLevel($token:String!, $_id:String, $accessLevel:String){
+    admin(token:$token){
+        updateUser(_id:$_id, data: {
+            accessLevel: $accessLevel
+        })
+    }
+}

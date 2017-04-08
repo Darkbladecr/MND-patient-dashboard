@@ -1,0 +1,24 @@
+#recallDialog {
+	.question-autocomplete li {
+		border-bottom: 1px solid #ccc;
+		height: auto;
+		padding-top: 8px;
+		padding-bottom: 8px;
+		white-space: normal;
+	}
+	.question-autocomplete li:last-child {
+		border-bottom-width: 0;
+	}
+	.question-autocomplete ._id {
+		display: block;
+		line-height: 1;
+	}
+
+	.ta-editor.ta-html, .ta-scroll-window.form-control{
+		min-height: 100px;
+		height: 100px;
+	}
+	.ta-scroll-window > .ta-bind {
+		min-height: 100px;
+	}
+}

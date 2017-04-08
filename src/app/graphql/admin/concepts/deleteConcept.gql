@@ -1,0 +1,5 @@
+mutation deleteConcept($token:String!, $conceptId:String!, $topicId:String!){
+    admin(token:$token){
+        deleteConcept(conceptId:$conceptId, topicId:$topicId)
+    }
+}

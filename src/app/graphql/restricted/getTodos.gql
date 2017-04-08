@@ -1,0 +1,29 @@
+query getTodos($token:String!){
+  restricted(token:$token){
+    todos {
+      _id
+      createdAt
+      lastActivity
+      timeTaken
+	  dailyTask
+	  coverage {
+		  topic
+		  num
+	  }
+      topics{
+        name
+      }
+      categories{
+        name
+      }
+	  marks {
+		recall
+        score
+		timeTaken
+      }
+      recalls{
+        _id
+      }
+    }
+  }
+}

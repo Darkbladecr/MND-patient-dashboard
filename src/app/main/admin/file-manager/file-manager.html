@@ -1,0 +1,85 @@
+<div id="file-manager" class="page-layout simple right-sidenav" layout="row">
+
+	<!-- MAIN SIDENAV (EXTRA SIDENAV) -->
+	<file-main-sidenav get-pictures="$ctrl.getPictures()" style="background-color: white;"></file-main-sidenav>
+	<!-- / MAIN SIDENAV (EXTRA SIDENAV) -->
+
+	<!-- CENTER -->
+	<div class="center" layout="column" flex>
+
+		<!-- HEADER -->
+		<div class="header md-accent-bg">
+
+			<div class="header-content" layout="column" layout-align="space-between">
+
+				<!-- TOOLBAR -->
+				<div class="toolbar" layout="row" layout-align="space-between">
+
+					<md-button hide-gt-md class="md-icon-button main-sidenav-toggle" ng-click="$ctrl.toggleSidenav('main-sidenav')" aria-label="Toggle Main Sidenav">
+						<md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+					</md-button>
+
+					<div class="right-side" layout="row">
+						<!--<md-button class="md-icon-button" aria-label="Search">
+							<md-icon md-font-icon="icon-magnify"></md-icon>
+							<md-tooltip><span>Search</span></md-tooltip>
+						</md-button>-->
+
+						<md-button ng-if="$ctrl.currentView === 'list'" class="md-icon-button" ng-click="$ctrl.toggleView()" aria-label="view type">
+							<md-icon md-font-icon="icon-view-module"></md-icon>
+							<md-tooltip><span>Grid View</span></md-tooltip>
+						</md-button>
+
+						<md-button ng-if="$ctrl.currentView === 'grid'" class="md-icon-button" aria-label="view type" ng-click="$ctrl.toggleView()">
+							<md-icon md-font-icon="icon-view-headline"></md-icon>
+							<md-tooltip><span>List View</span></md-tooltip>
+						</md-button>
+					</div>
+				</div>
+				<!-- / TOOLBAR -->
+
+				<!-- BREADCRUMB -->
+				<div class="breadcrumb text-truncate" layout="row" layout-align="start center">
+					<span data-ng-repeat="path in $ctrl.path">{{path}}
+                    <md-icon md-font-icon="icon-chevron-right" class="icon separator"></md-icon>
+                </span>
+				</div>
+				<!-- / BREADCRUMB -->
+			</div>
+
+			<!-- ADD FILE BUTTON -->
+			<div id="file-uploader"
+				flow-init="$ctrl.flowOptions"
+				flow-file-added="!!{jpg:1,gif:1,png:1}[$file.getExtension()]"
+				flow-files-submitted="$flow.upload()"
+				flow-file-success="$ctrl.uploadComplete($file, $message, $flow)"
+				flow-file-error="$ctrl.uploadError($file, $message, $flow)">
+				<md-button flow-btn flow-attrs="{accept:'image/x-png,image/gif,image/jpeg'}" class="add-file-button md-fab md-warn" aria-label="Add file">
+					<md-icon md-font-icon="icon-plus"></md-icon>
+				</md-button>
+			</div>
+			<!-- / ADD FILE BUTTON -->
+		</div>
+		<!-- / HEADER -->
+
+		<!-- CONTENT -->
+		<md-content class="content" flex ms-scroll>
+			<file-manager-grid ng-if="$ctrl.currentView === 'grid'"
+				files="$ctrl.files"
+				select="$ctrl.select(file)"
+				toggle-details="$ctrl.toggleDetails(file)"></file-manager-grid>
+			<file-manager-list ng-if="$ctrl.currentView === 'list'"
+				files="$ctrl.files"
+				select="$ctrl.select(file)"
+				toggle-details="$ctrl.toggleDetails(file)"></file-manager-list>
+		</md-content>
+		<!-- / CONTENT -->
+
+	</div>
+	<!-- / CENTER -->
+
+	<!-- SIDENAV -->
+	<file-details-sidenav file="$ctrl.selected" topics="$ctrl.topics" lightbox="$ctrl.lightbox" get-pictures="$ctrl.getPictures()"></file-details-sidenav>
+	<!-- / SIDENAV -->
+
+</div>

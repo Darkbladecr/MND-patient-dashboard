@@ -1,0 +1,12 @@
+mutation preBuildTest($token: String!, $category: [String!]!) {
+  restricted(token: $token) {
+    preBuildTest(category: $category) {
+		questions
+		categories
+		topics
+    	unseen
+    	seenCorrect
+    	seenIncorrect
+    }
+  }
+}
