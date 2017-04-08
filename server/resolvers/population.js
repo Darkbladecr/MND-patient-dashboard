@@ -1,6 +1,5 @@
 import { Category, Concept, Topic, User, Question, Recall } from '../models';
 import shuffle from 'lodash/shuffle';
-const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const UserResolve = {
 	progressReport(obj) {
@@ -8,27 +7,6 @@ const UserResolve = {
 			return Topic.findById(e.topic).exec().then(topic => {
 				e.topic = topic;
 				return e;
-			});
-		});
-	},
-	stripe(obj) {
-		return new Promise((resolve, reject) => {
-			stripe.customers.retrieve(obj.stripe, (err, customer) => {
-				if (err) {
-					return reject(err);
-				}
-				customer.sources = customer.sources.data;
-				return resolve(customer);
-			});
-		});
-	},
-	subscription(obj) {
-		return new Promise((resolve, reject) => {
-			stripe.customers.retrieve(obj.stripe, (err, customer) => {
-				if (err) {
-					return reject(err);
-				}
-				return resolve(customer.subscriptions.data);
 			});
 		});
 	}

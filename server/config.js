@@ -10,14 +10,6 @@ let config = {
 	OPTICS_API_KEY: 'service:Darkbladecr-Quesmed:K5Yn5FW0qUe3o60gxMY5bQ'
 };
 
-if(process.env.NODE_ENV === 'production'){
-	config.STRIPE_PUBLISHABLE = 'pk_live_qSUng1c2iZoJIIwLvCgbl1mh',
-	config.STRIPE_SECRET = 'sk_live_DKipqrSJv5SfXuChEDeSTIYD';
-} else {
-	config.STRIPE_PUBLISHABLE = 'pk_test_ztbYgbnxewC0WH9Cm8I7OiY5';
-	config.STRIPE_SECRET = 'sk_test_LZ8E6oAxmK3fU067QzldgrPK';
-}
-
 forEach(config, function(value, key) {
 	process.env[key] = value;
 });

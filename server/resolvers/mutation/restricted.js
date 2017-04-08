@@ -1,6 +1,5 @@
 import { preBuildTest, buildTest, upvoteChoice, saveMarksheet } from './restricted/marksheet';
 import { buildTodo, scoreRecall, saveTodo } from './restricted/todo';
-import { resetProgress, progressReport, addSubscription, reenableSubscription, cancelSubscription, updateCard } from './restricted/users';
 
 import { addCategory, deleteCategory, editCategory } from './admin/categories';
 import { addConcept, deleteConcept, editConcept } from './admin/concepts';
@@ -13,10 +12,6 @@ const RestrictedMutation = {
 	resetPasswordPrep,
 	resetPassword,
 	updateUser,
-	addSubscription,
-	reenableSubscription,
-	cancelSubscription,
-	updateCard,
 
 	preBuildTest,
 	buildTest,
@@ -24,9 +19,7 @@ const RestrictedMutation = {
 	saveMarksheet,
 	buildTodo,
 	scoreRecall,
-	saveTodo,
-	progressReport,
-	resetProgress
+	saveTodo
 };
 
 const AdminMutation = {

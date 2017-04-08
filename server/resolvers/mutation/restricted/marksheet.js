@@ -5,7 +5,6 @@ import { user } from '../../query/admin/users';
 import intersection from 'lodash/intersection';
 import difference from 'lodash/difference';
 import shuffle from 'lodash/shuffle';
-import { progressReport } from './users';
 
 function preBuildTest(obj, args) {
 	return new Promise((resolve, reject) => {
@@ -81,7 +80,6 @@ function upvoteChoice(obj, args) {
 							logger.error(err);
 							return reject(err);
 						}
-						progressReport(obj);
 						return resolve('Question choice upvoted.');
 					});
 				} else {
@@ -94,7 +92,6 @@ function upvoteChoice(obj, args) {
 							logger.error(err);
 							return reject(err);
 						}
-						progressReport(obj);
 						return resolve('Question choice upvoted.');
 					});
 				}

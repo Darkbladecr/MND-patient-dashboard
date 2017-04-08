@@ -194,63 +194,12 @@ type User {
 	examDate: Date
 	createdAt: Date
 	lastActivity: Date
-	stripe: Stripe
-	subscription: [Subscription]
-	plan: String
-	activeUntil: Date
 	accessLevel: accessLevel
 	progressReport: [progressReport]
 	completedQuestions: [String]
 	completedCorrectQuestions: [String]
 	completedRecalls: [completedRecall]
 	dailyTask: DailyTask
-}
-
-type Stripe {
-	id: ID
-	object: String
-	account_balance: Int
-	created: Int
-	currency: String
-	default_source: String
-	delinquent: Boolean
-	business_vat_id: String
-	discount: String
-	email: String
-	sources: [StripeSource]
-}
-
-type StripeSource {
-	id: ID
-	brand: String
-	country: String
-	exp_month: Int
-	exp_year: Int
-	last4: String
-}
-
-type Subscription {
-	id: ID
-	cancel_at_period_end: Boolean
-	canceled_at: Int
-	created: Int
-	current_period_end: Int
-	current_period_start: Int
-	customer: Stripe
-	ended_at: Int
-	plan: Plan
-	status: String
-}
-
-type Plan {
-	id: ID
-	amount: Int
-	created: Int
-	currency: String
-	interval: String
-	interval_count: String
-	name: String
-	trial_period_days: Int
 }
 
 type progressReport {
@@ -318,8 +267,6 @@ input RegisterUser {
 	classYear: String!
 	graduationYear: Int!
 	university: String!
-	plan: String!
-	stripe: String!
 }
 
 type Picture {
@@ -381,7 +328,6 @@ type AdminQuery {
 
 type Mutation {
 	registerUser(data: RegisterUser!): User
-	registerStripeToken(token: Token!): User
 	activateUser(_id: String!): JWT
 	loginUser(username: String!, password: String!, days: Int!): JWT
 
@@ -393,10 +339,6 @@ type RestrictedMutation {
 	resetPasswordPrep(username: String!): String
 	resetPassword(username: String!, key: String!, password: String!): String
 	updateUser(_id: String, data: UserInput!): JWT
-	addSubscription(plan:String!): Subscription
-	reenableSubscription(id:String!, plan:String!): Subscription
-	cancelSubscription(id:String!): Subscription
-	updateCard(stripeToken:String!): StripeSource
 
 	preBuildTest(category: [String!]!): preBuildTest
 	buildTest(questions: [String!]!, topics:[String!]!, categories: [String!]!): Marksheet

@@ -28,7 +28,6 @@ module.exports = {
 		'graphql'
 	],
 	"globals": {
-		"Promise": true,
-		"StripeCheckout": true
+		"Promise": true
 	}
 }

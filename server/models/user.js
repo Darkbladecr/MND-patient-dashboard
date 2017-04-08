@@ -41,9 +41,6 @@ let UserSchema = new mongoose.Schema({
 		lowercase: true,
 		unique: true
 	},
-	stripe: String,
-	plan: String,
-	activeUntil: Date,
 	firstName: String,
 	lastName: String,
 	classYear: {

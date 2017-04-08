@@ -153,6 +153,3 @@ function resetTestUser() {
 schedule.scheduleJob('00 02 * * *', createTasks);
 schedule.scheduleJob('00 00 * * *', resetTestUser);
 logger.info('Daily Tasks scheduled to run at 2am everyday');
-User.findById("56e406cdcbbde3030089b2f2", (err, user) => {
-	createTodoSuperMemo(user);
-});
