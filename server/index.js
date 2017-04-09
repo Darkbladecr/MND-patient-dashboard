@@ -1,5 +1,5 @@
-import './auth';
 import './config';
+import './auth';
 
 import { graphiqlExpress, graphqlExpress } from 'graphql-server-express';
 
