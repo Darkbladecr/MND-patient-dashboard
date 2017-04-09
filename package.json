@@ -14,10 +14,10 @@
     "webpack:prod": "BABEL_ENV=development NODE_ENV=production webpack --display-modules --progress",
     "webpack:stats": "webpack --json > stats.json",
     "build": "npm run webpack:prod && npm run copy-files",
-    "build-backend": "rm -r distServer && BABEL_ENV=server babel server -d distServer && cp -R server/templates distServer/templates",
+    "build-backend": "BABEL_ENV=server babel server -d distServer && cp -R server/templates distServer/templates",
     "copy-files": "cp -R src/assets dist",
-	"heroku-prebuild": "",
-	"heroku-postbuild": ""
+	"heroku-prebuild": "mkdir distServer && rm -r distServer",
+	"heroku-postbuild": "npm build-backend"
   },
   "repository": {
     "type": "git",
