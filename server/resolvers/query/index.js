@@ -1,5 +1,4 @@
-import { admin, restricted } from '../restricted';
-import { sampleQuestions, sampleRecalls } from './samples';
+import { restricted } from '../restricted';
 import { User, TempUser } from '../../models';
 import logger from '../../logger';
 
@@ -31,10 +30,7 @@ function usernameAvailable(obj, { username }) {
 }
 
 const Query = {
-	admin,
 	restricted,
-	sampleQuestions,
-	sampleRecalls,
 	usernameAvailable
 };
 

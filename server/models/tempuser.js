@@ -1,5 +1,3 @@
-import UKMedicalSchools from './enum/UKMedicalSchools';
-import classYears from './enum/classYears';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
 
@@ -11,15 +9,6 @@ let TempUserSchema = new mongoose.Schema({
 	},
 	firstName: String,
 	lastName: String,
-	classYear: {
-		type: String,
-		enum: classYears
-	},
-	graduationYear: Number,
-	university: {
-		type: String,
-		enum: UKMedicalSchools
-	},
 	createdAt: {
 		type: Date,
 		default: Date.now
@@ -28,10 +17,16 @@ let TempUserSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	accessLevel: {
+	patients: {
+		type: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Patient'
+		}],
+		default: []
+	},
+	role: {
 		type: String,
-		enum: ['subscriber', 'author', 'administrator'],
-		default: 'subscriber'
+		default: 'doctor'
 	},
 	hash: String,
 	salt: String

@@ -11,7 +11,7 @@ function restricted(obj, args) {
 				return reject('Token is invalid or missing.');
 			} else {
 				let today = parseInt(Date.now() / 1000);
-				if ('exp' in decoded && 'activeUntil' in decoded) {
+				if ('exp' in decoded) {
 					if (decoded.exp <= today) {
 						return reject('Token expired.');
 					// } else if (decoded.activeUntil <= today) {
@@ -27,16 +27,4 @@ function restricted(obj, args) {
 	});
 }
 
-function admin(obj, args) {
-	return new Promise((resolve, reject) => {
-		restricted(obj, args).then((decoded) => {
-			if (decoded.accessLevel === 'administrator' || decoded.accessLevel === 'author') {
-				return resolve(decoded);
-			} else {
-				return reject('Not Authorized.');
-			}
-		}, err => reject(err));
-	});
-}
-
-export { restricted, admin };
+export { restricted };

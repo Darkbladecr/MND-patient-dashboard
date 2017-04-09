@@ -16,7 +16,8 @@
     "build": "npm run webpack:prod && npm run copy-files",
     "build-backend": "rm -r distServer && BABEL_ENV=server babel server -d distServer && cp -R server/templates distServer/templates",
     "copy-files": "cp -R src/assets dist",
-    "deploy": "./deploy.sh"
+	"heroku-prebuild": "",
+	"heroku-postbuild": ""
   },
   "repository": {
     "type": "git",

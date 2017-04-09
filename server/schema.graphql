@@ -1,260 +1,21 @@
 scalar Date
 scalar JWT
 
-type Question {
-	_id: ID
-	question: String
-	choices: [Choice]
-	author: User
-	explanation: String
-	concept: Concept
-	category: [Category]
-	topic: Topic
-}
-
-input QuestionInput {
-	question: String
-	choices: [ChoiceInput]
-	author: String
-	explanation: String
-	concept: String
-	category: [String]
-	topic: String
-}
-
-type Recall {
-	_id: ID
-	question: String
-	explanation: String
-	more_info: String
-	author: User
-	concept: Concept
-	category: [Category]
-	topic: Topic
-	linked_question: String
-}
-
-type RecallMark {
-	question: String
-	score: Float
-}
-
-input RecallInput {
-	question: String
-	explanation: String
-	more_info: String
-	author: String
-	concept: String
-	category: [String]
-	topic: String
-	linked_question: String
-}
-
-type Marksheet {
-	_id: ID
-	createdBy: User
-	createdAt: Date
-	lastActivity: Date
-	timeTaken: Int
-	correct: Int
-	percentage: Int
-	topics: [Topic]
-	categories: [Category]
-	questions: [Question]
-	marks: [MarksheetMark]
-}
-
-type MarksheetMark {
-	question: String
-	label: String
-	correct: Boolean
-	timeTaken: Int
-}
-
-type Todo {
-	_id: ID
-	createdBy: User
-	createdAt: Date
-	lastActivity: Date
-	timeTaken: Int
-	dailyTask: Boolean
-	coverage: [TodoCoverage]
-	topics: [Topic]
-	categories: [Category]
-	recalls: [Recall]
-	marks: [TodoMark]
-}
-
-type TodoMark {
-	recall: String
-	score: Int
-	timeTaken: Int
-}
-
-type TodoCoverage {
-	topic: String
-	num: Int
-}
-
-type preBuildTest {
-	questions: [String]
-	categories: [String]
-	topics: [String]
-	unseen: [String]
-	seenCorrect: [String]
-	seenIncorrect: [String]
-}
-
-input MarksheetInput {
-	lastActivity: Date
-	timeTaken: Int
-	correct: Int
-	percentage: Int
-	marks: [MarksheetMarkInput]
-}
-
-input MarksheetMarkInput {
-	question: String
-	label: String
-	correct: Boolean
-	timeTaken: Int
-}
-
-input TodoInput {
-	lastActivity: Date
-	timeTaken: Int
-	marks: [TodoMarkInput]
-}
-
-input TodoMarkInput {
-	recall: String
-	score: Int
-	timeTaken: Int
-}
-
-input ChoiceInput {
-	label: String
-	name: String
-	answer: Boolean
-}
-
-type Payload {
-	_id: ID
-	firstName: String
-	lastName: String
-	accessLevel: accessLevel
-	exp: Date
-	iat: Date
-}
-
-type Topic {
-	_id: ID
-	name: String
-	categories: [Category]
-	concepts: [Concept]
-	questionCount: Int
-	recallCount: Int
-}
-
-type Category {
-	_id: ID
-	name: String
-	questionCount: Int
-	recallCount: Int
-}
-
-type Concept {
-	_id: ID
-	name: String
-	questionCount: Int
-	recallCount: Int
-}
-
-type Choice {
-	label: String
-	name: String
-	answer: Boolean
-	votes: Int
-}
-
-enum accessLevel {
-	subscriber
-	author
-	administrator
-}
-
 type User {
 	_id: ID
 	username: String
 	firstName: String
 	lastName: String
-	classYear: String
-	graduationYear: Int
-	university: String
-	examDate: Date
 	createdAt: Date
 	lastActivity: Date
-	accessLevel: accessLevel
-	progressReport: [progressReport]
-	completedQuestions: [String]
-	completedCorrectQuestions: [String]
-	completedRecalls: [completedRecall]
-	dailyTask: DailyTask
-}
-
-type progressReport {
-	topic: Topic
-	answered: Int
-	correct: Int
-	standardDeviation: Int
-}
-
-type DailyTask {
-	_id: String
-	scores: DailyTaskScores
-	priority: DailyTaskPriority
-}
-
-type DailyTaskScores {
-	green: Int
-	amber: Int
-	red: Int
-}
-
-type DailyTaskPriority {
-	risk10: Int
-	risk9: Int
-	risk8: Int
-	risk7: Int
-	risk6: Int
-	risk5: Int
-	risk4: Int
-	risk3: Int
-	risk2: Int
-	risk1: Int
-}
-
-type completedRecall {
-	recall: Recall
-	score: Float
-	lastSeen: Int
-	iteration: Int
-}
-
-input Token {
-	id: String
-	email: String
+	patients: [Patient]
+	role: String
 }
 
 input UserInput {
 	username: String
 	firstName: String
 	lastName: String
-	classYear: String
-	graduationYear: Int
-	examDate: String
-	university: String
-	accessLevel: String
 	password: String
 	oldPassword: String
 }
@@ -264,115 +25,155 @@ input RegisterUser {
 	firstName: String!
 	lastName: String!
 	password: String!
-	classYear: String!
-	graduationYear: Int!
-	university: String!
 }
 
-type Picture {
+type Patient {
 	_id: ID
-	name: String
-	caption: String
-	path: String
-	path_thumb: String
-	path_resized: String
-	topic: Topic
-	owner: User
+	firstName: String
+	lastName: String
+	patientNumber: String
+	NHSInt: String
+	dateOfBirth: Date
 	createdAt: Date
-	lastModified: Date
+	lastUpdated: Date
+	appointments: [Appointment]
 }
 
-input PictureInput{
-	name: String
-	caption: String
-	topic: String
+input PatientInput {
+	firstName: String
+	lastName: String
+	patientNumber: String
+	NHSInt: String
+	dateOfBirth: Date
+	createdAt: Date
+	lastUpdated: Date
+	appointments: [AppointmentInput]
+}
+
+type Appointment {
+	_id: ID
+	clinicDate: Date
+	weight: Float
+	alsfrs: ALSFRS
+	ess: ESS
+	fvc: FVC
+	snp: Int
+	spO2: Int
+	abg: ABG
+}
+
+input AppointmentInput {
+	clinicDate: Date
+	weight: Float
+	alsfrs: ALSFRSInput
+	ess: ESSInput
+	fvc: FVCInput
+	snp: Int
+	spO2: Int
+	abg: ABGInput
+}
+
+type ALSFRS {
+	speech: Int
+	salivation: Int
+	swallowing: Int
+	handwriting: Int
+	cutting: Int
+	cuttingGastro: Int
+	dressing: Int
+	turning: Int
+	walking: Int
+	climbing: Int
+	dyspnea: Int
+	orthopnea: Int
+	respiratory: Int
+}
+
+input ALSFRSInput {
+	speech: Int
+	salivation: Int
+	swallowing: Int
+	handwriting: Int
+	cutting: Int
+	cuttingGastro: Int
+	dressing: Int
+	turning: Int
+	walking: Int
+	climbing: Int
+	dyspnea: Int
+	orthopnea: Int
+	respiratory: Int
+}
+
+type ESS {
+	sittingAndReading: Int
+	watching: Int
+	sittingInactive: Int
+	carPassenger: Int
+	lyingDown: Int
+	sittingAndTalking: Int
+	sittingAfterLunch: Int
+	carTraffic: Int
+}
+
+input ESSInput {
+	sittingAndReading: Int
+	watching: Int
+	sittingInactive: Int
+	carPassenger: Int
+	lyingDown: Int
+	sittingAndTalking: Int
+	sittingAfterLunch: Int
+	carTraffic: Int
+}
+
+type FVC {
+	sitting: Int
+	supine: Int
+}
+
+input FVCInput {
+	sitting: Int
+	supine: Int
+}
+
+type ABG {
+	pH: Float
+	pO2: Int
+	pCO2: Int
+}
+
+input ABGInput {
+	pH: Float
+	pO2: Int
+	pCO2: Int
 }
 
 type Query {
 	restricted(token: String!): RestrictedQuery
-	admin(token: String!): AdminQuery
-	sampleQuestions: [Question]
-	sampleRecalls: [Recall]
 	usernameAvailable(username: String!): Boolean
 }
 
 type RestrictedQuery {
-	topic(_id: String!): Topic
-	topics: [Topic]
-	categories: [Category]
-
-	questions(category: [String], topic: [String], limit: Int): [Question]
-	recalls(category: [String], topic: [String], limit: Int): [Recall]
-
 	user: User
-
-	marksheet(_id: String!): Marksheet
-	marksheets(author: String): [Marksheet]
-	todo(_id: String!): Todo
-	todos(author: String): [Todo]
-}
-
-type AdminQuery {
-	question(_id: String!): Question
-	questions(search: String, _id: [String], author: String, category: [String], topic: [String], limit: Int): [Question]
-	recall(_id: String!): Recall
-	recalls(search: String, _id: [String], author: String, category: [String], topic: [String], limit: Int): [Recall]
-
-	user(_id: String, username: String): User
-	users(search: String, accessLevel: String): [User]
-
-	authors: [User]
-	concepts: [Concept]
-	pictures(topic: [String]): [Picture]
+	patients: [Patient]
 }
 
 type Mutation {
 	registerUser(data: RegisterUser!): User
 	activateUser(_id: String!): JWT
-	loginUser(username: String!, password: String!, days: Int!): JWT
+	loginUser(username: String! password: String! days: Int!): JWT
 
 	restricted(token: String!): RestrictedMutation
-	admin(token: String!): AdminMutation
 }
 
 type RestrictedMutation {
 	resetPasswordPrep(username: String!): String
-	resetPassword(username: String!, key: String!, password: String!): String
-	updateUser(_id: String, data: UserInput!): JWT
+	resetPassword(username: String! key: String! password: String!): String
+	updateUser(_id: String data: UserInput!): JWT
 
-	preBuildTest(category: [String!]!): preBuildTest
-	buildTest(questions: [String!]!, topics:[String!]!, categories: [String!]!): Marksheet
-	saveMarksheet(_id: String!, marksheet:MarksheetInput!): Marksheet
-	upvoteChoice(_id: String!, label: String!): String
-
-	buildTodo(categories: [String!]!): Todo
-	saveTodo(_id: String!, todo:TodoInput!): Todo
-	scoreRecall(mark:TodoMarkInput!): String
-	progressReport: User
-	resetProgress(questions: Boolean, recalls: Boolean): User
-}
-
-type AdminMutation {
-	deleteUser(_id: String!): String
-
-	addQuestion(data: QuestionInput!): Question
-	editQuestion(_id: String!, data: QuestionInput!): Question
-	deleteQuestion(_id: String!): String
-
-	addRecall(data: RecallInput!): Recall
-	editRecall(_id: String!, data: RecallInput!): Recall
-	deleteRecall(_id: String!): String
-
-	addCategory(name: String!, topic: String!): Category
-	editCategory(_id: String!, name: String!): String
-	deleteCategory(categoryId: String!, topicId: String!): String
-
-	addConcept(name: String!, topic: String!): Concept
-	editConcept(_id: String!, name: String!): String
-	deleteConcept(conceptId: String!, topicId: String!): String
-
-	editPicture(_id: String!, data: PictureInput!): String
-	deletePicture(_id: String!): String
+	createPatient(data: PatientInput!): Patient
+	addAppointment(_id: String! appointment: AppointmentInput!): Patient
 }
 
 schema {

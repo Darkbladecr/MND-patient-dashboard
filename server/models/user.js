@@ -1,39 +1,6 @@
-import UKMedicalSchools from './enum/UKMedicalSchools';
-import classYears from './enum/classYears';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-
-let progressReportSchema = new mongoose.Schema({
-	topic: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Topic'
-	},
-	answered: Number,
-	correct: Number,
-	standardDeviation: {
-		type: Number,
-		get: (num) => (num / 100).toFixed(2),
-		set: (num) => num * 100
-	}
-}, { _id: false });
-
-let recallMarkSchema = new mongoose.Schema({
-	recall: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Recall'
-	},
-	lastSeen: Date,
-	score: {
-		type: Number,
-		get: (num) => (num / 100).toFixed(2),
-		set: (num) => num * 100
-	},
-	iteration: {
-		type: Number,
-		default: 0
-	}
-}, { _id: false });
 
 let UserSchema = new mongoose.Schema({
 	username: {
@@ -43,19 +10,6 @@ let UserSchema = new mongoose.Schema({
 	},
 	firstName: String,
 	lastName: String,
-	classYear: {
-		type: String,
-		enum: classYears
-	},
-	graduationYear: Number,
-	university: {
-		type: String,
-		enum: UKMedicalSchools
-	},
-	examDate: {
-		type: Date,
-		default: Date.now
-	},
 	createdAt: {
 		type: Date,
 		default: Date.now
@@ -64,97 +18,19 @@ let UserSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
-	progressReport: {
-		type: [progressReportSchema],
-		default: []
-	},
-	completedQuestions: {
+	patients: {
 		type: [{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Question'
-		}, { _id: false }],
+			ref: 'Patient'
+		}],
 		default: []
 	},
-	completedCorrectQuestions: {
-		type: [{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Question'
-		}, { _id: false }],
-		default: []
-	},
-	completedRecalls: {
-		type: [recallMarkSchema],
-		default: []
-	},
-	dailyTask: {
-		_id: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Todo'
-		},
-		scores: {
-			green: Number,
-			amber: Number,
-			red: Number
-		},
-		priority: {
-			risk10: {
-				type: Number,
-				default: 0
-			},
-			risk9: {
-				type: Number,
-				default: 0
-			},
-			risk8: {
-				type: Number,
-				default: 0
-			},
-			risk7: {
-				type: Number,
-				default: 0
-			},
-			risk6: {
-				type: Number,
-				default: 0
-			},
-			risk5: {
-				type: Number,
-				default: 0
-			},
-			risk4: {
-				type: Number,
-				default: 0
-			},
-			risk3: {
-				type: Number,
-				default: 0
-			},
-			risk2: {
-				type: Number,
-				default: 0
-			},
-			risk1: {
-				type: Number,
-				default: 0
-			}
-		}
-	},
-	accessLevel: {
+	role: {
 		type: String,
-		enum: ['subscriber', 'author', 'administrator'],
-		default: 'subscriber'
+		default: 'doctor'
 	},
 	hash: String,
 	salt: String
-});
-UserSchema.index({
-	username: 'text',
-	firstName: 'text',
-	lastName: 'text'
-});
-
-UserSchema.virtual('fullname').get(function() {
-	return this.firstName + ' ' + this.lastName;
 });
 
 UserSchema.methods.updateLastActivity = function() {
@@ -180,8 +56,6 @@ UserSchema.methods.generateJWT = function(days) {
 		firstName: this.firstName,
 		lastName: this.lastName,
 		username: this.username,
-		accessLevel: this.accessLevel,
-		activeUntil: parseInt(this.activeUntil / 1000),
 		exp: parseInt(exp.getTime() / 1000),
 	}, process.env.SECRET);
 };

@@ -1,13 +1,10 @@
 import { User } from '../../../models';
-import crypto from 'crypto';
 import logger from '../../../logger';
-import request from 'request';
-import { resetEmail } from '../../../mailResponses';
 
 function resetPasswordPrep(obj) {
+	// TODO need to update reset password
 	return new Promise((resolve, reject) => {
-		return resetEmail(obj).then(() => resolve('Check your email to reset your password'),
-			(err) => reject(err));
+		return resolve('Check your email to reset your password');
 	});
 }
 
@@ -48,22 +45,14 @@ function updateUser(obj, args) {
 			password = args.data.password;
 			delete args.data.password;
 		}
-		let _id = obj._id;
-		if (args._id) {
-			if (obj.accessLevel === 'administrator') {
-				_id = args._id;
-			} else {
-				return reject('Not Authroized');
-			}
-		}
-		User.findByIdAndUpdate(_id, args.data, { new: true }, (err, user) => {
+		User.findByIdAndUpdate(obj._id, args.data, { new: true }, (err, user) => {
 			if (err) {
 				logger.error(err);
 				return reject(err);
 			}
 			if (user) {
 				if (password && oldPassword) {
-					if(user.validPassword(oldPassword)){
+					if (user.validPassword(oldPassword)) {
 						user.setPassword(password);
 					} else {
 						return reject('Incorrect current password');
@@ -76,28 +65,7 @@ function updateUser(obj, args) {
 						return reject(err);
 					}
 					if (updatedUser) {
-						const md5hash = crypto.createHash('md5');
-						const md5email = md5hash.update(updatedUser.username).digest('hex');
-						request({
-							uri: `${process.env.MAILCHIMP_URL}/members/${md5email}`,
-							method: 'PATCH',
-							headers: {
-								"Content-Type": "application/json"
-							},
-							json: {
-								email_address: updatedUser.username,
-								merge_fields: {
-									FNAME: updatedUser.firstName,
-									LNAME: updatedUser.lastName
-								}
-							}
-						}, (err) => {
-							if (err) {
-								logger.error(err);
-								return reject(err);
-							}
-							return resolve(updatedUser.generateJWT(1));
-						});
+						return resolve(updatedUser.generateJWT(1));
 					}
 				});
 			} else {
@@ -107,17 +75,4 @@ function updateUser(obj, args) {
 	});
 }
 
-function deleteUser(obj, args) {
-	return new Promise((resolve, reject) => {
-		User.findByIdAndRemove(args._id, (err) => {
-			if (err) {
-				logger.error(err);
-				return reject(err);
-			} else {
-				return resolve('User deleted.');
-			}
-		});
-	});
-}
-
-export { resetPasswordPrep, resetPassword, updateUser, deleteUser };
+export { resetPasswordPrep, resetPassword, updateUser };

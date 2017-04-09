@@ -1,9 +1,5 @@
 import { Router } from 'express';
 import jwtvalidation from '../jwtvalidation';
-import request from 'request';
-import { supportEmail } from '../mailResponses';
-import logger from '../logger';
-import { User } from '../models';
 
 let router = Router();
 

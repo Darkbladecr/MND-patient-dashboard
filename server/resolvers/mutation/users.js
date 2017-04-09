@@ -1,8 +1,5 @@
 import { TempUser, User } from '../../models';
-import { activationEmail, registrationEmail } from '../../mailResponses';
-
 import logger from '../../logger';
-import request from 'request';
 
 
 function registerUser(obj, args) {
@@ -30,10 +27,7 @@ function registerUser(obj, args) {
 						logger.debug(args.data);
 						const user = new TempUser(args.data);
 						user.setPassword(password);
-						logger.debug('TempUser started');
-						logger.debug('Sending Registration Email');
-						return activationEmail(user).then(() => resolve(user),
-							(err) => reject(err));
+						return resolve(user);
 					}
 				});
 			}
@@ -58,10 +52,6 @@ function activateUser(obj, args) {
 					username: tempuser.username,
 					firstName: tempuser.firstName,
 					lastName: tempuser.lastName,
-					classYear: tempuser.classYear,
-					graduationYear: tempuser.graduationYear,
-					university: tempuser.university,
-					accessLevel: tempuser.accessLevel,
 					hash: tempuser.hash,
 					salt: tempuser.salt,
 				}, (err, user) => {
@@ -79,30 +69,7 @@ function activateUser(obj, args) {
 								logger.error(err);
 								return reject(err);
 							}
-							request({
-								uri: `${process.env.MAILCHIMP_URL}/members`,
-								method: 'POST',
-								headers: {
-									"Content-Type": "application/json"
-								},
-								json: {
-									"email_address": user.username,
-									"status": "subscribed",
-									"merge_fields": {
-										"FNAME": user.firstName,
-										"LNAME": user.lastName
-									},
-									"email_type": "html"
-								}
-							}, (err) => {
-								if (err) {
-									logger.error(err);
-									return reject(err);
-								}
-								return registrationEmail(user).then(() =>
-									resolve(user.generateJWT(1)),
-									(err) => reject(err));
-							});
+							return resolve(user.generateJWT(1));
 						});
 					}
 				});

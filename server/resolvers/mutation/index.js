@@ -1,11 +1,10 @@
 import { activateUser, loginUser, registerUser } from './users';
-import { admin, restricted } from '../restricted';
+import { restricted } from '../restricted';
 
 const Mutation = {
 	registerUser,
 	activateUser,
 	loginUser,
-	admin,
 	restricted
 };
 

@@ -3,7 +3,6 @@ import './config';
 
 import { graphiqlExpress, graphqlExpress } from 'graphql-server-express';
 
-import OpticsAgent from 'optics-agent';
 import Resolvers from './resolvers';
 import Schema from './schema.graphql';
 import apis from './apis';
@@ -41,19 +40,13 @@ const executableSchema = makeExecutableSchema({
 	},
 	printErrors: process.env.NODE_ENV !== 'production',
 });
-if (process.env.NODE_ENV === 'production') {
-	OpticsAgent.instrumentSchema(executableSchema);
-}
 
-const graphqlExpressOptions = (req) => {
+const graphqlExpressOptions = () => {
 	const options = {
 		schema: executableSchema,
 		debug: false,
 		context: {}
 	};
-	if (process.env.NODE_ENV === 'production') {
-		options.context.opticsContext = OpticsAgent.context(req);
-	}
 	return options;
 }
 if (process.env.NODE_ENV !== 'production') {
@@ -66,17 +59,13 @@ if (process.env.NODE_ENV !== 'production') {
 		});
 	};
 }
-if (process.env.NODE_ENV === 'production') {
-	app.use('/graphql', OpticsAgent.middleware());
-}
+
 app.use('/graphql', bodyParser.json(), graphqlExpress((req) => graphqlExpressOptions(req)));
 
 const router = express.Router();
 router.use(bodyParser.json());
 router.use(apis);
 app.use('/api', router);
-
-require('./dailyTasks');
 
 app.listen(SERVER_PORT, () => logger.info(
 	`GraphQL Server is now running on http://localhost:${SERVER_PORT}/graphql`
