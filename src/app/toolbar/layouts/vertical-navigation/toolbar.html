@@ -7,12 +7,6 @@
     <div layout="row" layout-align="start center">
         <md-progress-circular id="toolbar-progress" ng-if="$root.loadingProgress" class="md-accent" md-mode="indeterminate" md-diameter="64">
         </md-progress-circular>
-        <md-button class="md-icon-button" ng-click="vm.feedback()">
-            <md-tooltip md-direction="left">
-                Send Feedback
-            </md-tooltip>
-            <md-icon md-font-icon="icon-bug" class="icon" aria-label="feedback"></md-icon>
-        </md-button>
         <md-menu-bar id="user-menu" ng-if="vm.loggedIn">
             <md-menu md-position-mode="left bottom">
                 <md-button class="user-button" ng-click="$mdMenu.open($event)" aria-label="User settings">
@@ -27,11 +21,11 @@
                     </div>
                 </md-button>
                 <md-menu-content width="3">
-                    <md-menu-item class="md-indent" ui-sref="app.restricted_settings">
+                    <!-- <md-menu-item class="md-indent" ui-sref="app.restricted_settings">
                         <md-icon md-font-icon="icon-account" class="icon"></md-icon>
                         <md-button>My Settings</md-button>
                     </md-menu-item>
-                    <md-menu-divider></md-menu-divider>
+                    <md-menu-divider></md-menu-divider> -->
                     <md-menu-item class="md-indent">
                         <md-icon md-font-icon="icon-logout" class="icon"></md-icon>
                         <md-button ng-click="vm.logout()">Logout</md-button>

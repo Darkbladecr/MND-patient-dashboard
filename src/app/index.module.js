@@ -1,7 +1,6 @@
 import 'jquery';
 import '../libs_modified/fatools.scss';
 import angular from 'angular';
-import 'angulartics';
 
 import appCore from './core';
 import IndexController from './index.controller';
@@ -17,10 +16,6 @@ import runBlock from './index.run';
 
 angular
     .module('fuse', [
-        // Common 3rd Party Dependencies
-        // 'uiGmapgoogle-maps',
-		'angulartics',
-		require('angulartics-google-analytics'),
 
         // Core
         appCore.name,

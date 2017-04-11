@@ -25,9 +25,15 @@ function registerUser(obj, args) {
 						reject('Please check your email to activate your account.');
 					} else {
 						logger.debug(args.data);
-						const user = new TempUser(args.data);
+						const user = new User(args.data);
 						user.setPassword(password);
-						return resolve(user);
+						user.save((err, user) => {
+							if(err){
+								logger.error(err);
+								return reject(err);
+							}
+							return resolve(user.generateJWT(1));
+						});
 					}
 				});
 			}

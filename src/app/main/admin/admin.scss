@@ -1,102 +1,100 @@
-#admin {
-	// Center
-	.center {
-		.header {
-			padding: 24px;
+// Center
+.center {
+	.header {
+		padding: 24px;
 
-			.sidenav-toggle {
-				margin: 0;
-				width: 56px;
-				height: 56px;
-				background: #FFFFFF;
-				border-radius: 0;
-				border-left: 1px solid rgba(0, 0, 0, 0.12);
-			}
-
-			.search {
-				height: 56px;
-				line-height: 56px;
-				padding: 18px;
-				background: #FFFFFF;
-
-				.icon {
-					margin: 0;
-				}
-
-				input {
-					padding-left: 16px;
-					height: 56px;
-					color: rgba(0, 0, 0, 0.54);
-				}
-			}
+		.sidenav-toggle {
+			margin: 0;
+			width: 56px;
+			height: 56px;
+			background: #FFFFFF;
+			border-radius: 0;
+			border-left: 1px solid rgba(0, 0, 0, 0.12);
 		}
 
-		.content-card {
-			.toolbar {
-				padding: 0;
+		.search {
+			height: 56px;
+			line-height: 56px;
+			padding: 18px;
+			background: #FFFFFF;
+
+			.icon {
+				margin: 0;
 			}
 
-			.md-table-toolbar {
-				height: 100%;
-			}
-
-			.content {
-				padding: 0;
-				overflow: hidden;
-
-				.todo-list-pane {
-					background: #FAFAFA;
-				}
+			input {
+				padding-left: 16px;
+				height: 56px;
+				color: rgba(0, 0, 0, 0.54);
 			}
 		}
 	}
-	// Sidenav
-	.sidenav {
-		background-color: #F5F5F5;
-		.header {
-			.logo {
-				.logo-icon {
-					margin: 0 16px 0 0;
-				}
 
-				.logo-text {
-					font-size: 24px;
-				}
-			}
+	.content-card {
+		.toolbar {
+			padding: 0;
+		}
 
-			.project-selection {
-				margin: 0;
-			}
+		.md-table-toolbar {
+			height: 100%;
 		}
 
 		.content {
-			padding: 24px 0;
+			padding: 0;
+			overflow: hidden;
 
-			.add-task-button {
-				padding: 0 32px 24px;
+			.todo-list-pane {
+				background: #FAFAFA;
+			}
+		}
+	}
+}
+// Sidenav
+.sidenav {
+	background-color: #F5F5F5;
+	.header {
+		.logo {
+			.logo-icon {
+				margin: 0 16px 0 0;
+			}
 
-				.md-button {
-					width: 100%;
-					margin: 0;
-				}
+			.logo-text {
+				font-size: 24px;
 			}
 		}
 
-		&.md-locked-open {
-			.header {
-				.logo {
-					padding-top: 27px;
-				}
+		.project-selection {
+			margin: 0;
+		}
+	}
+
+	.content {
+		padding: 24px 0;
+
+		.add-task-button {
+			padding: 0 32px 24px;
+
+			.md-button {
+				width: 100%;
+				margin: 0;
 			}
 		}
+	}
 
-		&:not(.md-locked-open) {
-			.header {
-				height: 150px;
-				min-height: 150px;
-				max-height: 150px;
-				padding-top: 24px;
+	&.md-locked-open {
+		.header {
+			.logo {
+				padding-top: 27px;
 			}
+		}
+	}
+
+	&:not(.md-locked-open) {
+		.header {
+			height: 150px;
+			min-height: 150px;
+			max-height: 150px;
+			padding-top: 24px;
 		}
 	}
 }

@@ -1,5 +1,0 @@
-mutation editConcept($token: String!, $_id:String!, $name: String!){
-    admin(token:$token){
-        editConcept(_id:$_id, name:$name)
-    }
-}

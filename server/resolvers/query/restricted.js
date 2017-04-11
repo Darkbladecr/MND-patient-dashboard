@@ -1,8 +1,9 @@
 import { user } from './restricted/user';
-import { patients } from './restricted/patient';
+import { patient, patients } from './restricted/patient';
 
 const RestrictedQuery = {
 	user,
+	patient,
 	patients
 };
 

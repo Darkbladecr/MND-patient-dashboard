@@ -1,8 +1,0 @@
-mutation addCategory($token:String!, $topic:String!, $name:String!){
-    admin(token:$token){
-        addCategory(name:$name, topic:$topic){
-            _id
-            name
-        }
-    }
-}

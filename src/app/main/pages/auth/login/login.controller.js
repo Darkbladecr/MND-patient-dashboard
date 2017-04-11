@@ -5,14 +5,14 @@ export default class LoginController {
 		this.$state = $state;
 	}
 	submit() {
-		let user = {
+		const user = {
 			username: this.form.email,
 			password: this.form.password,
 			remember: this.form.remember || false
 		};
 		this.AuthService.logIn(user).then(() => {
 			if (this.AuthService.isLoggedIn()) {
-				this.$state.go('app.restricted_dashboard');
+				this.$state.go('app.admin_patients');
 			}
 		});
 	}

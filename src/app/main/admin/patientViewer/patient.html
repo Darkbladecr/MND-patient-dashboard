@@ -1,0 +1,33 @@
+<div id="patient-viewer" class="page-layout simple left-sidenav" layout="row">
+	<!-- LEFT SIDENAV -->
+    <md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav" ms-scroll ms-sidenav-helper>
+		<patients-sidenav
+			title="Patients"
+			add-title="ADD APPOINTMENT"
+			add-element="$ctrl.addAppointment(event)"
+			sub-title="Appointments"
+			sub-elements="$ctrl.patient.appointments"
+			on-subelement-selected="$ctrl.selectAppointment(subelement)"
+			subelement-selected="$ctrl.search.accessLevel"
+			reset-filters="$ctrl.resetFilters()">
+		</patients-sidenav>
+    </md-sidenav>
+    <!-- / LEFT SIDENAV -->
+	<!-- CENTER -->
+	<div class="center" flex ms-scroll>
+		<!-- HEADER -->
+		<div class="header md-accent-bg" layout="column" layout-align="space-between">
+			<div layout="column" layout-align="start start">
+				<span class="md-display-1 font-weight-300">{{$ctrl.patient.lastName}}, {{$ctrl.patient.firstName}}</span>
+				<span class="md-subhead">Patient Number: {{$ctrl.patient.patientNumber}}</span>
+				<span class="md-subhead">NHS Number: {{$ctrl.patient.NHSnumber}}</span>
+			</div>
+		</div>
+		<!-- / HEADER -->
+		<!-- CONTENT -->
+		<div class="content">
+
+		</div>
+		<!-- / CONTENT -->
+	</div>
+</div>

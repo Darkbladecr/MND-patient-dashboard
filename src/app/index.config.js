@@ -1,15 +1,15 @@
-function config($provide, $compileProvider, $qProvider, flowFactoryProvider) {
+import moment from 'moment';
+
+function config($provide, $compileProvider, $qProvider, $mdDateLocaleProvider) {
 	'ngInject';
 	'use strict';
 
-	flowFactoryProvider.defaults = {
-		target: '/api/importer',
-		permanentErrors: [404, 500, 501],
-		singleFile: true,
-		testChunks: false,
-		headers: {
-			'X-Requested-By': 'QuesWebApp'
-		}
+	$mdDateLocaleProvider.formatDate = (date) => {
+       return moment(date).format('DD/MM/YYYY');
+    };
+	$mdDateLocaleProvider.parseDate = (dateString) => {
+		const m = moment(dateString, 'DD/MM/YYYY', true);
+		return m.isValid() ? m.toDate() : new Date(NaN);
 	};
 
 	// ignore errors when rejected promises not handeled

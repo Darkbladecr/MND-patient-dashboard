@@ -1,5 +1,0 @@
-mutation editCategory($token: String!, $_id:String!, $name: String!){
-    admin(token:$token){
-        editCategory(_id:$_id, name:$name)
-    }
-}

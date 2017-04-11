@@ -32,7 +32,7 @@ type Patient {
 	firstName: String
 	lastName: String
 	patientNumber: String
-	NHSInt: String
+	NHSnumber: String
 	dateOfBirth: Date
 	createdAt: Date
 	lastUpdated: Date
@@ -40,10 +40,11 @@ type Patient {
 }
 
 input PatientInput {
+	_id: String
 	firstName: String
 	lastName: String
 	patientNumber: String
-	NHSInt: String
+	NHSnumber: String
 	dateOfBirth: Date
 	createdAt: Date
 	lastUpdated: Date
@@ -156,11 +157,12 @@ type Query {
 
 type RestrictedQuery {
 	user: User
-	patients: [Patient]
+	patient(_id: String!): Patient
+	patients(search:String): [Patient]
 }
 
 type Mutation {
-	registerUser(data: RegisterUser!): User
+	registerUser(data: RegisterUser!): JWT
 	activateUser(_id: String!): JWT
 	loginUser(username: String! password: String! days: Int!): JWT
 
@@ -172,7 +174,8 @@ type RestrictedMutation {
 	resetPassword(username: String! key: String! password: String!): String
 	updateUser(_id: String data: UserInput!): JWT
 
-	createPatient(data: PatientInput!): Patient
+	createPatient(patient: PatientInput!): Patient
+	updatePatient(patient: PatientInput!): Patient
 	addAppointment(_id: String! appointment: AppointmentInput!): Patient
 }
 

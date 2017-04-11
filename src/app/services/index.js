@@ -4,17 +4,11 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import 'angular1-apollo';
 
 import { APIInterceptor, APIInterceptorRun } from './api-interceptor';
-// import APIInterceptor from './api.service';
 import AuthService from './auth.service';
-import categoriesService from './categories.service';
 import graphqlService from './graphql.service';
-import pictureService from './picture.service';
-import questionsService from './questions.service';
-import recallsService from './recalls.service';
 import toastService from './toast.service';
 import usersService from './users.service';
-import marksheetService from './marksheet.service';
-import todoService from './todo.service';
+import patientsService from './patients.service';
 
 function config($httpProvider, apolloProvider) {
 	'ngInject';
@@ -73,10 +67,5 @@ export default angular
 	.service('graphqlService', graphqlService)
 	.service('toastService', toastService)
 	.service('AuthService', AuthService)
-	.service('categoriesService', categoriesService)
 	.service('usersService', usersService)
-	.service('questionsService', questionsService)
-	.service('recallsService', recallsService)
-	.service('pictureService', pictureService)
-	.service('marksheetService', marksheetService)
-	.service('todoService', todoService);
+	.service('patientsService', patientsService);

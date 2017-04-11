@@ -17,16 +17,13 @@ function runBlock($rootScope, $timeout, $state, editableThemes, AuthService) {
 
 		const loggedIn = AuthService.isLoggedIn();
 		if (loggedIn) {
-			if (AuthService.isExpired()) {
+			if (/^app.pages_auth/.test(toState.name)) {
 				event.preventDefault();
-				$timeout(() => $state.go('app.restricted_settings'));
-			} else if (/^app.pages_auth/.test(toState.name)) {
-				event.preventDefault();
-				$timeout(() => $state.go('app.restricted_dashboard'));
+				$timeout(() => $state.go('app.admin_patients'));
 			}
 
 		} else {
-			if (!/^app.(pages|sample)/.test(toState.name)) {
+			if (!/^app.pages_auth/.test(toState.name)) {
 				event.preventDefault();
 				$timeout(() => $state.go('app.pages_auth_login'));
 			}
@@ -47,10 +44,10 @@ function runBlock($rootScope, $timeout, $state, editableThemes, AuthService) {
 				$state.go('app.pages_auth_login');
 				break;
 			case '!AUTH_REQUIRED':
-				$state.go('app.restricted_dashboard');
+				$state.go('app.admin_patients');
 				break;
 			case 'AUTH_LOW':
-				$state.go('app.restricted_dashboard');
+				$state.go('app.admin_patients');
 				break;
 			case 'BAD_REQUEST':
 				$state.go('app.pages_error-500');

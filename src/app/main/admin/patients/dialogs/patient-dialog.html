@@ -1,0 +1,68 @@
+<md-dialog aria-label="Patient Editor" style="width: 80%">
+    <form name="patientForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{::vm.title}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancelDialog()">
+                    <md-icon md-font-icon="icon-close" class="icon" aria-label="close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column">
+				<div>
+					<md-input-container>
+	                    <label>First Name</label>
+	                    <input type="text" name="firstName" ng-model="vm.patient.firstName" autocomplete="off" required>
+						<div ng-messages="patientForm.firstName.$error">
+				          <div ng-message="required">This is required.</div>
+					  	</div>
+	                </md-input-container>
+	                <md-input-container>
+	                    <label>Last Name</label>
+	                    <input type="text" name="lastName" ng-model="vm.patient.lastName" autocomplete="off" required>
+						<div ng-messages="patientForm.lastName.$error">
+				          <div ng-message="required">This is required.</div>
+					  	</div>
+	                </md-input-container>
+					<md-input-container style="min-width:200px;">
+						<label>Date of Birth</label>
+						<md-datepicker name="dateOfBirth" ng-model="vm.patient.dateOfBirth" md-placeholder="Enter Date" md-current-view="year" required></md-datepicker>
+						<div ng-messages="patientForm.dateOfBirth.$error">
+						  <div ng-message="required">This is required.</div>
+						</div>
+	                </md-input-container>
+				</div>
+				<div>
+					<md-input-container>
+	                    <label>Patient Number</label>
+	                    <input type="text" name="patientNumber" ng-model="vm.patient.patientNumber" autocomplete="off" required>
+						<div ng-messages="patientForm.patientNumber.$error">
+				          <div ng-message="required">This is required.</div>
+					  	</div>
+	                </md-input-container>
+					<md-input-container>
+	                    <label>NHS Number</label>
+	                    <input type="text" name="NHSnumber" ng-model="vm.patient.NHSnumber" autocomplete="off" required>
+						<div ng-messages="patientForm.NHSnumber.$error">
+				          <div ng-message="required">This is required.</div>
+					  	</div>
+	                </md-input-container>
+				</div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="vm.cancelDialog()">
+                Cancel
+            </md-button>
+            <md-button class="md-primary md-raised"
+                ng-disabled="userForm.$invalid"
+                ng-click="vm.updatePatient()"
+                style="margin-right:20px;">
+                Save
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,106 @@
+<div id="admin" class="page-layout carded left-sidenav" layout="row">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+    <!-- LEFT SIDENAV -->
+    <md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav" ms-scroll ms-sidenav-helper>
+		<patients-sidenav
+			title="Patients"
+			add-title="ADD PATIENT"
+			add-element="$ctrl.addPatient(event)"
+			sub-title="Access Levels"
+			sub-elements="$ctrl.accessLevels"
+			on-subelement-selected="$ctrl.selectAccessLevel(subelement)"
+			subelement-selected="$ctrl.search.accessLevel"
+			reset-filters="$ctrl.resetFilters()">
+		</patients-sidenav>
+    </md-sidenav>
+    <!-- / LEFT SIDENAV -->
+    <!-- CENTER -->
+    <div class="center" layout="column" flex>
+        <!-- CONTENT HEADER -->
+        <div class="header" layout="row" layout-align="start center">
+            <div class="search-wrapper md-whiteframe-4dp" flex layout="row" layout-align="start center">
+                <md-button class="md-icon-button sidenav-toggle" ng-click="$ctrl.toggleSidenav('main-sidenav')" hide-gt-md aria-label="Toggle sidenav">
+                    <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+                </md-button>
+                <div class="search" flex layout="row" layout-align="start center">
+                    <md-icon md-font-icon="icon-magnify" class="icon s24"></md-icon>
+                    <input flex ng-model="$ctrl.search" type="text" placeholder="Search for a user" ng-model-options="{ debounce: 500 }" autocomplete="off">
+					<span flex></span>
+					<md-button class="md-icon-button" ng-click="$ctrl.search = ''" ng-show="$ctrl.search.length > 0" aria-label="Clear Search">
+						<md-icon md-font-icon="icon-close" class="icon s24"></md-icon>
+					</md-button>
+                </div>
+            </div>
+        </div>
+        <!-- / CONTENT HEADER -->
+        <!-- CONTENT CARD -->
+        <div class="content-card" layout="column" flex>
+            <!-- CONTENT TOOLBAR -->
+            <div id="toastBounds" class="toolbar" layout="row" layout-align="space-between center">
+                <md-toolbar class="md-table-toolbar md-default" ng-if="$ctrl.options.rowSelection && !$ctrl.selected.length">
+                    <div class="md-toolbar-tools">
+                        <span>Patients</span>
+                        <span flex></span>
+                    </div>
+                </md-toolbar>
+                <md-toolbar class="md-table-toolbar alternate" ng-if="$ctrl.options.rowSelection && $ctrl.selected.length">
+                    <div class="md-toolbar-tools">
+                        <md-button class="md-icon-button" ng-click="$ctrl.selected = []">
+                            <md-icon md-font-icon="icon-close" aria-label="close" class="icon" style="color: white;"></md-icon>
+                        </md-button>
+                        <span>{{$ctrl.selected.length}} {{$ctrl.selected.length > 1 ? 'patients' : 'patient'}} selected</span>
+                        <span flex></span>
+						<md-button class="md-raised" ng-click="$ctrl.viewPatient($ctrl.selected[0])" ng-if="$ctrl.selected.length === 1">
+                            <md-icon md-font-icon="icon-eye" class="icon" aria-label="edit"></md-icon> View
+						</md-button>
+                        <md-button class="md-raised" ng-click="$ctrl.editPatient($event, $ctrl.selected[0])" ng-if="$ctrl.selected.length === 1">
+                            <md-icon md-font-icon="icon-pencil" class="icon" aria-label="edit"></md-icon> Edit
+						</md-button>
+                        <md-button class="md-raised" ng-click="$ctrl.deleteConfirm($event, $ctrl.selected[0])" ng-if="$ctrl.selected.length > 0">
+                            <md-icon md-font-icon="icon-delete" class="icon" aria-label="delete"></md-icon> Delete
+						</md-button>
+                    </div>
+                </md-toolbar>
+            </div>
+            <!-- / CONTENT TOOLBAR -->
+            <!-- CONTENT -->
+            <div class="content" layout="row" flex style="padding: 0px;">
+                <!-- Todo list pane -->
+                <md-content id="list-pane" class="todo-list-pane" flex ms-scroll>
+					<md-content layout="column" flex ng-cloak>
+						<md-table-container>
+							<table md-table md-row-select="$ctrl.options.rowSelection" ng-model="$ctrl.selected" multiple="false" md-progress="$ctrl.promise">
+								<thead md-head md-order="$ctrl.query.order">
+									<tr md-row>
+										<th md-column><span>Patient Number</span></th>
+										<th md-column md-order-by="lastName" md-desc hide-xs>Name</th>
+										<th md-column md-order-by="dateOfBirth" md-desc hide-xs>Date of Birth</th>
+										<th md-column md-order-by="createdAt" md-desc hide-xs hide-sm><span>Created At</span></th>
+										<th md-column md-order-by="appointments" md-desc hide-xs hide-sm><span>Number of Appointments</span></th>
+									</tr>
+								</thead>
+								<tbody md-body>
+									<tr md-row md-select="patient" md-auto-select="$ctrl.options.autoSelect" ng-repeat="patient in $ctrl.patients | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit">
+										<td md-cell>{{patient.patientNumber}}<br />{{patinet.NHSnumber}}</td>
+										<td md-cell hide-xs>{{patient.lastName}}, {{patient.firstName}}</td>
+										<td md-cell hide-xs>{{patient.dateOfBirth | date:'dd/MM/yy'}}</td>
+										<td md-cell hide-xs hide-sm>{{patient.createdAt | date:'dd/MM/yy'}}</td>
+										<td md-cell hide-xs hide-sm>{{patient.appointments.length}}</td>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</md-table-container>
+						<md-table-pagination md-limit="$ctrl.query.limit" md-limit-options="$ctrl.query.limitOptions" md-page="$ctrl.query.page" md-on-paginate="$ctrl.pageChange()" md-total="{{$ctrl.patients.length}}" md-page-select="$ctrl.options.pageSelector" md-boundary-links="$ctrl.options.boundaryLinks"></md-table-pagination>
+					</md-content>
+                </md-content>
+                <!-- / Todo list pane -->
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARDb-->
+    </div>
+    <!-- / CENTER -->
+</div>

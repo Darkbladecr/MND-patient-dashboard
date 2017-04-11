@@ -1,5 +1,0 @@
-mutation editPicture($token: String!, $_id:String! $data: PictureInput!) {
-	admin(token: $token) {
-		editPicture(_id:$_id, data: $data)
-	}
-}
