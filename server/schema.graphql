@@ -88,6 +88,7 @@ type ALSFRS {
 	dyspnea: Int
 	orthopnea: Int
 	respiratory: Int
+	total: Int
 }
 
 input ALSFRSInput {
@@ -104,6 +105,7 @@ input ALSFRSInput {
 	dyspnea: Int
 	orthopnea: Int
 	respiratory: Int
+	total: Int
 }
 
 type ESS {
@@ -115,6 +117,7 @@ type ESS {
 	sittingAndTalking: Int
 	sittingAfterLunch: Int
 	carTraffic: Int
+	total: Int
 }
 
 input ESSInput {
@@ -126,6 +129,7 @@ input ESSInput {
 	sittingAndTalking: Int
 	sittingAfterLunch: Int
 	carTraffic: Int
+	total: Int
 }
 
 type FVC {
@@ -176,7 +180,8 @@ type RestrictedMutation {
 
 	createPatient(patient: PatientInput!): Patient
 	updatePatient(patient: PatientInput!): Patient
-	addAppointment(_id: String! appointment: AppointmentInput!): Patient
+	addAppointment(patientId: String! appointment: AppointmentInput!): Patient
+	updateAppointment(patientId: String! appointment: AppointmentInput!): Patient
 }
 
 schema {

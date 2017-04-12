@@ -1,0 +1,56 @@
+query getPatientById($token:String!, $_id:String!) {
+	restricted(token:$token) {
+		patient(_id:$_id){
+			_id
+			firstName
+			lastName
+			patientNumber
+			NHSnumber
+			dateOfBirth
+			createdAt
+			lastUpdated
+			appointments {
+				clinicDate
+				weight
+				alsfrs {
+					speech
+					salivation
+					swallowing
+					handwriting
+					cutting
+					cuttingGastro
+					dressing
+					turning
+					walking
+					climbing
+					dyspnea
+					orthopnea
+					respiratory
+					total
+				}
+				ess {
+					sittingAndReading
+					watching
+					sittingInactive
+					carPassenger
+					lyingDown
+					sittingAndTalking
+					sittingAfterLunch
+					carTraffic
+					total
+				}
+				fvc {
+					sitting
+					supine
+				}
+				snp
+				spO2
+				abg {
+					pH
+					pO2
+					pCO2
+				}
+			}
+		}
+	}
+}

@@ -33,9 +33,9 @@ function updatePatient(obj, {patient}){
 	});
 }
 
-function addAppointment(obj, args) {
+function addAppointment(obj, {patientId, appointment}) {
 	return new Promise((resolve, reject) => {
-		Patient.findByIdAndUpdate(args._id, { appointments: { $addToSet: args.appointment } }, { new: true }, (err, patient) => {
+		Patient.findByIdAndUpdate(patientId, { $addToSet: { appointments: appointment } }, { new: true }, (err, patient) => {
 			if (err) {
 				logger.error(err);
 				return reject(err);
@@ -45,4 +45,20 @@ function addAppointment(obj, args) {
 	});
 }
 
-export { createPatient, updatePatient, addAppointment };
+function updateAppointment(obj, {patientId, appointment}) {
+	return new Promise((resolve, reject) => {
+		Patient.findById(patientId, (err, patient) => {
+			if (err) {
+				logger.error(err);
+				return reject(err);
+			}
+			patient.appointments.map(a => {
+				// TODO figure out how to update appointment
+				return a;
+			})
+			return resolve(patient);
+		})
+	});
+}
+
+export { createPatient, updatePatient, addAppointment, updateAppointment };

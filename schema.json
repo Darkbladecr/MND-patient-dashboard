@@ -101,9 +101,47 @@
             "deprecationReason": null
           },
           {
+            "name": "patient",
+            "description": "",
+            "args": [
+              {
+                "name": "_id",
+                "description": "",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Patient",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "patients",
             "description": "",
-            "args": [],
+            "args": [
+              {
+                "name": "search",
+                "description": "",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "LIST",
               "name": null,
@@ -307,7 +345,7 @@
             "deprecationReason": null
           },
           {
-            "name": "NHSInt",
+            "name": "NHSnumber",
             "description": "",
             "args": [],
             "type": {
@@ -665,6 +703,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "total",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -773,6 +823,18 @@
           },
           {
             "name": "carTraffic",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "total",
             "description": "",
             "args": [],
             "type": {
@@ -1234,7 +1296,34 @@
             "description": "",
             "args": [
               {
-                "name": "data",
+                "name": "patient",
+                "description": "",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "PatientInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Patient",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatePatient",
+            "description": "",
+            "args": [
+              {
+                "name": "patient",
                 "description": "",
                 "type": {
                   "kind": "NON_NULL",
@@ -1371,6 +1460,16 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "_id",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "firstName",
             "description": "",
             "type": {
@@ -1401,7 +1500,7 @@
             "defaultValue": null
           },
           {
-            "name": "NHSInt",
+            "name": "NHSnumber",
             "description": "",
             "type": {
               "kind": "SCALAR",
@@ -1685,6 +1784,16 @@
               "ofType": null
             },
             "defaultValue": null
+          },
+          {
+            "name": "total",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
           }
         ],
         "interfaces": null,
@@ -1769,6 +1878,16 @@
           },
           {
             "name": "carTraffic",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "total",
             "description": "",
             "type": {
               "kind": "SCALAR",

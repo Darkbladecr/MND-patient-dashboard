@@ -1,3 +1,13 @@
+.add-fab {
+	top: auto;
+	right: 20px;
+	bottom: 20px;
+	left: auto;
+	position: fixed;
+}
+.page-layout.carded.left-sidenav > .center .content-card .toolbar {
+	padding: 0;
+}
 // Center
 .center {
 	.header {

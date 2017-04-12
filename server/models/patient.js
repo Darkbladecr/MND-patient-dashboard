@@ -24,6 +24,7 @@ const AppointmentSchema = new mongoose.Schema({
 		dyspnea: Number,
 		orthopnea: Number,
 		respiratory: Number,
+		total: Number
 	},
 	ess: {
 		sittingAndReading: Number,
@@ -33,7 +34,8 @@ const AppointmentSchema = new mongoose.Schema({
 		lyingDown: Number,
 		sittingAndTalking: Number,
 		sittingAfterLunch: Number,
-		carTraffic: Number
+		carTraffic: Number,
+		total: Number
 	},
 	fvc: {
 		sitting: Number,

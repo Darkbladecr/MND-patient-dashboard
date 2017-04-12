@@ -1,3 +1,5 @@
+import patientById from '../graphql/patientById.gql';
+import addAppointmentQL from '../graphql/addAppointment.gql';
 import gql from 'graphql-tag';
 
 export default class patientsService {
@@ -9,20 +11,7 @@ export default class patientsService {
 	}
 	getPatientById(_id){
 		return this.apollo.query({
-			query: gql`query getPatientById($token:String!, $_id:String!) {
-				restricted(token:$token) {
-					patient(_id:$_id){
-						_id
-						firstName
-						lastName
-						patientNumber
-						NHSnumber
-						dateOfBirth
-						createdAt
-						lastUpdated
-					}
-				}
-			}`,
+			query: patientById,
 			variables: {
 				token: this.AuthService.getToken(),
 				_id
@@ -117,6 +106,25 @@ export default class patientsService {
 		.then(result => {
 			const patient = result.updatePatient;
 			patient.dateOfBirth = new Date(patient.dateOfBirth);
+			return patient;
+		}, err => this.graphqlService.error(err));
+	}
+	addAppointment(patientId, appointment){
+		return this.apollo.mutate({
+			mutation: addAppointmentQL,
+			variables: {
+				token: this.AuthService.getToken(),
+				patientId,
+				appointment
+			}
+		})
+		.then(this.graphqlService.extract)
+		.then(result => {
+			const patient = result.addAppointment;
+			patient.appointments = patient.appointments.map(a => {
+				a.clinicDate = new Date(a.clinicDate);
+				return a;
+			});
 			return patient;
 		}, err => this.graphqlService.error(err));
 	}

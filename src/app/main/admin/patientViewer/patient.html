@@ -1,18 +1,11 @@
-<div id="patient-viewer" class="page-layout simple left-sidenav" layout="row">
-	<!-- LEFT SIDENAV -->
-    <md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav" ms-scroll ms-sidenav-helper>
-		<patients-sidenav
-			title="Patients"
-			add-title="ADD APPOINTMENT"
-			add-element="$ctrl.addAppointment(event)"
-			sub-title="Appointments"
-			sub-elements="$ctrl.patient.appointments"
-			on-subelement-selected="$ctrl.selectAppointment(subelement)"
-			subelement-selected="$ctrl.search.accessLevel"
-			reset-filters="$ctrl.resetFilters()">
-		</patients-sidenav>
-    </md-sidenav>
-    <!-- / LEFT SIDENAV -->
+<div id="patient-viewer" class="page-layout carded left-sidenav" layout="row">
+	<!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+	<md-button class="md-fab md-accent add-fab" aria-label="Add Appointment" ng-click="$ctrl.addAppointment($event)">
+		<md-tooltip md-direction="top">Add Appointment</md-tooltip>
+        <md-icon md-font-icon="icon-plus" class="icon s24"></md-icon>
+    </md-button>
 	<!-- CENTER -->
 	<div class="center" flex ms-scroll>
 		<!-- HEADER -->
@@ -26,7 +19,80 @@
 		<!-- / HEADER -->
 		<!-- CONTENT -->
 		<div class="content">
-
+			<!-- CONTENT CARD -->
+	        <div class="content-card" layout="column" flex>
+	            <!-- CONTENT TOOLBAR -->
+	            <div id="toastBounds" class="toolbar" layout="row" layout-align="space-between center">
+	                <md-toolbar class="md-table-toolbar md-default" ng-if="$ctrl.options.rowSelection && !$ctrl.selected.length">
+	                    <div class="md-toolbar-tools">
+	                        <span>Appointments</span>
+	                        <span flex></span>
+	                    </div>
+	                </md-toolbar>
+	                <md-toolbar class="md-table-toolbar alternate" ng-if="$ctrl.options.rowSelection && $ctrl.selected.length">
+	                    <div class="md-toolbar-tools">
+	                        <md-button class="md-icon-button" ng-click="$ctrl.selected = []">
+	                            <md-icon md-font-icon="icon-close" aria-label="close" class="icon" style="color: white;"></md-icon>
+	                        </md-button>
+	                        <span>{{$ctrl.selected.length}} {{$ctrl.selected.length > 1 ? 'patients' : 'patient'}} selected</span>
+	                        <span flex></span>
+							<md-button class="md-raised" ng-click="$ctrl.viewAppointment($ctrl.selected[0])" ng-if="$ctrl.selected.length === 1">
+	                            <md-icon md-font-icon="icon-eye" class="icon" aria-label="edit"></md-icon> View
+							</md-button>
+	                        <md-button class="md-raised" ng-click="$ctrl.editAppointment($event, $ctrl.selected[0])" ng-if="$ctrl.selected.length === 1">
+	                            <md-icon md-font-icon="icon-pencil" class="icon" aria-label="edit"></md-icon> Edit
+							</md-button>
+	                        <md-button class="md-raised" ng-click="$ctrl.deleteConfirm($event, $ctrl.selected[0])" ng-if="$ctrl.selected.length > 0">
+	                            <md-icon md-font-icon="icon-delete" class="icon" aria-label="delete"></md-icon> Delete
+							</md-button>
+	                    </div>
+	                </md-toolbar>
+	            </div>
+	            <!-- / CONTENT TOOLBAR -->
+	            <!-- CONTENT -->
+	            <div class="content" layout="row" flex style="padding: 0px;">
+	                <!-- Todo list pane -->
+	                <md-content id="list-pane" class="todo-list-pane" flex ms-scroll>
+						<md-content layout="column" flex ng-cloak>
+							<md-table-container>
+								<table md-table md-row-select="$ctrl.options.rowSelection" ng-model="$ctrl.selected" multiple="false" md-progress="$ctrl.promise">
+									<thead md-head md-order="$ctrl.query.order">
+										<tr md-row>
+											<th md-column md-order-by="clinicDate" md-desc><span>Clinic Date</span></th>
+											<th md-column>Weight</th>
+											<th md-column>ALSFRS</th>
+											<th md-column><span>ESS</span></th>
+											<th md-column><span>FVC Sitting</span></th>
+											<th md-column><span>FVC Supine</span></th>
+											<th md-column><span>SNP</span></th>
+											<th md-column><span>spO2</span></th>
+											<th md-column><span>ABG</span></th>
+										</tr>
+									</thead>
+									<tbody md-body>
+										<tr md-row md-select="appointment" md-auto-select="$ctrl.options.autoSelect" ng-repeat="appointment in $ctrl.patient.appointments | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit">
+											<td md-cell>{{appointment.clinicDate | date:'dd/MM/yy'}}</td>
+											<td md-cell>{{appointment.weight | number:2}}</td>
+											<td md-cell>{{appointment.alsfrs.total}}</td>
+											<td md-cell>{{appointment.ess.total}}</td>
+											<td md-cell>{{appointment.fvc.sitting}}</td>
+											<td md-cell>{{appointment.fvc.supine}}</td>
+											<td md-cell>{{appointment.snp}}</td>
+											<td md-cell>{{appointment.spO2}}</td>
+											<td md-cell>{{appointment.abg ? 'true' : 'false'}}</td>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</md-table-container>
+							<md-table-pagination md-limit="$ctrl.query.limit" md-limit-options="$ctrl.query.limitOptions" md-page="$ctrl.query.page" md-on-paginate="$ctrl.pageChange()" md-total="{{$ctrl.patients.length}}" md-page-select="$ctrl.options.pageSelector" md-boundary-links="$ctrl.options.boundaryLinks"></md-table-pagination>
+						</md-content>
+	                </md-content>
+	                <!-- / Todo list pane -->
+	            </div>
+	            <!-- / CONTENT -->
+	        </div>
+	        <!-- / CONTENT CARDb-->
 		</div>
 		<!-- / CONTENT -->
 	</div>

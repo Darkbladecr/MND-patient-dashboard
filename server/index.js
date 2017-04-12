@@ -49,7 +49,18 @@ const graphqlExpressOptions = () => {
 	};
 	return options;
 }
-if (process.env.NODE_ENV !== 'production') {
+
+const router = express.Router();
+router.use(bodyParser.json());
+router.use(apis);
+app.use('/api', router);
+
+if(process.env.NODE_ENV === 'production'){
+	app.use(express.static(path.join(__dirname, '../dist')));
+	app.get('*', function(req, res) {
+		res.sendFile(path.join(__dirname, '../dist/index.html'));
+	});
+} else {
 	graphqlExpressOptions.formatError = (err) => {
 		logger.error({
 			stack: 'GraphQLError',
@@ -61,11 +72,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use('/graphql', bodyParser.json(), graphqlExpress((req) => graphqlExpressOptions(req)));
-
-const router = express.Router();
-router.use(bodyParser.json());
-router.use(apis);
-app.use('/api', router);
 
 app.listen(SERVER_PORT, () => logger.info(
 	`GraphQL Server is now running on http://localhost:${SERVER_PORT}/graphql`

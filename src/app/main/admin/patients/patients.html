@@ -2,28 +2,15 @@
     <!-- TOP BACKGROUND -->
     <div class="top-bg md-accent-bg"></div>
     <!-- / TOP BACKGROUND -->
-    <!-- LEFT SIDENAV -->
-    <md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav" ms-scroll ms-sidenav-helper>
-		<patients-sidenav
-			title="Patients"
-			add-title="ADD PATIENT"
-			add-element="$ctrl.addPatient(event)"
-			sub-title="Access Levels"
-			sub-elements="$ctrl.accessLevels"
-			on-subelement-selected="$ctrl.selectAccessLevel(subelement)"
-			subelement-selected="$ctrl.search.accessLevel"
-			reset-filters="$ctrl.resetFilters()">
-		</patients-sidenav>
-    </md-sidenav>
-    <!-- / LEFT SIDENAV -->
+	<md-button class="md-fab md-accent add-fab" aria-label="Add Patient" ng-click="$ctrl.addPatient($event)">
+		<md-tooltip md-direction="top">Add Patient</md-tooltip>
+        <md-icon md-font-icon="icon-plus" class="icon s24"></md-icon>
+    </md-button>
     <!-- CENTER -->
     <div class="center" layout="column" flex>
         <!-- CONTENT HEADER -->
         <div class="header" layout="row" layout-align="start center">
             <div class="search-wrapper md-whiteframe-4dp" flex layout="row" layout-align="start center">
-                <md-button class="md-icon-button sidenav-toggle" ng-click="$ctrl.toggleSidenav('main-sidenav')" hide-gt-md aria-label="Toggle sidenav">
-                    <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
-                </md-button>
                 <div class="search" flex layout="row" layout-align="start center">
                     <md-icon md-font-icon="icon-magnify" class="icon s24"></md-icon>
                     <input flex ng-model="$ctrl.search" type="text" placeholder="Search for a user" ng-model-options="{ debounce: 500 }" autocomplete="off">
@@ -100,7 +87,7 @@
             </div>
             <!-- / CONTENT -->
         </div>
-        <!-- / CONTENT CARDb-->
+        <!-- / CONTENT CARD-->
     </div>
     <!-- / CENTER -->
 </div>
