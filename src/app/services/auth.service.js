@@ -1,6 +1,3 @@
-import resetPasswordMutation from '../graphql/auth/resetPassword.gql';
-import resetPasswordPrepMutation from '../graphql/auth/resetPasswordPrep.gql';
-import updateUserMutation from '../graphql/auth/updateUser.gql';
 import gql from 'graphql-tag';
 
 export default class AuthService {
@@ -117,7 +114,11 @@ export default class AuthService {
 	}
 	reset(email) {
 		return this.apollo.mutate({
-				mutation: resetPasswordPrepMutation,
+				mutation: gql`mutation resetPasswordPrep($token:String!, $username:String!){
+				    restricted(token:$token){
+				        resetPasswordPrep(username:$username)
+				    }
+				}`,
 				variables: {
 					token: this.getToken(),
 					username: email
@@ -131,7 +132,11 @@ export default class AuthService {
 	}
 	resetPassword(email, id, password) {
 		return this.apollo.mutate({
-				mutation: resetPasswordMutation,
+				mutation: gql`mutation resetPassword($token:String!, $username:String!, $key:String!, $password:String!){
+				    restricted(token:$token){
+				        resetPassword(username:$username, key:$key, password:$password)
+				    }
+				}`,
 				variables: {
 					token: this.getToken(),
 					username: email,
