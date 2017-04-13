@@ -1,0 +1,59 @@
+mutation deleteAppointment($token:String!, $appointmentId:String!) {
+	restricted(token:$token) {
+		deleteAppointment(appointmentId:$appointmentId){
+			_id
+			firstName
+			lastName
+			gender
+			patientNumber
+			NHSnumber
+			dateOfBirth
+			createdAt
+			lastUpdated
+			appointments {
+				_id
+				clinicDate
+				weight
+				alsfrs {
+					speech
+					salivation
+					swallowing
+					handwriting
+					cutting
+					dressing
+					turning
+					walking
+					climbing
+					dyspnea
+					orthopnea
+					respiratory
+					total
+				}
+				ess {
+					sittingAndReading
+					watching
+					sittingInactive
+					carPassenger
+					lyingDown
+					sittingAndTalking
+					sittingAfterLunch
+					carTraffic
+					total
+				}
+				fvc {
+					sitting
+					supine
+				}
+				snp
+				spO2
+				abg {
+					pH
+					pO2
+					pCO2
+					HCO3
+					be
+				}
+			}
+		}
+	}
+}

@@ -4,12 +4,14 @@ mutation addAppointment($token:String!, $patientId:String!, $appointment:Appoint
 			_id
 			firstName
 			lastName
+			gender
 			patientNumber
 			NHSnumber
 			dateOfBirth
 			createdAt
 			lastUpdated
 			appointments {
+				_id
 				clinicDate
 				weight
 				alsfrs {
@@ -18,7 +20,6 @@ mutation addAppointment($token:String!, $patientId:String!, $appointment:Appoint
 					swallowing
 					handwriting
 					cutting
-					cuttingGastro
 					dressing
 					turning
 					walking
@@ -49,6 +50,8 @@ mutation addAppointment($token:String!, $patientId:String!, $appointment:Appoint
 					pH
 					pO2
 					pCO2
+					HCO3
+					be
 				}
 			}
 		}

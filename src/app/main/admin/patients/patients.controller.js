@@ -101,16 +101,17 @@ export default class UsersController {
 			});
 		});
 	}
-	deleteConfirm(ev, user) {
+	deleteConfirm(ev, patient) {
 		const confirm = this.$mdDialog.confirm()
-			.title('Are you sure you want to delete ' + user.firstName + '\'s account?')
-			.textContent('Please note this will also delete their marksheets!')
+			.title(`Delete Patient`)
+			.textContent(`Are you sure you want to delete ${patient.firstName} ${patient.lastName}?`)
 			.ariaLabel('Are you sure you want to delete this user?')
 			.targetEvent(ev)
 			.ok('Delete')
 			.cancel('Cancel');
 		this.$mdDialog.show(confirm).then(() => {
-			this.deleteUser(user);
+			this.patientsService.deletePatient(patient);
+			this.patients.filter(p => p._id !== patient._id);
 		});
 	}
 	toggleSidenav(sidenavId) {

@@ -9,7 +9,7 @@
 	<!-- CENTER -->
 	<div class="center" flex ms-scroll>
 		<!-- HEADER -->
-		<div class="header md-accent-bg" layout="column" layout-align="space-between">
+		<div class="header" layout="column" layout-align="space-between">
 			<div layout="column" layout-align="start start">
 				<span class="md-display-1 font-weight-300">{{$ctrl.patient.lastName}}, {{$ctrl.patient.firstName}}</span>
 				<span class="md-subhead">Patient Number: {{$ctrl.patient.patientNumber}}</span>
@@ -72,7 +72,7 @@
 									<tbody md-body>
 										<tr md-row md-select="appointment" md-auto-select="$ctrl.options.autoSelect" ng-repeat="appointment in $ctrl.patient.appointments | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit">
 											<td md-cell>{{appointment.clinicDate | date:'dd/MM/yy'}}</td>
-											<td md-cell>{{appointment.weight | number:2}}</td>
+											<td md-cell>{{appointment.weight | number:1}}</td>
 											<td md-cell>{{appointment.alsfrs.total}}</td>
 											<td md-cell>{{appointment.ess.total}}</td>
 											<td md-cell>{{appointment.fvc.sitting}}</td>

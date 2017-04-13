@@ -1,5 +1,5 @@
 import { resetPassword, resetPasswordPrep, updateUser } from './restricted/users';
-import { createPatient, updatePatient, addAppointment } from './restricted/patients';
+import { createPatient, updatePatient, deletePatient, addAppointment, updateAppointment, deleteAppointment } from './restricted/patients';
 
 const RestrictedMutation = {
 	resetPassword,
@@ -7,7 +7,10 @@ const RestrictedMutation = {
 	updateUser,
 	createPatient,
 	updatePatient,
-	addAppointment
+	deletePatient,
+	addAppointment,
+	updateAppointment,
+	deleteAppointment
 };
 
 export { RestrictedMutation };

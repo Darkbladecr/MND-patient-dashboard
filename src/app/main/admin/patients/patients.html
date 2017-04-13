@@ -70,8 +70,8 @@
 								</thead>
 								<tbody md-body>
 									<tr md-row md-select="patient" md-auto-select="$ctrl.options.autoSelect" ng-repeat="patient in $ctrl.patients | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit">
-										<td md-cell>{{patient.patientNumber}}<br />{{patinet.NHSnumber}}</td>
-										<td md-cell hide-xs>{{patient.lastName}}, {{patient.firstName}}</td>
+										<td md-cell>{{patient.patientNumber}}<br />{{patient.NHSnumber}}</td>
+										<td md-cell hide-xs><md-icon md-font-icon="icon-gender-{{patient.gender}}" class="icon"></md-icon>{{patient.lastName}}, {{patient.firstName}}</td>
 										<td md-cell hide-xs>{{patient.dateOfBirth | date:'dd/MM/yy'}}</td>
 										<td md-cell hide-xs hide-sm>{{patient.createdAt | date:'dd/MM/yy'}}</td>
 										<td md-cell hide-xs hide-sm>{{patient.appointments.length}}</td>

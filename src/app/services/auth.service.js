@@ -48,7 +48,7 @@ export default class AuthService {
 				})
 				.then(this.graphqlService.extract)
 				.then(result => {
-					this.toastService.simple(`Welcome ${result.registerUser.firstName}! Please login now.`);
+					this.toastService.simple(`Welcome ${user.firstName}! Please login now.`);
 					return result.registerUser;
 				}, err => this.graphqlService.error(err));
 		} else {

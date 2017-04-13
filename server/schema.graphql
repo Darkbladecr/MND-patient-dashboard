@@ -31,6 +31,7 @@ type Patient {
 	_id: ID
 	firstName: String
 	lastName: String
+	gender: String
 	patientNumber: String
 	NHSnumber: String
 	dateOfBirth: Date
@@ -43,6 +44,7 @@ input PatientInput {
 	_id: String
 	firstName: String
 	lastName: String
+	gender: String
 	patientNumber: String
 	NHSnumber: String
 	dateOfBirth: Date
@@ -64,6 +66,7 @@ type Appointment {
 }
 
 input AppointmentInput {
+	_id: String
 	clinicDate: Date
 	weight: Float
 	alsfrs: ALSFRSInput
@@ -80,7 +83,6 @@ type ALSFRS {
 	swallowing: Int
 	handwriting: Int
 	cutting: Int
-	cuttingGastro: Int
 	dressing: Int
 	turning: Int
 	walking: Int
@@ -97,7 +99,6 @@ input ALSFRSInput {
 	swallowing: Int
 	handwriting: Int
 	cutting: Int
-	cuttingGastro: Int
 	dressing: Int
 	turning: Int
 	walking: Int
@@ -144,14 +145,18 @@ input FVCInput {
 
 type ABG {
 	pH: Float
-	pO2: Int
-	pCO2: Int
+	pO2: Float
+	pCO2: Float
+	HCO3: Float
+	be: Float
 }
 
 input ABGInput {
 	pH: Float
 	pO2: Int
 	pCO2: Int
+	HCO3: Float
+	be: Float
 }
 
 type Query {
@@ -180,8 +185,10 @@ type RestrictedMutation {
 
 	createPatient(patient: PatientInput!): Patient
 	updatePatient(patient: PatientInput!): Patient
+	deletePatient(_id: String!): Patient
 	addAppointment(patientId: String! appointment: AppointmentInput!): Patient
-	updateAppointment(patientId: String! appointment: AppointmentInput!): Patient
+	updateAppointment(appointment: AppointmentInput!): Patient
+	deleteAppointment(appointmentId: String!): Patient
 }
 
 schema {

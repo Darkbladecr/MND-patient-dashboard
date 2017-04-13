@@ -13,6 +13,7 @@ export default class UserDialogController {
 				_id: this.patient._id,
 				firstName: this.patient.firstName,
 				lastName: this.patient.lastName,
+				gender: this.patient.gender,
 				dateOfBirth: this.patient.dateOfBirth,
 				patientNumber: this.patient.patientNumber,
 				NHSnumber: this.patient.NHSnumber

@@ -1,5 +1,7 @@
 import patientById from '../graphql/patientById.gql';
 import addAppointmentQL from '../graphql/addAppointment.gql';
+import updateAppointmentQL from '../graphql/updateAppointment.gql';
+import deleteAppointmentQL from '../graphql/deleteAppointment.gql';
 import gql from 'graphql-tag';
 
 export default class patientsService {
@@ -32,11 +34,15 @@ export default class patientsService {
 				      _id
 				      firstName
 				      lastName
+					  gender
 					  patientNumber
 					  NHSnumber
 					  dateOfBirth
 					  createdAt
 					  lastUpdated
+					  appointments {
+						  _id
+					  }
 				    }
 				  }
 				}`,
@@ -61,6 +67,7 @@ export default class patientsService {
 						_id
 						firstName
 						lastName
+						gender
 						patientNumber
 						NHSnumber
 						dateOfBirth
@@ -89,6 +96,7 @@ export default class patientsService {
 						_id
 						firstName
 						lastName
+						gender
 						patientNumber
 						NHSnumber
 						dateOfBirth
@@ -109,6 +117,25 @@ export default class patientsService {
 			return patient;
 		}, err => this.graphqlService.error(err));
 	}
+	deletePatient(patient){
+		return this.apollo.mutate({
+			mutation: gql`mutation deletePatient($token: String!, $_id:String!){
+				restricted(token:$token){
+					deletePatient(_id:$_id){
+						_id
+					}
+				}
+			}`,
+			variables: {
+				token: this.AuthService.getToken(),
+				_id: patient._id
+			}
+		})
+		.then(this.graphqlService.extract)
+		.then(result => {
+			return result.deletePatient._id;
+		}, err => this.graphqlService.error(err));
+	}
 	addAppointment(patientId, appointment){
 		return this.apollo.mutate({
 			mutation: addAppointmentQL,
@@ -121,6 +148,42 @@ export default class patientsService {
 		.then(this.graphqlService.extract)
 		.then(result => {
 			const patient = result.addAppointment;
+			patient.appointments = patient.appointments.map(a => {
+				a.clinicDate = new Date(a.clinicDate);
+				return a;
+			});
+			return patient;
+		}, err => this.graphqlService.error(err));
+	}
+	updateAppointment(appointment){
+		return this.apollo.mutate({
+			mutation: updateAppointmentQL,
+			variables: {
+				token: this.AuthService.getToken(),
+				appointment
+			}
+		})
+		.then(this.graphqlService.extract)
+		.then(result => {
+			const patient = result.updateAppointment;
+			patient.appointments = patient.appointments.map(a => {
+				a.clinicDate = new Date(a.clinicDate);
+				return a;
+			});
+			return patient;
+		}, err => this.graphqlService.error(err));
+	}
+	deleteAppointment(appointmentId){
+		return this.apollo.mutate({
+			mutation: deleteAppointmentQL,
+			variables: {
+				token: this.AuthService.getToken(),
+				appointmentId
+			}
+		})
+		.then(this.graphqlService.extract)
+		.then(result => {
+			const patient = result.deleteAppointment;
 			patient.appointments = patient.appointments.map(a => {
 				a.clinicDate = new Date(a.clinicDate);
 				return a;

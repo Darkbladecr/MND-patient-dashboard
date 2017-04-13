@@ -6,4 +6,8 @@ const UserResolve = {
 	}
 }
 
-export { UserResolve };
+const PatientResolve = {
+
+}
+
+export { UserResolve, PatientResolve };
