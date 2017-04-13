@@ -167,7 +167,7 @@ class patientViewerController {
 	}
 	updateGraph() {
 		let values = this.patient.appointments.map(a => {
-			return { x: a.clinicDate, y: a[this.graphType] || NaN }
+			return { x: a.clinicDate, y: a[this.graphType] }
 		}).sort((a, b) => b.x - a.x);
 		if (this.graphType === 'fvc') {
 			const data = [];

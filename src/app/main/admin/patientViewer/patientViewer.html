@@ -38,9 +38,6 @@
 									</md-button>
 									<span>{{$ctrl.selected.length}} {{$ctrl.selected.length > 1 ? 'apointments' : 'appointment'}} selected</span>
 									<span flex></span>
-									<md-button class="md-raised" ng-click="$ctrl.viewAppointment($ctrl.selected[0])" ng-if="$ctrl.selected.length === 1">
-										<md-icon md-font-icon="icon-eye" class="icon" aria-label="edit"></md-icon> View
-									</md-button>
 									<md-button class="md-raised" ng-click="$ctrl.editAppointment($event, $ctrl.selected[0])" ng-if="$ctrl.selected.length === 1">
 										<md-icon md-font-icon="icon-pencil" class="icon" aria-label="edit"></md-icon> Edit
 									</md-button>
