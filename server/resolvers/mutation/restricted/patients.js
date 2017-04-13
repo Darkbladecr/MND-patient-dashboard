@@ -96,15 +96,24 @@ function updateAppointment(obj, { appointment }) {
 function deleteAppointment(obj, { appointmentId }) {
 	return new Promise((resolve, reject) => {
 		Patient.findOneAndUpdate({ 'appointments._id': appointmentId }, {
-			$pull: { 'appointments._id': appointmentId }
+			$pull: { appointments: { _id: appointmentId } }
 		}, { new: true }, (err, patient) => {
 			if (err) {
 				logger.error(err);
 				return reject(err);
 			}
 			return resolve(patient);
-		})
+		});
 	});
 }
+
+// Patient.findOneAndUpdate({ 'appointments._id': "58ef78b281b4140695900bf1" }, {
+// 	$pull: { appointments: { _id: "58ef78b281b4140695900bf1" } }
+// }, { new: true }, (err, p) => {
+// 	if (err) {
+// 		logger.error(err);
+// 	}
+// 	console.log(p.appointments);
+// });
 
 export { createPatient, updatePatient, deletePatient, addAppointment, updateAppointment, deleteAppointment };

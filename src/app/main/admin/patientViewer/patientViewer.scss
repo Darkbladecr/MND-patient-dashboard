@@ -2,3 +2,13 @@
 	padding: 5px 0px;
 	margin: 20px 0px;
 }
+
+.radio-inline {
+	float: left;
+	padding-right: 20px;
+}
+
+.nvd3.nv-line .nvd3.nv-scatter .nv-groups .nv-point {
+    fill-opacity: 1;
+    stroke-opacity: 1;
+}

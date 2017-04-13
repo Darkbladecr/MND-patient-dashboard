@@ -97,7 +97,7 @@ export default class UsersController {
 				fullscreen: false
 			}).then(patient => {
 				this.selected = [];
-				this.patients.map(p => p._id === patient._id ? patient : p);
+				this.patients = this.patients.map(p => p._id === patient._id ? patient : p);
 			});
 		});
 	}
@@ -111,7 +111,7 @@ export default class UsersController {
 			.cancel('Cancel');
 		this.$mdDialog.show(confirm).then(() => {
 			this.patientsService.deletePatient(patient);
-			this.patients.filter(p => p._id !== patient._id);
+			this.patients = this.patients.filter(p => p._id !== patient._id);
 		});
 	}
 	toggleSidenav(sidenavId) {

@@ -9,6 +9,7 @@ export default class AppointmentDialogController {
 
 		this.title = '_id' in appointment ? 'Edit Appointment' : 'Add New Appointment';
 		this.appointment = appointment;
+		this.appointment.clinicDate = appointment.hasOwnProperty('clinicDate') ? this.appointment.clinicDate : new Date();
 
 		$scope.$watch('vm.appointment.alsfrs', (newValue, oldValue) => {
 			if (newValue !== oldValue) {

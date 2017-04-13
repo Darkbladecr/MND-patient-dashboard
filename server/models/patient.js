@@ -7,6 +7,7 @@ const AppointmentSchema = new mongoose.Schema({
 	},
 	weight: {
 		type: Number,
+		default: 0,
 		get: (num) => (num / 100).toFixed(2),
 		set: (num) => num * 100
 	},

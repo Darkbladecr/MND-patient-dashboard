@@ -1,7 +1,12 @@
 import angular from 'angular';
-import controller from './patient.controller.js';
-import template from './patient.html';
+import controller from './patientViewer.controller.js';
+import template from './patientViewer.html';
 import './patientViewer.scss';
+
+require('d3');
+require('nvd3');
+require('nvd3/build/nv.d3.css');
+require('angular-nvd3');
 
 function config($stateProvider) {
 	'ngInject';
@@ -34,7 +39,9 @@ function patientCtrl(patient, $state){
 	}
 }
 export default angular
-	.module('app.admin.patientViewer', [])
+	.module('app.admin.patientViewer', [
+		'nvd3'
+	])
 	.config(config)
 	.controller('patientCtrl', patientCtrl)
 	.component('patientViewer', {
