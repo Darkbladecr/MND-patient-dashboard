@@ -2,7 +2,7 @@
 	<!-- TOP BACKGROUND -->
 	<div class="top-bg md-accent-bg"></div>
 	<!-- / TOP BACKGROUND -->
-	<md-button class="md-fab md-accent add-fab" aria-label="Add Appointment" ng-click="$ctrl.addAppointment($event)">
+	<md-button ng-if="$ctrl.selectedIndex === 0" class="md-fab md-accent add-fab" aria-label="Add Appointment" ng-click="$ctrl.addAppointment($event)">
 		<md-tooltip md-direction="top">Add Appointment</md-tooltip>
 		<md-icon md-font-icon="icon-plus" class="icon s24"></md-icon>
 	</md-button>
@@ -19,7 +19,7 @@
 		<!-- / HEADER -->
 		<!-- CONTENT -->
 		<div class="content">
-			<md-tabs md-dynamic-height md-border-bottom style="background:#fff;">
+			<md-tabs md-dynamic-height md-border-bottom md-selected="$ctrl.selectedIndex" style="background:#fff;">
 				<md-tab label="Appointments">
 					<!-- CONTENT CARD -->
 					<div class="content-card" layout="column" flex>
@@ -95,7 +95,7 @@
 				</md-tab>
 				<md-tab label="Graphs">
 					<!-- CONTENT CARD -->
-					<div class="content-card" layout="column" layout-padding flex>
+					<div class="content-card" layout="column" style="padding-bottom:5%;" layout-padding flex>
 						<md-radio-group ng-model="$ctrl.graphType" ng-change="$ctrl.updateGraph()">
 							<md-radio-button class="radio-inline" value="weight">Weight</md-radio-button>
 							<md-radio-button class="radio-inline" value="alsfrs">ALSFRS</md-radio-button>
