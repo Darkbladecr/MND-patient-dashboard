@@ -10,6 +10,13 @@ query getPatientById($token:String!, $_id:String!) {
 			dateOfBirth
 			createdAt
 			lastUpdated
+			graphData {
+				key
+				values {
+					x
+					y
+				}
+			}
 			appointments {
 				_id
 				clinicDate

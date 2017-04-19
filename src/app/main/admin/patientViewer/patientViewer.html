@@ -59,12 +59,12 @@
 												<tr md-row>
 													<th md-column md-order-by="clinicDate" md-desc><span>Clinic Date</span></th>
 													<th md-column>Weight</th>
-													<th md-column>ALSFRS</th>
+													<th md-column>ALSFRS-R</th>
 													<th md-column><span>ESS</span></th>
 													<th md-column><span>FVC Sitting</span></th>
 													<th md-column><span>FVC Supine</span></th>
 													<th md-column><span>SNP</span></th>
-													<th md-column><span>spO2</span></th>
+													<th md-column><span>SpO2</span></th>
 													<th md-column><span>ABG</span></th>
 												</tr>
 											</thead>
@@ -95,15 +95,46 @@
 				</md-tab>
 				<md-tab label="Graphs">
 					<!-- CONTENT CARD -->
-					<div class="content-card" layout="column" style="padding-bottom:5%;" layout-padding flex>
-						<md-radio-group ng-model="$ctrl.graphType" ng-change="$ctrl.updateGraph()">
-							<md-radio-button class="radio-inline" value="weight">Weight</md-radio-button>
-							<md-radio-button class="radio-inline" value="alsfrs">ALSFRS</md-radio-button>
-							<md-radio-button class="radio-inline" value="ess">ESS</md-radio-button>
-							<md-radio-button class="radio-inline" value="fvc">FVC</md-radio-button>
-							<md-radio-button class="radio-inline" value="spO2">spO2</md-radio-button>
-						</md-radio-group>
-						<nvd3 class="h-400 remove-x-lines remove-opacity" options="$ctrl.chart.options" data="$ctrl.graphData"></nvd3>
+					<div class="widget-group" layout="column" style="padding-bottom:5%;" layout-padding flex>
+						<ms-widget layout="column">
+							<ms-widget-front class="white-bg">
+								<div class="ph-8 pv-16 h-55" layout="row" layout-align="space-between center">
+									<h1>Weight Graph</h1>
+									<md-radio-group ng-model="$ctrl.graphType" ng-change="$ctrl.updateGraph()">
+										<md-radio-button class="radio-inline" value="weight">Weight</md-radio-button>
+										<md-radio-button class="radio-inline" value="alsfrs">ALSFRS-R</md-radio-button>
+										<md-radio-button class="radio-inline" value="ess">ESS</md-radio-button>
+										<md-radio-button class="radio-inline" value="fvc">FVC</md-radio-button>
+										<md-radio-button class="radio-inline" value="spO2">SpO2</md-radio-button>
+									</md-radio-group>
+								</div>
+								<nvd3 class="h-400 remove-x-lines remove-opacity" options="$ctrl.graphOptionsWeight" data="$ctrl.graphDataWeight" config="{deepWatchData: false}"></nvd3>
+							</ms-widget-front>
+						</ms-widget>
+						<ms-widget layout="column">
+							<ms-widget-front class="white-bg">
+								<div class="ph-8 pv-16 h-55" layout="row" layout-align="space-between center">
+									<h1>ESS Graph</h1>
+								</div>
+								<nvd3 class="h-400 remove-x-lines remove-opacity" options="$ctrl.graphOptionsEss" data="$ctrl.graphDataEss" config="{deepWatchData: false}"></nvd3>
+							</ms-widget-front>
+						</ms-widget>
+						<ms-widget layout="column">
+							<ms-widget-front class="white-bg">
+								<div class="ph-8 pv-16 h-55" layout="row" layout-align="space-between center">
+									<h1>FVC Graph</h1>
+								</div>
+								<nvd3 class="h-400 remove-x-lines remove-opacity" options="$ctrl.graphOptionsFvc" data="$ctrl.graphDataFvc" config="{deepWatchData: false}"></nvd3>
+							</ms-widget-front>
+						</ms-widget>
+						<ms-widget layout="column">
+							<ms-widget-front class="white-bg">
+								<div class="ph-8 pv-16 h-55" layout="row" layout-align="space-between center">
+									<h1>SpO2 Graph</h1>
+								</div>
+								<nvd3 class="h-400 remove-x-lines remove-opacity" options="$ctrl.graphOptionsSpO2" data="$ctrl.graphDataSpO2" config="{deepWatchData: false}"></nvd3>
+							</ms-widget-front>
+						</ms-widget>
 					</div>
 					<!-- / CONTENT CARD-->
 				</md-tab>
@@ -112,3 +143,4 @@
 		<!-- / CONTENT -->
 	</div>
 </div>
+<appointment-dialog patient-id="$ctrl.patient._id" appointment="$ctrl.selected[0]"></appointment-dialog>

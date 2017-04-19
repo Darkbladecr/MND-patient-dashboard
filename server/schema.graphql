@@ -38,6 +38,7 @@ type Patient {
 	createdAt: Date
 	lastUpdated: Date
 	appointments: [Appointment]
+	graphData: [graphSeries]
 }
 
 input PatientInput {
@@ -51,6 +52,16 @@ input PatientInput {
 	createdAt: Date
 	lastUpdated: Date
 	appointments: [AppointmentInput]
+}
+
+type graphSeries {
+	key: String
+	values: [Coordinates]
+}
+
+type Coordinates {
+	x: Date
+	y: Float
 }
 
 type Appointment {

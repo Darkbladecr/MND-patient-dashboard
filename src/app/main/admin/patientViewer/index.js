@@ -2,9 +2,11 @@ import angular from 'angular';
 import controller from './patientViewer.controller.js';
 import template from './patientViewer.html';
 import './patientViewer.scss';
+import appointmentDialogController from './dialogs/appointment-dialog.controller';
+import appointmentDialogTemplate from './dialogs/appointment-dialog.html';
 
 require('d3');
-require('nvd3');
+require('nvd3/build/nv.d3');
 require('nvd3/build/nv.d3.css');
 require('angular-nvd3');
 
@@ -50,4 +52,13 @@ export default angular
 		},
 		controller,
 		template
+	})
+	.component('appointmentDialog', {
+		bindings: {
+			patientId: '<',
+			appointment: '<'
+		},
+		controller: appointmentDialogController,
+		controllerAs: 'vm',
+		template: appointmentDialogTemplate
 	});

@@ -70,7 +70,7 @@
     "clipboard": "^1.5.16",
     "compression": "^1.6.2",
     "css-element-queries": "^0.4.0",
-    "d3": "^4.3.0",
+    "d3": "3.5.17",
     "datatables-responsive": "^1.0.7",
     "ejs": "^2.5.5",
     "email-templates": "^2.5.4",

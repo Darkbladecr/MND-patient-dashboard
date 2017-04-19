@@ -1,0 +1,338 @@
+<md-dialog aria-label="Appointment Editor" style="width: 80%">
+	<form name="appointmentForm">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>
+					{{vm.title}}
+					<span ng-if="vm.selectedIndex === 1"> - ALSFRS Score: {{vm.appointment.alsfrs.total || 0}}</span>
+					<span ng-if="vm.selectedIndex === 2"> - ESS Score: {{vm.appointment.ess.total || 0}}</span>
+				</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="vm.cancelDialog()">
+					<md-icon md-font-icon="icon-close" class="icon" aria-label="close"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content style="padding:0;">
+			<md-tabs md-selected="vm.selectedIndex" md-dynamic-height md-border-bottom>
+				<md-tab label="General">
+					<md-content layout="column" style="padding:45px;">
+						<div>
+							<md-input-container style="min-width:200px;">
+								<label>Clinic Date</label>
+								<md-datepicker name="clinicDate" ng-model="vm.appointment.clinicDate" md-placeholder="Enter Date" required></md-datepicker>
+								<div ng-messages="appointmentForm.clinicDate.$error">
+									<div ng-message="required">This is required.</div>
+								</div>
+							</md-input-container>
+							<md-input-container>
+								<label>Weight</label>
+								<input type="number" name="weight" ng-model="vm.appointment.weight" autocomplete="off">
+							</md-input-container>
+						</div>
+						<h3>Respiratory Effort</h3>
+						<div>
+							<md-input-container>
+								<label>FVC - Sitting</label>
+								<input type="number" name="fvcSitting" ng-model="vm.appointment.fvc.sitting" autocomplete="off">
+							</md-input-container>
+							<md-input-container>
+								<label>FVC - Supine</label>
+								<input type="number" name="fvcSupine" ng-model="vm.appointment.fvc.supine" autocomplete="off">
+							</md-input-container>
+							<md-input-container>
+								<label>spO2</label>
+								<input type="number" name="spO2" ng-model="vm.appointment.spO2" autocomplete="off">
+							</md-input-container>
+							<md-input-container>
+								<label>SNP</label>
+								<input type="number" name="snp" ng-model="vm.appointment.snp" autocomplete="off">
+							</md-input-container>
+						</div>
+						<h3>Specialised Scores</h3>
+						<md-button class="md-raised md-primary" ng-click="vm.selectedIndex = 1">ALSFRS-R ({{vm.appointment.alsfrs.total || 'Not set'}})</md-button>
+						<md-button class="md-raised md-primary" ng-click="vm.selectedIndex = 2">ESS ({{vm.appointment.ess.total || 'Not set'}})</md-button>
+						<h3>Arterial Blood Gas (ABG)</h3>
+						<div>
+							<md-input-container>
+								<label>pH</label>
+								<input type="number" name="pH" ng-model="vm.appointment.abg.pH" autocomplete="off">
+							</md-input-container>
+							<md-input-container>
+								<label>pO2</label>
+								<input type="number" name="pO2" ng-model="vm.appointment.abg.pO2" autocomplete="off">
+							</md-input-container>
+							<md-input-container>
+								<label>pCO2</label>
+								<input type="number" name="pCO2" ng-model="vm.appointment.abg.pCO2" autocomplete="off">
+							</md-input-container>
+							<md-input-container>
+								<label>HCO3-</label>
+								<input type="number" name="HCO3" ng-model="vm.appointment.abg.HCO3" autocomplete="off">
+							</md-input-container>
+							<md-input-container>
+								<label>Base Excess</label>
+								<input type="number" name="be" ng-model="vm.appointment.abg.be" autocomplete="off">
+							</md-input-container>
+						</div>
+					</md-content>
+				</md-tab>
+				<md-tab label="ALFRS">
+					<md-content layout="column" style="padding:45px;">
+						<h2>ALSFRS - R</h2>
+						<p>Comparisons are made with the patient's status prior to the onset of the disease, not with status of the last visit.</p>
+						<p>Patient's response (on a 5-point scale) is recorded in relation to the question: "How are you doing at (…)?" for each of 12 functions listed in the ALSFRS</p>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Speech</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.speech">
+								<md-radio-button ng-value="4">4) Normal speech processes</md-radio-button>
+								<md-radio-button ng-value="3">3) Detectable speech disturbances</md-radio-button>
+								<md-radio-button ng-value="2">2) Intelligible with repeating</md-radio-button>
+								<md-radio-button ng-value="1">1) Speech combined with non-vocal communication</md-radio-button>
+								<md-radio-button ng-value="0">0) Loss of useful speech</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Salivation</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.salivation">
+								<md-radio-button ng-value="4">4) Normal</md-radio-button>
+								<md-radio-button ng-value="3">3) Slight but definite excess of saliva in mouth; may have night-time drooling</md-radio-button>
+								<md-radio-button ng-value="2">2) Moderately excessive saliva; may have minimal drooling</md-radio-button>
+								<md-radio-button ng-value="1">1) Marked excess of saliva with some drooling</md-radio-button>
+								<md-radio-button ng-value="0">0) Marked drooling; requires constant tissue or handkerchief</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Swallowing</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.swallowing">
+								<md-radio-button ng-value="4">4) Normal eating habits</md-radio-button>
+								<md-radio-button ng-value="3">3) Early eating problems, occasional choking</md-radio-button>
+								<md-radio-button ng-value="2">2) Dietary consistency changes</md-radio-button>
+								<md-radio-button ng-value="1">1) Needs supplemental tube feeding</md-radio-button>
+								<md-radio-button ng-value="0">0) NPO (exclusively parenteral or enteral feeding)</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Handwriting</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.handwriting">
+								<md-radio-button ng-value="4">4) Normal</md-radio-button>
+								<md-radio-button ng-value="3">3) Slow or sloppy; all words are legible</md-radio-button>
+								<md-radio-button ng-value="2">2) Not all words are legible</md-radio-button>
+								<md-radio-button ng-value="1">1) Able to grip pen but unable to write</md-radio-button>
+								<md-radio-button ng-value="0">0) Unable to grip pen</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<md-checkbox ng-model="vm.gastrostomy" aria-label="patient with gastrostomy">Does the patient have a gastrostomy?</md-checkbox>
+						<div ng-if="!vm.gastrostomy">
+							<b>Cutting Food and Handling Utensils (patients without gastrostomy)</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.cutting">
+								<md-radio-button ng-value="4">4) Normal</md-radio-button>
+								<md-radio-button ng-value="3">3) Somewhat slow and clumsy, but no help needed</md-radio-button>
+								<md-radio-button ng-value="2">2) Can cut most foods, although clumsy and slow; some help needed</md-radio-button>
+								<md-radio-button ng-value="1">1) Food must be cut by someone, but can still feed slowly</md-radio-button>
+								<md-radio-button ng-value="0">0) Needs to be fed</md-radio-button>
+							</md-radio-group>
+						</div>
+						<div ng-if="vm.gastrostomy">
+							<b>Cutting Food and Handling Utensils (alternate scale for patients with gastrostomy)</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.cutting">
+								<md-radio-button ng-value="4">4) Normal</md-radio-button>
+								<md-radio-button ng-value="3">3) Clumsy but able to perform all manipulations independently</md-radio-button>
+								<md-radio-button ng-value="2">2) Some help needed with closures and fasteners</md-radio-button>
+								<md-radio-button ng-value="1">1) Provides minimal assistance to caregiver</md-radio-button>
+								<md-radio-button ng-value="0">0) Unable to perform any aspect of task</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Dressing and Hygiene</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.dressing">
+								<md-radio-button ng-value="4">4) Normal function</md-radio-button>
+								<md-radio-button ng-value="3">3) Independent and complete self-care with effort of decreased efficiency</md-radio-button>
+								<md-radio-button ng-value="2">2) Intermittent assistance or substitute methods</md-radio-button>
+								<md-radio-button ng-value="1">1) Needs attendant for self-care</md-radio-button>
+								<md-radio-button ng-value="0">0) Total dependence</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Turning in Bed and Adjusting Bed Clothes</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.turning">
+								<md-radio-button ng-value="4">4) Normal</md-radio-button>
+								<md-radio-button ng-value="3">3) Somewhat slow and clumsy, but no help needed</md-radio-button>
+								<md-radio-button ng-value="2">2) Can turn alone or adjust bed sheets, but with great difficulty</md-radio-button>
+								<md-radio-button ng-value="1">1) Can initiate, but not turn or adjust sheets alone</md-radio-button>
+								<md-radio-button ng-value="0">0) Helpless</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Walking</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.walking">
+								<md-radio-button ng-value="4">4) Normal</md-radio-button>
+								<md-radio-button ng-value="3">3) Early ambulation difficulties</md-radio-button>
+								<md-radio-button ng-value="2">2) Walks with assistance</md-radio-button>
+								<md-radio-button ng-value="1">1) Non-ambulatory functional movement</md-radio-button>
+								<md-radio-button ng-value="0">0) No purposeful left movement</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Climbing stairs</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.climbing">
+								<md-radio-button ng-value="4">4) Normal</md-radio-button>
+								<md-radio-button ng-value="3">3) Slow</md-radio-button>
+								<md-radio-button ng-value="2">2) Mild unsteadiness or fatigue</md-radio-button>
+								<md-radio-button ng-value="1">1) Needs assistance</md-radio-button>
+								<md-radio-button ng-value="0">0) Cannot do</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Dypnoea</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.dyspnea">
+								<md-radio-button ng-value="4">4) None</md-radio-button>
+								<md-radio-button ng-value="3">3) Occurs when walking</md-radio-button>
+								<md-radio-button ng-value="2">2) Occurs with one or more of the following: eating, bathing, dressing (ADL)</md-radio-button>
+								<md-radio-button ng-value="1">1) Occurs at rest, difficulty when either sitting or lying</md-radio-button>
+								<md-radio-button ng-value="0">0) Significant difficulty, considering using mechanical respiratory support</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Orthopnoea</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.orthopnea">
+								<md-radio-button ng-value="4">4) None</md-radio-button>
+								<md-radio-button ng-value="3">3) Some difficulty sleeping at night due to shortness of breath, does not routinely use more than 2 pillows</md-radio-button>
+								<md-radio-button ng-value="2">2) Needs extra pillows in order to sleep (more than two)</md-radio-button>
+								<md-radio-button ng-value="1">1) Can only sleep sitting up</md-radio-button>
+								<md-radio-button ng-value="0">0) Unable to sleep</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Respiratory insufficiency</b>
+							<md-radio-group ng-model="vm.appointment.alsfrs.respiratory">
+								<md-radio-button ng-value="4">4) None</md-radio-button>
+								<md-radio-button ng-value="3">3) Intermittent use of BiPAP</md-radio-button>
+								<md-radio-button ng-value="2">2) Continuous use of BiPAP during the night</md-radio-button>
+								<md-radio-button ng-value="1">1) Continuous use of BiPAP during the night and day</md-radio-button>
+								<md-radio-button ng-value="0">0) Invasive mechanical ventilation by intubation or tracheostomy</md-radio-button>
+							</md-radio-group>
+						</div>
+						<h2>Total: {{vm.appointment.alsfrs.total}}</h2>
+					</md-content>
+				</md-tab>
+				<md-tab label="ESS">
+					<md-content layout="column" style="padding:45px">
+						<h2>Epworth Sleepiness Scale (ESS) Score</h2>
+						<p>During the past week, please rate how likely you were to doze off or fall asleep during the following situations (in contrast to feeling just tired).</p>
+						<p>This refers to your usual way of life in recent times. Even if you have not done some of these things recently, try to work out how they would have affected you.</p>
+						<p>Use the following scale to choose the most appropriate number for each situation:</p>
+						<ul>
+							<li>0 = would <b><em>never</em></b> doze</li>
+							<li>1 = <b><em>slight chance of dozing</li>
+							<li>2 = <b><em>moderate</em></b> chance of dozing</li>
+							<li>3 = <b><em>high</em></b> chance of dozing</li>
+						</ul>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Sitting and Reading</b>
+							<md-radio-group ng-model="vm.appointment.ess.sittingAndReading">
+								<md-radio-button ng-value="0">0</md-radio-button>
+								<md-radio-button ng-value="1">1</md-radio-button>
+								<md-radio-button ng-value="2">2</md-radio-button>
+								<md-radio-button ng-value="3">3</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Watching TV</b>
+							<md-radio-group ng-model="vm.appointment.ess.watching">
+								<md-radio-button ng-value="0">0</md-radio-button>
+								<md-radio-button ng-value="1">1</md-radio-button>
+								<md-radio-button ng-value="2">2</md-radio-button>
+								<md-radio-button ng-value="3">3</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Sitting, inactive in a public place (e.g. a theatre or a meeting)</b>
+							<md-radio-group ng-model="vm.appointment.ess.sittingInactive">
+								<md-radio-button ng-value="0">0</md-radio-button>
+								<md-radio-button ng-value="1">1</md-radio-button>
+								<md-radio-button ng-value="2">2</md-radio-button>
+								<md-radio-button ng-value="3">3</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>As a passenger in a car for an hour without a break</b>
+							<md-radio-group ng-model="vm.appointment.ess.carPassenger">
+								<md-radio-button ng-value="0">0</md-radio-button>
+								<md-radio-button ng-value="1">1</md-radio-button>
+								<md-radio-button ng-value="2">2</md-radio-button>
+								<md-radio-button ng-value="3">3</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Lying down to rest in the afternoon when circumstances permit</b>
+							<md-radio-group ng-model="vm.appointment.ess.lyingDown">
+								<md-radio-button ng-value="0">0</md-radio-button>
+								<md-radio-button ng-value="1">1</md-radio-button>
+								<md-radio-button ng-value="2">2</md-radio-button>
+								<md-radio-button ng-value="3">3</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Sitting and talking to someone</b>
+							<md-radio-group ng-model="vm.appointment.ess.sittingAndTalking">
+								<md-radio-button ng-value="0">0</md-radio-button>
+								<md-radio-button ng-value="1">1</md-radio-button>
+								<md-radio-button ng-value="2">2</md-radio-button>
+								<md-radio-button ng-value="3">3</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>Sitting quietly after a lunch without alcohol</b>
+							<md-radio-group ng-model="vm.appointment.ess.sittingAfterLunch">
+								<md-radio-button ng-value="0">0</md-radio-button>
+								<md-radio-button ng-value="1">1</md-radio-button>
+								<md-radio-button ng-value="2">2</md-radio-button>
+								<md-radio-button ng-value="3">3</md-radio-button>
+							</md-radio-group>
+						</div>
+						<md-divider class="appointment-form-divider"></md-divider>
+						<div>
+							<b>In a car, while stopped for a few minutes in the traffic</b>
+							<md-radio-group ng-model="vm.appointment.ess.carTraffic">
+								<md-radio-button ng-value="0">0</md-radio-button>
+								<md-radio-button ng-value="1">1</md-radio-button>
+								<md-radio-button ng-value="2">2</md-radio-button>
+								<md-radio-button ng-value="3">3</md-radio-button>
+							</md-radio-group>
+						</div>
+						<h2>Total: {{vm.appointment.ess.total}}</h2>
+					</md-content>
+				</md-tab>
+			</md-tabs>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<span flex></span>
+			<md-button ng-click="vm.cancelDialog()">
+				Cancel
+			</md-button>
+			<md-button class="md-primary md-raised" ng-disabled="appointmentForm.$invalid" ng-click="vm.updateAppointment()" style="margin-right:20px;">
+				Save
+			</md-button>
+		</md-dialog-actions>
+	</form>
+</md-dialog>

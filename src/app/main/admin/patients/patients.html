@@ -62,19 +62,19 @@
 								<thead md-head md-order="$ctrl.query.order">
 									<tr md-row>
 										<th md-column><span>Patient Number</span></th>
-										<th md-column md-order-by="lastName" md-desc hide-xs>Name</th>
-										<th md-column md-order-by="dateOfBirth" md-desc hide-xs>Date of Birth</th>
-										<th md-column md-order-by="createdAt" md-desc hide-xs hide-sm><span>Created At</span></th>
-										<th md-column md-order-by="appointments" md-desc hide-xs hide-sm><span>Number of Appointments</span></th>
+										<th md-column md-order-by="lastName" md-desc>Name</th>
+										<th md-column md-order-by="dateOfBirth" md-desc>Date of Birth</th>
+										<th md-column md-order-by="createdAt" md-desc><span>Created At</span></th>
+										<th md-column><span>Number of Appointments</span></th>
 									</tr>
 								</thead>
 								<tbody md-body>
 									<tr md-row md-select="patient" md-auto-select="$ctrl.options.autoSelect" ng-repeat="patient in $ctrl.patients | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit track by patient._id">
 										<td md-cell>{{patient.patientNumber}}<br />{{patient.NHSnumber}}</td>
-										<td md-cell hide-xs><md-icon md-font-icon="icon-gender-{{patient.gender}}" class="icon"></md-icon>{{patient.lastName}}, {{patient.firstName}}</td>
-										<td md-cell hide-xs>{{patient.dateOfBirth | date:'dd/MM/yy'}}</td>
-										<td md-cell hide-xs hide-sm>{{patient.createdAt | date:'dd/MM/yy'}}</td>
-										<td md-cell hide-xs hide-sm>{{patient.appointments.length}}</td>
+										<td md-cell><md-icon md-font-icon="icon-gender-{{patient.gender}}" class="icon"></md-icon>{{patient.lastName}}, {{patient.firstName}}</td>
+										<td md-cell>{{patient.dateOfBirth | date:'dd/MM/yy'}}</td>
+										<td md-cell>{{patient.createdAt | date:'dd/MM/yy'}}</td>
+										<td md-cell>{{patient.appointments.length}}</td>
 										</td>
 									</tr>
 								</tbody>
