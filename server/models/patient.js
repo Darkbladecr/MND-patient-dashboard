@@ -78,12 +78,20 @@ const AppointmentSchema = new mongoose.Schema({
 });
 
 const PatientSchema = new mongoose.Schema({
-	firstName: String,
-	lastName: String,
-	gender: String,
-	patientNumber: String,
-	NHSnumber: String,
-	dateOfBirth: Date,
+	firstName: { type: String, required: true },
+	lastName: { type: String, required: true },
+	gender: { type: String, required: true },
+	ethnicity: { type: String, required: true },
+	diagnosisDate: { type: Date, default: null },
+	onsetDate: { type: Date, default: null },
+	mndType: { type: [String], default: [] },
+	gastrostomyDate: { type: Date, default: null },
+	nivDate: { type: Date, default: null },
+	deathDate: { type: Date, default: null },
+	deathPlace: { type: String, default: null },
+	patientNumber: { type: String, default: null },
+	NHSnumber: { type: String, default: null },
+	dateOfBirth: { type: Date, required: true },
 	createdAt: {
 		type: Date,
 		default: Date.now

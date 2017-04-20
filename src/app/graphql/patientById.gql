@@ -5,6 +5,14 @@ query getPatientById($token:String!, $_id:String!) {
 			firstName
 			lastName
 			gender
+			ethnicity
+			diagnosisDate
+			onsetDate
+			mndType
+			gastrostomyDate
+			nivDate
+			deathDate
+			deathPlace
 			patientNumber
 			NHSnumber
 			dateOfBirth

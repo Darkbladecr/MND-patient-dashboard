@@ -5,8 +5,8 @@ function config($provide, $compileProvider, $qProvider, $mdDateLocaleProvider) {
 	'use strict';
 
 	$mdDateLocaleProvider.formatDate = (date) => {
-       return moment(date).format('DD/MM/YYYY');
-    };
+		return date ? moment(date).format('DD/MM/YYYY') : null;
+	};
 	$mdDateLocaleProvider.parseDate = (dateString) => {
 		const m = moment(dateString, 'DD/MM/YYYY', true);
 		return m.isValid() ? m.toDate() : new Date(NaN);

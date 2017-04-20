@@ -32,6 +32,14 @@ type Patient {
 	firstName: String
 	lastName: String
 	gender: String
+	ethnicity: String
+	diagnosisDate: Date
+	onsetDate: Date
+	mndType: [String]
+	gastrostomyDate: Date
+	nivDate: Date
+	deathDate: Date
+	deathPlace: String
 	patientNumber: String
 	NHSnumber: String
 	dateOfBirth: Date
@@ -46,6 +54,14 @@ input PatientInput {
 	firstName: String
 	lastName: String
 	gender: String
+	ethnicity: String
+	diagnosisDate: Date
+	onsetDate: Date
+	mndType: [String]
+	gastrostomyDate: Date
+	nivDate: Date
+	deathDate: Date
+	deathPlace: String
 	patientNumber: String
 	NHSnumber: String
 	dateOfBirth: Date

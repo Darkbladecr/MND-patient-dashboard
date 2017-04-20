@@ -23,6 +23,11 @@ export default class patientsService {
 		.then(result => {
 			const patient = result.patient;
 			patient.dateOfBirth = new Date(patient.dateOfBirth);
+			patient.diagnosisDate = patient.diagnosisDate ? new Date(patient.diagnosisDate) : null;
+			patient.onsetDate = patient.onsetDate ? new Date(patient.onsetDate) : null;
+			patient.gastrostomyDate = patient.gastrostomyDate ? new Date(patient.gastrostomyDate) : null;
+			patient.nivDate = patient.nivDate ? new Date(patient.nivDate) : null;
+			patient.deathDate = patient.deathDate ? new Date(patient.deathDate) : null;
 			return patient;
 		}, err => this.graphqlService.error(err));
 	}
@@ -35,6 +40,14 @@ export default class patientsService {
 				      firstName
 				      lastName
 					  gender
+					  ethnicity
+					  diagnosisDate
+					  onsetDate
+					  mndType
+					  gastrostomyDate
+					  nivDate
+					  deathDate
+					  deathPlace
 					  patientNumber
 					  NHSnumber
 					  dateOfBirth
@@ -68,6 +81,14 @@ export default class patientsService {
 						firstName
 						lastName
 						gender
+						ethnicity
+						diagnosisDate
+						onsetDate
+						mndType
+						gastrostomyDate
+						nivDate
+						deathDate
+						deathPlace
 						patientNumber
 						NHSnumber
 						dateOfBirth
@@ -97,6 +118,14 @@ export default class patientsService {
 						firstName
 						lastName
 						gender
+						ethnicity
+						diagnosisDate
+						onsetDate
+						mndType
+						gastrostomyDate
+						nivDate
+						deathDate
+						deathPlace
 						patientNumber
 						NHSnumber
 						dateOfBirth

@@ -1,6 +1,6 @@
 .appointment-form-divider {
-	padding: 5px 0px;
-	margin: 20px 0px;
+	padding: 5px 0;
+	margin: 20px 0;
 }
 
 .radio-inline {
@@ -8,7 +8,9 @@
 	padding-right: 20px;
 }
 
-.nvd3.nv-line .nvd3.nv-scatter .nv-groups .nv-point {
-    fill-opacity: 1;
-    stroke-opacity: 1;
+.add-points {
+	.nvd3.nv-line .nvd3.nv-scatter .nv-groups .nv-point {
+		fill-opacity: 1;
+		stroke-opacity: 1;
+	}
 }

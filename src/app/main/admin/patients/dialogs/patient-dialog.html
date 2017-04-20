@@ -26,6 +26,15 @@
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
+					<md-input-container class="input-date">
+						<label>Date of Birth</label>
+						<md-datepicker name="dateOfBirth" ng-model="vm.patient.dateOfBirth" md-placeholder="Enter Date" md-current-view="year" required></md-datepicker>
+						<div ng-messages="patientForm.dateOfBirth.$error">
+							<div ng-message="required">This is required.</div>
+						</div>
+					</md-input-container>
+				</div>
+				<div>
 					<md-input-container style="height:57.5px;">
 						<label>Gender</label>
 						<md-select name="gender" ng-model="vm.patient.gender" required>
@@ -36,10 +45,16 @@
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
-					<md-input-container style="min-width:200px;">
-						<label>Date of Birth</label>
-						<md-datepicker name="dateOfBirth" ng-model="vm.patient.dateOfBirth" md-placeholder="Enter Date" md-current-view="year" required></md-datepicker>
-						<div ng-messages="patientForm.dateOfBirth.$error">
+					<md-input-container style="height:57.5px;">
+						<label>Ethnicity</label>
+						<md-select name="gender" ng-model="vm.patient.ethnicity" required>
+							<md-option value="british">British</md-option>
+							<md-option value="mixed">Mixed/multiple ethnic groups</md-option>
+							<md-option value="asian">Asian (Indian, Pakistani, Bangladeshi, Chinese)</md-option>
+							<md-option value="african">Black / African / Carribean</md-option>
+							<md-option value="arab">Arab</md-option>
+						</md-select>
+						<div ng-messages="patientForm.gender.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
@@ -59,6 +74,47 @@
 							<div ng-message="required">This is required.</div>
 						</div>
 					</md-input-container>
+				</div>
+				<div>
+					<md-input-container class="input-date">
+						<label>Diagnosis Date</label>
+						<md-datepicker name="diagnosisDate" ng-model="vm.patient.diagnosisDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+					</md-input-container>
+					<md-input-container class="input-date">
+						<label>Onset Date</label>
+						<md-datepicker name="onsetDate" ng-model="vm.patient.onsetDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+					</md-input-container>
+					<md-input-container class="input-date">
+						<label>Gastrostomy Date</label>
+						<md-datepicker name="gastrostomyDate" ng-model="vm.patient.gastrostomyDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+					</md-input-container>
+					<md-input-container class="input-date">
+						<label>NIV Date</label>
+						<md-datepicker name="nivDate" ng-model="vm.patient.nivDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+					</md-input-container>
+				</div>
+				<div>
+					<md-input-container class="input-date">
+						<label>Date of Death</label>
+						<md-datepicker name="deathDate" ng-model="vm.patient.deathDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+					</md-input-container>
+					<md-input-container class="input-date">
+						<label>Place of Death</label>
+						<input type="text" name="deathPlace" ng-model="vm.patient.deathPlace" autocomplete="off">
+					</md-input-container>
+				</div>
+				<div>
+					<h3 style="margin-bottom:0;">MND Type</h3>
+					<md-chips ng-model="vm.patient.mndType" md-enable-chip-edit="true" placeholder="Enter a MND Type" delete-button-label="Remove Type" delete-hint="Press delete to remove type" secondary-placeholder="+Type">
+						<md-autocomplete
+				          md-selected-item="vm.selectedItem"
+				          md-search-text="vm.searchText"
+				          md-items="type in vm.querySearch(vm.searchText)"
+				          md-item-text="type"
+						  placeholder="Enter a MND Type">
+				        <span md-highlight-text="vm.searchText">{{type}}</span>
+				      </md-autocomplete>
+					</md-chips>
 				</div>
 			</div>
 		</md-dialog-content>

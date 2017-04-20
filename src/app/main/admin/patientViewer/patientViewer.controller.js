@@ -1,7 +1,7 @@
 import angular from 'angular';
 import d3 from 'd3';
 
-function chartOptions(str){
+function chartOptions(str, legend) {
 	return {
 		chart: {
 			type: 'lineChart',
@@ -29,19 +29,12 @@ function chartOptions(str){
 			yAxis: {
 				showMaxMin: true,
 				// axisLabel: 'Weight',
-				tickFormat: (d) => str ? d + str : d,
+				tickFormat: (d) => d ? str ? d + str : d : null,
 				// axisLabelDistance: 0
 			},
 			legend: {
-				updateState: false,
+				updateState: legend ? legend : false,
 			}
-			// forceY: [0],
-			// interactiveLayer: {
-			// 	tooltip: {
-			// 		gravity: 's',
-			// 		classes: 'gravity-s'
-			// 	}
-			// },
 		}
 	};
 }
@@ -72,17 +65,39 @@ class patientViewerController {
 			limitOptions: [10, 25, 50],
 			page: 1
 		};
-
-		this.graphType = 'weight';
-
 		this.graphDataWeight = this.patient.graphData;
-		this.graphOptionsWeight = chartOptions();
+		this.graphOptionsWeight = chartOptions('', true);
 		this.graphDataEss = this.patient.graphData.filter(e => e.key.includes('ESS'));
 		this.graphOptionsEss = chartOptions();
 		this.graphDataFvc = this.patient.graphData.filter(e => e.key.includes('FVC'));
 		this.graphOptionsFvc = chartOptions('%');
 		this.graphDataSpO2 = this.patient.graphData.filter(e => e.key.includes('spO2'));
 		this.graphOptionsSpO2 = chartOptions('%');
+	}
+	exists(item, list) {
+		return list.indexOf(item) > -1;
+	}
+	toggle(item, list) {
+		var idx = list.indexOf(item);
+		if (idx > -1) {
+			list.splice(idx, 1);
+		} else {
+			list.push(item);
+		}
+	}
+	refreshGraphs() {
+		this.graphDataWeight = this.patient.graphData;
+		this.graphOptionsWeight = chartOptions();
+		this.graphApiWeight.refreshWithTimeout(5);
+		this.graphDataEss = this.patient.graphData.filter(e => e.key.includes('ESS'));
+		this.graphOptionsEss = chartOptions();
+		this.graphApiEss.refreshWithTimeout(5);
+		this.graphDataFvc = this.patient.graphData.filter(e => e.key.includes('FVC'));
+		this.graphOptionsFvc = chartOptions('%');
+		this.graphApiFvc.refreshWithTimeout(5);
+		this.graphDataSpO2 = this.patient.graphData.filter(e => e.key.includes('spO2'));
+		this.graphOptionsSpO2 = chartOptions('%');
+		this.graphApiSpO2.refreshWithTimeout(5);
 	}
 	addAppointment(ev) {
 		this.$mdDialog.show({
