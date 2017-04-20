@@ -35,7 +35,7 @@ export default class UserDialogController {
 	}
 	querySearch(query) {
 		const MNDTypes = ['Bulbar', 'Dysarthria', 'Left Arm', 'Right Arm', 'Left Leg', 'Right Leg', 'Respiratory Failure'];
-		return query ? MNDTypes.filter(t => t.toLowerCase().includes(query)) : [];
+		return query ? MNDTypes.filter(t => t.toLowerCase().includes(query.toLowerCase())) : [];
     }
 	closeDialog(data) {
 		this.$mdDialog.hide(data);
