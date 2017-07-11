@@ -11,6 +11,7 @@ const AppointmentSchema = new mongoose.Schema({
 		get: num => (num / 100).toFixed(2),
 		set: num => num * 100,
 	},
+	assessor: String,
 	alsfrs: {
 		speech: { type: Number, default: null },
 		salivation: { type: Number, default: null },
@@ -41,7 +42,11 @@ const AppointmentSchema = new mongoose.Schema({
 		sitting: { type: Number, default: null },
 		supine: { type: Number, default: null },
 	},
-	snp: { type: Number, default: null },
+	snp: {
+		nostril: { type: String, default: null },
+		size: { type: Number, default: null },
+		score: { type: Number, default: null },
+	},
 	spO2: { type: Number, default: null },
 	abg: {
 		pH: {

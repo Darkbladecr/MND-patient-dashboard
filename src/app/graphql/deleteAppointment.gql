@@ -51,7 +51,11 @@ mutation deleteAppointment($token:String!, $appointmentId:String!) {
 					sitting
 					supine
 				}
-				snp
+				snp {
+					size
+					nostril
+					score
+				}
 				spO2
 				abg {
 					pH

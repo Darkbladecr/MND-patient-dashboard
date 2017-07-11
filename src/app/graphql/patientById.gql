@@ -59,7 +59,11 @@ query getPatientById($token:String!, $_id:String!) {
 					sitting
 					supine
 				}
-				snp
+				snp {
+					nostril
+					size
+					score
+				}
 				spO2
 				abg {
 					pH

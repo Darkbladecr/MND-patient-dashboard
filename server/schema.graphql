@@ -87,7 +87,7 @@ type Appointment {
 	alsfrs: ALSFRS
 	ess: ESS
 	fvc: FVC
-	snp: Int
+	snp: SNP
 	spO2: Int
 	abg: ABG
 }
@@ -99,7 +99,7 @@ input AppointmentInput {
 	alsfrs: ALSFRSInput
 	ess: ESSInput
 	fvc: FVCInput
-	snp: Int
+	snp: SNPInput
 	spO2: Int
 	abg: ABGInput
 }
@@ -168,6 +168,18 @@ type FVC {
 input FVCInput {
 	sitting: Int
 	supine: Int
+}
+
+type SNP {
+	nostril: String
+	size: Int
+	score: Int
+}
+
+input SNPInput {
+	nostril: String
+	size: Int
+	score: Int
 }
 
 type ABG {

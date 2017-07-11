@@ -4,7 +4,7 @@
 			<form name="appointmentForm">
 				<md-toolbar>
 					<div class="md-toolbar-tools">
-						<h2>
+						<h2 ng-if="vm.appointment">
 					{{vm.appointment.hasOwnProperty('_id') ? 'Edit Appointment' : 'Add New Appointment'}}
 					<span ng-if="vm.selectedIndex === 1"> - ALSFRS Score: {{vm.appointment.alsfrs.total || 0}}</span>
 					<span ng-if="vm.selectedIndex === 2"> - ESS Score: {{vm.appointment.ess.total || 0}}</span>
@@ -47,8 +47,19 @@
 										<input type="number" name="spO2" ng-model="vm.appointment.spO2" autocomplete="off">
 									</md-input-container>
 									<md-input-container>
-										<label>SNP</label>
-										<input type="number" name="snp" ng-model="vm.appointment.snp" autocomplete="off">
+										<label>SNP - Score</label>
+										<input type="number" name="snp" ng-model="vm.appointment.snp.score" autocomplete="off">
+									</md-input-container>
+									<md-input-container>
+										<label>SNP - Size</label>
+										<input type="number" name="snp" ng-model="vm.appointment.snp.size" autocomplete="off">
+									</md-input-container>
+									<md-input-container style="height:57.5px;width:90px">
+										<label>SNP - Nostril</label>
+										<md-select name="snp_nostril" ng-model="vm.appointment.snp.nostril">
+											<md-option value="right">Right</md-option>
+											<md-option value="left">Left</md-option>
+										</md-select>
 									</md-input-container>
 								</div>
 								<h3>Specialised Scores</h3>

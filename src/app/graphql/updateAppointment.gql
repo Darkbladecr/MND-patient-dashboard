@@ -51,7 +51,11 @@ mutation updateAppointment($token:String!, $appointment:AppointmentInput!) {
 					sitting
 					supine
 				}
-				snp
+				snp {
+					size
+					nostril
+					score
+				}
 				spO2
 				abg {
 					pH
