@@ -16,8 +16,8 @@
     "build": "npm run webpack:prod && npm run copy-files",
     "build-backend": "BABEL_ENV=server babel server -d distServer",
     "copy-files": "cp -R src/assets dist",
-	"heroku-prebuild": "mkdir distServer && rm -r distServer",
-	"heroku-postbuild": "npm run build && npm run build-backend"
+    "heroku-prebuild": "mkdir distServer && rm -r distServer",
+    "heroku-postbuild": "npm run build && npm run build-backend"
   },
   "repository": {
     "type": "git",
@@ -135,7 +135,7 @@
     "ejs-compiled-loader": "^1.1.0",
     "eslint": "^3.10.2",
     "eslint-plugin-graphql": "^0.6.1",
-	"estraverse": "^4.1.1",
+    "estraverse": "^4.1.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "favicons-webpack-plugin": "^0.0.7",
     "file-loader": "^0.10.1",

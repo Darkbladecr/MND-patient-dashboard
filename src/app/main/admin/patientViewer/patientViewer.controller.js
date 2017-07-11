@@ -150,19 +150,6 @@ class patientViewerController {
 			});
 	}
 	clinicLetter(a) {
-		// speech: { type: Number, default: null },
-		// salivation: { type: Number, default: null },
-		// swallowing: { type: Number, default: null },
-		// handwriting: { type: Number, default: null },
-		// cutting: { type: Number, default: null },
-		// dressing: { type: Number, default: null },
-		// turning: { type: Number, default: null },
-		// walking: { type: Number, default: null },
-		// climbing: { type: Number, default: null },
-		// dyspnea: { type: Number, default: null },
-		// orthopnea: { type: Number, default: null },
-		// respiratory: { type: Number, default: null },
-		console.log(a);
 		const outcomes = `Weight ${a.weight} kg, ALSFRS-R ${a.alsfrs
 			.total}/48 (${a.alsfrs.speech}/${a.alsfrs.salivation}/${a.alsfrs
 			.swallowing}/${a.alsfrs.handwriting}/${a.alsfrs.cutting}/${a.alsfrs
