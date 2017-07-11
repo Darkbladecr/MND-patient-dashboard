@@ -59,17 +59,11 @@
 				<div>
 					<md-input-container>
 						<label>Patient Number</label>
-						<input type="text" name="patientNumber" ng-model="vm.patient.patientNumber" autocomplete="off" required>
-						<div ng-messages="patientForm.patientNumber.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
+						<input type="text" name="patientNumber" ng-model="vm.patient.patientNumber" autocomplete="off">
 					</md-input-container>
 					<md-input-container>
 						<label>NHS Number</label>
-						<input type="text" name="NHSnumber" ng-model="vm.patient.NHSnumber" autocomplete="off" required>
-						<div ng-messages="patientForm.NHSnumber.$error">
-							<div ng-message="required">This is required.</div>
-						</div>
+						<input type="text" name="NHSnumber" ng-model="vm.patient.NHSnumber" autocomplete="off">
 					</md-input-container>
 				</div>
 				<div>

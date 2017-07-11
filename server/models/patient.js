@@ -79,7 +79,7 @@ const AppointmentSchema = new mongoose.Schema({
 
 const PatientSchema = new mongoose.Schema({
 	firstName: { type: String },
-	lastName: { type: String },
+	lastName: { type: String, default: '' },
 	gender: { type: String },
 	ethnicity: { type: String },
 	diagnosisDate: { type: Date, default: null },
@@ -89,9 +89,9 @@ const PatientSchema = new mongoose.Schema({
 	nivDate: { type: Date, default: null },
 	deathDate: { type: Date, default: null },
 	deathPlace: { type: String, default: null },
-	patientNumber: { type: String, default: null },
-	NHSnumber: { type: String, default: null },
-	dateOfBirth: { type: Date },
+	patientNumber: { type: String, default: 0 },
+	NHSnumber: { type: String, default: 0 },
+	dateOfBirth: { type: Date, default: Date.now },
 	createdAt: {
 		type: Date,
 		default: Date.now,
