@@ -102,7 +102,7 @@ const PatientSchema = new mongoose.Schema({
 	postcode: { type: String, default: '' },
 	diagnosisDate: { type: Date, default: null },
 	onsetDate: { type: Date, default: null },
-	mndType: { type: [String], default: [] },
+	mndType: { type: String, default: '' },
 	gastrostomyDate: { type: Date, default: null },
 	nivDate: { type: Date, default: null },
 	deathDate: { type: Date, default: null },

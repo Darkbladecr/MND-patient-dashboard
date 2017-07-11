@@ -6,7 +6,6 @@ export default class UserDialogController {
 
 		this.title = '_id' in patient ? 'Edit Patient' : 'Add New Patient';
 		this.patient = patient;
-		this.patient.mndType = this.patient.mndType ? this.patient.mndType : [];
 	}
 	updatePatient() {
 		if ('_id' in this.patient) {
@@ -36,22 +35,6 @@ export default class UserDialogController {
 				.createPatient(this.patient)
 				.then(patient => this.closeDialog(patient));
 		}
-	}
-	querySearch(query) {
-		const MNDTypes = [
-			'Bulbar',
-			'Dysarthria',
-			'Left Arm',
-			'Right Arm',
-			'Left Leg',
-			'Right Leg',
-			'Respiratory Failure',
-		];
-		return query
-			? MNDTypes.filter(t =>
-					t.toLowerCase().includes(query.toLowerCase())
-				)
-			: [];
 	}
 	closeDialog(data) {
 		this.$mdDialog.hide(data);

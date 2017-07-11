@@ -99,17 +99,20 @@
 					</md-input-container>
 				</div>
 				<div>
-					<h3 style="margin-bottom:0;">MND Type</h3>
-					<md-chips ng-model="vm.patient.mndType" md-enable-chip-edit="true" placeholder="Enter a MND Type" delete-button-label="Remove Type" delete-hint="Press delete to remove type" secondary-placeholder="+Type">
-						<md-autocomplete
-				          md-selected-item="vm.selectedItem"
-				          md-search-text="vm.searchText"
-				          md-items="type in vm.querySearch(vm.searchText)"
-				          md-item-text="type"
-						  placeholder="Enter a MND Type">
-				        <span md-highlight-text="vm.searchText">{{type}}</span>
-				      </md-autocomplete>
-					</md-chips>
+					<md-input-container style="height:57.5px;">
+						<label>MND Type</label>
+						<md-select name="gender" ng-model="vm.patient.mndType">
+							<md-option value="Sporadic ALS - Spinal Onset">Sporadic ALS - Spinal Onset</md-option>
+							<md-option value="Sporadic ALS - Bulbar Onset">Sporadic ALS - Bulbar Onset</md-option>
+							<md-option value="Familial ALS">Familial ALS</md-option>
+							<md-option value="ALS/FTD">ALS/FTD</md-option>
+							<md-option value="MND - lower limb">MND - lower limb</md-option>
+							<md-option value="MND - upper limb">MND - upper limb</md-option>
+							<md-option value="Primary lateral sclerosis">Primary lateral sclerosis</md-option>
+							<md-option value="Progressive Muscular Atrophy">Progressive Muscular Atrophy</md-option>
+							<md-option value="Kennedy's Disease">Kennedy's Disease</md-option>
+						</md-select>
+					</md-input-container>
 				</div>
 			</div>
 		</md-dialog-content>

@@ -36,7 +36,7 @@ type Patient {
 	postcode: String
 	diagnosisDate: Date
 	onsetDate: Date
-	mndType: [String]
+	mndType: String
 	gastrostomyDate: Date
 	nivDate: Date
 	deathDate: Date
@@ -59,7 +59,7 @@ input PatientInput {
 	postcode: String
 	diagnosisDate: Date
 	onsetDate: Date
-	mndType: [String]
+	mndType: String
 	gastrostomyDate: Date
 	nivDate: Date
 	deathDate: Date
