@@ -130,6 +130,7 @@ class patientViewerController {
 			})
 			.then(patient => {
 				this.patient = patient;
+				this.refreshGraphs();
 			});
 	}
 	editAppointment(ev, appointment) {
@@ -149,6 +150,7 @@ class patientViewerController {
 			.then(patient => {
 				this.selected = [];
 				this.patient = patient;
+				this.refreshGraphs();
 			});
 	}
 	clinicLetter(ev, a) {
@@ -188,10 +190,13 @@ class patientViewerController {
 			.ok('Delete')
 			.cancel('Cancel');
 		this.$mdDialog.show(confirm).then(() => {
-			this.patientsService.deleteAppointment(appointment._id);
-			this.patient.appointments = this.patient.appointments.filter(
-				a => a._id !== appointment._id
-			);
+			this.patientsService
+				.deleteAppointment(appointment._id)
+				.then(patient => {
+					this.selected = [];
+					this.patient = patient;
+					this.refreshGraphs();
+				});
 		});
 	}
 }

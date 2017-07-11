@@ -222,6 +222,7 @@ export default class patientsService {
 			.then(this.graphqlService.extract)
 			.then(
 				result => {
+					console.log(result);
 					const patient = result.addAppointment;
 					patient.appointments = patient.appointments.map(a => {
 						a.clinicDate = new Date(a.clinicDate);
@@ -244,11 +245,14 @@ export default class patientsService {
 			.then(this.graphqlService.extract)
 			.then(
 				result => {
+					console.log(result);
+
 					const patient = result.updateAppointment;
 					patient.appointments = patient.appointments.map(a => {
 						a.clinicDate = new Date(a.clinicDate);
 						return a;
 					});
+					console.log(patient);
 					return patient;
 				},
 				err => this.graphqlService.error(err)

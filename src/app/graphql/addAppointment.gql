@@ -10,6 +10,13 @@ mutation addAppointment($token:String!, $patientId:String!, $appointment:Appoint
 			dateOfBirth
 			createdAt
 			lastUpdated
+			graphData {
+				key
+				values {
+					x
+					y
+				}
+			}
 			appointments {
 				_id
 				clinicDate

@@ -10,6 +10,13 @@ mutation deleteAppointment($token:String!, $appointmentId:String!) {
 			dateOfBirth
 			createdAt
 			lastUpdated
+			graphData {
+				key
+				values {
+					x
+					y
+				}
+			}
 			appointments {
 				_id
 				clinicDate
