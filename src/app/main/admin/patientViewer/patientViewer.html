@@ -65,6 +65,7 @@
 												<tr md-row>
 													<th md-column md-order-by="clinicDate" md-desc><span>Clinic Date</span></th>
 													<th md-column>Weight</th>
+													<th md-column>BMI</th>
 													<th md-column>ALSFRS-R</th>
 													<th md-column><span>ESS</span></th>
 													<th md-column><span>FVC Sitting</span></th>
@@ -78,6 +79,7 @@
 												<tr md-row md-select="appointment" md-auto-select="$ctrl.options.autoSelect" ng-repeat="appointment in $ctrl.patient.appointments | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit track by appointment._id">
 													<td md-cell>{{appointment.clinicDate | date:'dd/MM/yy'}}</td>
 													<td md-cell>{{appointment.weight | number:1}}</td>
+													<td md-cell>{{appointment.bmi | number:1}}</td>
 													<td md-cell>{{appointment.alsfrs.total}}</td>
 													<td md-cell>{{appointment.ess.total}}</td>
 													<td md-cell>{{appointment.fvc.sitting}}</td>

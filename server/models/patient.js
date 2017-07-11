@@ -5,7 +5,19 @@ const AppointmentSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
+	height: {
+		type: Number,
+		default: 0,
+		get: num => (num / 100).toFixed(2),
+		set: num => num * 100,
+	},
 	weight: {
+		type: Number,
+		default: 0,
+		get: num => (num / 100).toFixed(2),
+		set: num => num * 100,
+	},
+	bmi: {
 		type: Number,
 		default: 0,
 		get: num => (num / 100).toFixed(2),

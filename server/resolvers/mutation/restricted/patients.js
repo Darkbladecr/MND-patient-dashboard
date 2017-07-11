@@ -8,13 +8,17 @@ function createPatient(obj, { patient }) {
 				logger.error(err);
 				return reject(err);
 			}
-			User.findByIdAndUpdate(obj._id, { $addToSet: { patients: patient._id } }, err => {
-				if (err) {
-					logger.error(err);
-					return reject(err);
+			User.findByIdAndUpdate(
+				obj._id,
+				{ $addToSet: { patients: patient._id } },
+				err => {
+					if (err) {
+						logger.error(err);
+						return reject(err);
+					}
+					return resolve(patient);
 				}
-				return resolve(patient);
-			});
+			);
 		});
 	});
 }
@@ -23,13 +27,18 @@ function updatePatient(obj, { patient }) {
 	return new Promise((resolve, reject) => {
 		const _id = patient._id;
 		delete patient._id;
-		Patient.findByIdAndUpdate(_id, patient, { new: true }, (err, patient) => {
-			if (err) {
-				logger.error(err);
-				return reject(err);
+		Patient.findByIdAndUpdate(
+			_id,
+			patient,
+			{ new: true },
+			(err, patient) => {
+				if (err) {
+					logger.error(err);
+					return reject(err);
+				}
+				return resolve(patient);
 			}
-			return resolve(patient);
-		});
+		);
 	});
 }
 
@@ -47,30 +56,42 @@ function deletePatient(obj, { _id }) {
 
 function addAppointment(obj, { patientId, appointment }) {
 	return new Promise((resolve, reject) => {
-		Patient.findByIdAndUpdate(patientId, { $addToSet: { appointments: appointment } }, { new: true }, (err, patient) => {
-			if (err) {
-				logger.error(err);
-				return reject(err);
+		Patient.findByIdAndUpdate(
+			patientId,
+			{ $addToSet: { appointments: appointment } },
+			{ new: true },
+			(err, patient) => {
+				if (err) {
+					logger.error(err);
+					return reject(err);
+				}
+				return resolve(patient);
 			}
-			return resolve(patient);
-		})
+		);
 	});
 }
 
 function updateAppointment(obj, { appointment }) {
 	return new Promise((resolve, reject) => {
 		appointment.weight = appointment.weight * 100;
-		Patient.findOneAndUpdate({ 'appointments._id': appointment._id }, {
-			$set: {
-				'appointments.$': appointment
+		appointment.height = appointment.height * 100;
+		appointment.bmi = appointment.bmi * 100;
+		Patient.findOneAndUpdate(
+			{ 'appointments._id': appointment._id },
+			{
+				$set: {
+					'appointments.$': appointment,
+				},
+			},
+			{ new: true },
+			(err, patient) => {
+				if (err) {
+					logger.error(err);
+					return reject(err);
+				}
+				return resolve(patient);
 			}
-		}, { new: true }, (err, patient) => {
-			if (err) {
-				logger.error(err);
-				return reject(err);
-			}
-			return resolve(patient);
-		});
+		);
 	});
 }
 
@@ -95,15 +116,20 @@ function updateAppointment(obj, { appointment }) {
 
 function deleteAppointment(obj, { appointmentId }) {
 	return new Promise((resolve, reject) => {
-		Patient.findOneAndUpdate({ 'appointments._id': appointmentId }, {
-			$pull: { appointments: { _id: appointmentId } }
-		}, { new: true }, (err, patient) => {
-			if (err) {
-				logger.error(err);
-				return reject(err);
+		Patient.findOneAndUpdate(
+			{ 'appointments._id': appointmentId },
+			{
+				$pull: { appointments: { _id: appointmentId } },
+			},
+			{ new: true },
+			(err, patient) => {
+				if (err) {
+					logger.error(err);
+					return reject(err);
+				}
+				return resolve(patient);
 			}
-			return resolve(patient);
-		});
+		);
 	});
 }
 
@@ -116,4 +142,11 @@ function deleteAppointment(obj, { appointmentId }) {
 // 	console.log(p.appointments);
 // });
 
-export { createPatient, updatePatient, deletePatient, addAppointment, updateAppointment, deleteAppointment };
+export {
+	createPatient,
+	updatePatient,
+	deletePatient,
+	addAppointment,
+	updateAppointment,
+	deleteAppointment,
+};

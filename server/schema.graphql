@@ -84,6 +84,8 @@ type Appointment {
 	_id: ID
 	clinicDate: Date
 	weight: Float
+	height: Float
+	bmi: Float
 	alsfrs: ALSFRS
 	ess: ESS
 	fvc: FVC
@@ -96,6 +98,8 @@ input AppointmentInput {
 	_id: String
 	clinicDate: Date
 	weight: Float
+	height: Float
+	bmi: Float
 	alsfrs: ALSFRSInput
 	ess: ESSInput
 	fvc: FVCInput

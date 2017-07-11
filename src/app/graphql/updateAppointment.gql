@@ -21,6 +21,8 @@ mutation updateAppointment($token:String!, $appointment:AppointmentInput!) {
 				_id
 				clinicDate
 				weight
+				height
+				bmi
 				alsfrs {
 					speech
 					salivation

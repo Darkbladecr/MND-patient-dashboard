@@ -29,6 +29,8 @@ query getPatientById($token:String!, $_id:String!) {
 				_id
 				clinicDate
 				weight
+				height
+				bmi
 				alsfrs {
 					speech
 					salivation
