@@ -47,8 +47,8 @@ for i, row in enumerate(ws.rows):
                    "deathPlace": deathPlace,
                    "createdAt": datetime.utcnow(),
                    "lastUpdated": datetime.utcnow()}
-        # pprint(patient)
-        db.patients.insert_one(patient)
+        pprint(patient['dateOfBirth'])
+        # db.patients.insert_one(patient)
 
 # heading = ['Name', 'DOB', 'DOD', 'Ethnicity', 'Onset date',
 #            'Age at onset', 'Diagnosis date', 'Age at diagnosis',

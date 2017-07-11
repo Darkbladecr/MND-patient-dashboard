@@ -1,5 +1,7 @@
 import angular from 'angular';
 import d3 from 'd3';
+import clinicLetterTemplate from './dialogs/clinicLetter.html';
+import clinicLetterController from './dialogs/clinicLetter.controller';
 
 function chartOptions(str, legend) {
 	return {
@@ -149,7 +151,7 @@ class patientViewerController {
 				this.patient = patient;
 			});
 	}
-	clinicLetter(a) {
+	clinicLetter(ev, a) {
 		const outcomes = `Weight ${a.weight} kg, ALSFRS-R ${a.alsfrs
 			.total}/48 (${a.alsfrs.speech}/${a.alsfrs.salivation}/${a.alsfrs
 			.swallowing}/${a.alsfrs.handwriting}/${a.alsfrs.cutting}/${a.alsfrs
@@ -159,7 +161,19 @@ class patientViewerController {
 			.total}. SpO2 ${a.spO2}%. SNP ${a.snp}. ABG - pH ${a.abg
 			.pH}, pO2 ${a.abg.pO2}, pCO2 ${a.abg.pCO2}, BE ${a.abg.be}, HCO3 ${a
 			.abg.HCO3}.`;
-		console.log(outcomes);
+		this.$mdDialog.show({
+			locals: {
+				event: ev,
+				outcomes: outcomes,
+			},
+			controller: clinicLetterController,
+			controllerAs: 'vm',
+			template: clinicLetterTemplate,
+			parent: angular.element(document.body),
+			targetEvent: ev,
+			clickOutsideToClose: false,
+			fullscreen: false,
+		});
 	}
 	exportAppointments() {
 		this.excelService.exportAppointments(this.patient._id);

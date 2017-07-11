@@ -41,7 +41,7 @@
 									</md-button>
 									<span>{{$ctrl.selected.length}} {{$ctrl.selected.length > 1 ? 'apointments' : 'appointment'}} selected</span>
 									<span flex></span>
-									<md-button class="md-raised" ngclipboard ng-click="$ctrl.clinicLetter($ctrl.selected[0])">
+									<md-button class="md-raised" ngclipboard ng-click="$ctrl.clinicLetter($event, $ctrl.selected[0])">
 										<md-icon md-font-icon="icon-content-paste" class="icon" aria-label="letter"></md-icon> Letter
 									</md-button>
 									<md-button class="md-raised" ng-click="$ctrl.editAppointment($event, $ctrl.selected[0])" ng-if="$ctrl.selected.length === 1">

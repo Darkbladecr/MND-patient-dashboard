@@ -12,11 +12,11 @@ export default function(req, res, next) {
 				return res.status(401).send('Token is invalid or missing.');
 			} else {
 				let today = parseInt(Date.now() / 1000);
-				if ('exp' in decoded && 'activeUntil' in decoded) {
+				if ('exp' in decoded) {
 					if (decoded.exp <= today) {
 						return res.status(400).send('Token Expired');
-					// } else if (decoded.activeUntil <= today) {
-					// 	return res.status(401).send('Your account has Expired.');
+						// } else if (decoded.activeUntil <= today) {
+						// 	return res.status(401).send('Your account has Expired.');
 					} else {
 						req.payload = decoded;
 						next();

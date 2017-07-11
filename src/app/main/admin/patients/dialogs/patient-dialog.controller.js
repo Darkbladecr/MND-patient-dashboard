@@ -25,22 +25,37 @@ export default class UserDialogController {
 				deathPlace: this.patient.deathPlace,
 				dateOfBirth: this.patient.dateOfBirth,
 				patientNumber: this.patient.patientNumber,
-				NHSnumber: this.patient.NHSnumber
+				NHSnumber: this.patient.NHSnumber,
 			};
-
-			this.patientsService.updatePatient(patient).then(patient => this.closeDialog(patient));
+			this.patientsService
+				.updatePatient(patient)
+				.then(patient => this.closeDialog(patient));
 		} else {
-			this.patientsService.createPatient(this.patient).then(patient => this.closeDialog(patient));
+			this.patientsService
+				.createPatient(this.patient)
+				.then(patient => this.closeDialog(patient));
 		}
 	}
 	querySearch(query) {
-		const MNDTypes = ['Bulbar', 'Dysarthria', 'Left Arm', 'Right Arm', 'Left Leg', 'Right Leg', 'Respiratory Failure'];
-		return query ? MNDTypes.filter(t => t.toLowerCase().includes(query.toLowerCase())) : [];
-    }
+		const MNDTypes = [
+			'Bulbar',
+			'Dysarthria',
+			'Left Arm',
+			'Right Arm',
+			'Left Leg',
+			'Right Leg',
+			'Respiratory Failure',
+		];
+		return query
+			? MNDTypes.filter(t =>
+					t.toLowerCase().includes(query.toLowerCase())
+				)
+			: [];
+	}
 	closeDialog(data) {
 		this.$mdDialog.hide(data);
 	}
-	cancelDialog(){
+	cancelDialog() {
 		this.$mdDialog.cancel();
 	}
 }

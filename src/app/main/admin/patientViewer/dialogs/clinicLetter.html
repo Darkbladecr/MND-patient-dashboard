@@ -1,0 +1,30 @@
+<div class="md-dialog-container" id="clinicLetter">
+	<md-dialog aria-label="Clinic Letter" style="width: 80%">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>Clinic Letter</h2>
+				<span flex></span>
+				<md-button class="md-icon-button" ng-click="vm.cancelDialog()">
+					<md-icon md-font-icon="icon-close" class="icon" aria-label="close"></md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content style="padding:0;">
+			<md-content>
+				<p id="letter">
+					{{vm.outcomes}}
+				</p>
+			</md-content>
+		</md-dialog-content>
+		<md-dialog-actions layout="row">
+			<span flex></span>
+			<md-button ng-click="vm.cancelDialog()">
+				Cancel
+			</md-button>
+			<md-button class="md-primary md-raised" ngclipboard data-clipboard-target="#letter" ng-click="vm.updateAppointment()" style="margin-right:20px;">
+				Save
+			</md-button>
+		</md-dialog-actions>
+		</form>
+	</md-dialog>
+</div>

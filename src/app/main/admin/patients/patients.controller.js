@@ -3,7 +3,17 @@ import PatientDialogController from './dialogs/patient-dialog.controller';
 import dialogTemplate from './dialogs/patient-dialog.html';
 
 export default class UsersController {
-	constructor($mdDialog, $mdSidenav, usersService, patientsService, AuthService, $scope, $q, $window, $state) {
+	constructor(
+		$mdDialog,
+		$mdSidenav,
+		usersService,
+		patientsService,
+		AuthService,
+		$scope,
+		$q,
+		$window,
+		$state
+	) {
 		'ngInject';
 		this.$mdDialog = $mdDialog;
 		this.$mdSidenav = $mdSidenav;
@@ -23,34 +33,40 @@ export default class UsersController {
 			boundaryLinks: true,
 			largeEditDialog: false,
 			pageSelector: false,
-			rowSelection: true
+			rowSelection: true,
 		};
 
 		this.query = {
 			order: '-createdAt',
 			limit: 10,
 			limitOptions: [10, 25, 50],
-			page: 1
+			page: 1,
 		};
 		this.bookmark = null;
-		this.$scope.$watch(() => this.search, (newValue, oldValue) => {
-			if (!oldValue) {
-				this.bookmark = this.query.page;
+		this.$scope.$watch(
+			() => this.search,
+			(newValue, oldValue) => {
+				if (!oldValue) {
+					this.bookmark = this.query.page;
+				}
+				if (newValue !== oldValue) {
+					this.query.page = 1;
+					this.getPatients(this.search);
+				}
+				if (!newValue) {
+					this.query.page = this.bookmark;
+				}
 			}
-			if (newValue !== oldValue) {
-				this.query.page = 1;
-				this.getPatients(this.search);
-			}
-			if (!newValue) {
-				this.query.page = this.bookmark;
-			}
-		});
+		);
 	}
-	$onInit(){
+	$onInit() {
 		this.getPatients();
 	}
-	pageChange(){
-		const container = this.$window.innerWidth < 600 ? angular.element(document.getElementById('content')) : angular.element(document.getElementById('list-pane'));
+	pageChange() {
+		const container =
+			this.$window.innerWidth < 600
+				? angular.element(document.getElementById('content'))
+				: angular.element(document.getElementById('list-pane'));
 		container.scrollTop(0);
 	}
 	getPatients(search) {
@@ -62,31 +78,14 @@ export default class UsersController {
 		});
 	}
 	viewPatient(patient) {
-		this.$state.go('app.patientViewer', {patientId: patient._id});
+		this.$state.go('app.patientViewer', { patientId: patient._id });
 	}
 	addPatient(ev) {
-		this.$mdDialog.show({
-			locals: {
-				event: ev,
-				patient: {}
-			},
-			controller: PatientDialogController,
-			controllerAs: 'vm',
-			template: dialogTemplate,
-			parent: angular.element(document.body),
-			targetEvent: ev,
-			clickOutsideToClose: false,
-			fullscreen: false
-		}).then(patient => {
-			this.patients = [...this.patients, patient];
-		});
-	}
-	editPatient(ev, patient) {
-		this.patientsService.getPatientById(patient._id).then(patient => {
-			this.$mdDialog.show({
+		this.$mdDialog
+			.show({
 				locals: {
 					event: ev,
-					patient
+					patient: {},
 				},
 				controller: PatientDialogController,
 				controllerAs: 'vm',
@@ -94,17 +93,43 @@ export default class UsersController {
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose: false,
-				fullscreen: false
-			}).then(patient => {
-				this.selected = [];
-				this.patients = this.patients.map(p => p._id === patient._id ? patient : p);
+				fullscreen: false,
+			})
+			.then(patient => {
+				this.patients = [...this.patients, patient];
 			});
+	}
+	editPatient(ev, patient) {
+		this.patientsService.getPatientById(patient._id).then(patient => {
+			this.$mdDialog
+				.show({
+					locals: {
+						event: ev,
+						patient,
+					},
+					controller: PatientDialogController,
+					controllerAs: 'vm',
+					template: dialogTemplate,
+					parent: angular.element(document.body),
+					targetEvent: ev,
+					clickOutsideToClose: false,
+					fullscreen: false,
+				})
+				.then(patient => {
+					this.selected = [];
+					this.patients = this.patients.map(
+						p => (p._id === patient._id ? patient : p)
+					);
+				});
 		});
 	}
 	deleteConfirm(ev, patient) {
-		const confirm = this.$mdDialog.confirm()
+		const confirm = this.$mdDialog
+			.confirm()
 			.title(`Delete Patient`)
-			.textContent(`Are you sure you want to delete ${patient.firstName} ${patient.lastName}?`)
+			.textContent(
+				`Are you sure you want to delete ${patient.firstName} ${patient.lastName}?`
+			)
 			.ariaLabel('Are you sure you want to delete this user?')
 			.targetEvent(ev)
 			.ok('Delete')
@@ -112,6 +137,7 @@ export default class UsersController {
 		this.$mdDialog.show(confirm).then(() => {
 			this.patientsService.deletePatient(patient);
 			this.patients = this.patients.filter(p => p._id !== patient._id);
+			this.selected = [];
 		});
 	}
 	toggleSidenav(sidenavId) {
