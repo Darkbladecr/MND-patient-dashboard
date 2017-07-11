@@ -99,6 +99,7 @@ const PatientSchema = new mongoose.Schema({
 	lastName: { type: String, default: '' },
 	gender: { type: String },
 	ethnicity: { type: String },
+	postcode: { type: String, default: '' },
 	diagnosisDate: { type: Date, default: null },
 	onsetDate: { type: Date, default: null },
 	mndType: { type: [String], default: [] },

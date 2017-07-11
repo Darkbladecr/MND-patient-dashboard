@@ -1,3 +1,6 @@
+import getPatients from '../graphql/getPatients.gql';
+import createPatient from '../graphql/createPatient.gql';
+import updatePatient from '../graphql/updatePatient.gql';
 import patientById from '../graphql/patientById.gql';
 import addAppointmentQL from '../graphql/addAppointment.gql';
 import updateAppointmentQL from '../graphql/updateAppointment.gql';
@@ -48,34 +51,7 @@ export default class patientsService {
 	getPatients(search) {
 		return this.apollo
 			.query({
-				query: gql`
-					query getPatients($token: String!, $search: String) {
-						restricted(token: $token) {
-							patients(search: $search) {
-								_id
-								firstName
-								lastName
-								gender
-								ethnicity
-								diagnosisDate
-								onsetDate
-								mndType
-								gastrostomyDate
-								nivDate
-								deathDate
-								deathPlace
-								patientNumber
-								NHSnumber
-								dateOfBirth
-								createdAt
-								lastUpdated
-								appointments {
-									_id
-								}
-							}
-						}
-					}
-				`,
+				query: getPatients,
 				variables: {
 					token: this.AuthService.getToken(),
 					search,
@@ -95,34 +71,7 @@ export default class patientsService {
 	createPatient(patient) {
 		return this.apollo
 			.mutate({
-				mutation: gql`
-					mutation createPatient(
-						$token: String!
-						$patient: PatientInput!
-					) {
-						restricted(token: $token) {
-							createPatient(patient: $patient) {
-								_id
-								firstName
-								lastName
-								gender
-								ethnicity
-								diagnosisDate
-								onsetDate
-								mndType
-								gastrostomyDate
-								nivDate
-								deathDate
-								deathPlace
-								patientNumber
-								NHSnumber
-								dateOfBirth
-								createdAt
-								lastUpdated
-							}
-						}
-					}
-				`,
+				mutation: createPatient,
 				variables: {
 					token: this.AuthService.getToken(),
 					patient,
@@ -141,34 +90,7 @@ export default class patientsService {
 	updatePatient(patient) {
 		return this.apollo
 			.mutate({
-				mutation: gql`
-					mutation updatePatient(
-						$token: String!
-						$patient: PatientInput!
-					) {
-						restricted(token: $token) {
-							updatePatient(patient: $patient) {
-								_id
-								firstName
-								lastName
-								gender
-								ethnicity
-								diagnosisDate
-								onsetDate
-								mndType
-								gastrostomyDate
-								nivDate
-								deathDate
-								deathPlace
-								patientNumber
-								NHSnumber
-								dateOfBirth
-								createdAt
-								lastUpdated
-							}
-						}
-					}
-				`,
+				mutation: updatePatient,
 				variables: {
 					token: this.AuthService.getToken(),
 					patient,
