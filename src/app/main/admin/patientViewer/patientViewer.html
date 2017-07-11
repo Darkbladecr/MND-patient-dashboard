@@ -29,6 +29,9 @@
 								<div class="md-toolbar-tools">
 									<span>Appointments</span>
 									<span flex></span>
+									<md-button class="md-raised" ng-click="$ctrl.exportAppointments()">
+										<md-icon md-font-icon="icon-export" class="icon" aria-label="export"></md-icon> Export
+									</md-button>
 								</div>
 							</md-toolbar>
 							<md-toolbar class="md-table-toolbar alternate" ng-if="$ctrl.options.rowSelection && $ctrl.selected.length">
@@ -38,10 +41,13 @@
 									</md-button>
 									<span>{{$ctrl.selected.length}} {{$ctrl.selected.length > 1 ? 'apointments' : 'appointment'}} selected</span>
 									<span flex></span>
+									<md-button class="md-raised" ng-click="$ctrl.clinicLetter($ctrl.selected[0])">
+										<md-icon md-font-icon="icon-mail" class="icon" aria-label="letter"></md-icon> Letter
+									</md-button>
 									<md-button class="md-raised" ng-click="$ctrl.editAppointment($event, $ctrl.selected[0])" ng-if="$ctrl.selected.length === 1">
 										<md-icon md-font-icon="icon-pencil" class="icon" aria-label="edit"></md-icon> Edit
 									</md-button>
-									<md-button class="md-raised" ng-click="$ctrl.deleteConfirm($event, $ctrl.selected[0])" ng-if="$ctrl.selected.length > 0">
+									<md-button class="md-raised" ng-click="$ctrl.deleteConfirm($event, $ctrl.selected[0])">
 										<md-icon md-font-icon="icon-delete" class="icon" aria-label="delete"></md-icon> Delete
 									</md-button>
 								</div>

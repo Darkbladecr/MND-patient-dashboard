@@ -11,7 +11,7 @@ function chartOptions(str, legend) {
 				top: 32,
 				right: 32,
 				bottom: 64,
-				left: 48
+				left: 48,
 			},
 			// isArea: true,
 			useInteractiveGuideline: true,
@@ -23,27 +23,28 @@ function chartOptions(str, legend) {
 			xAxis: {
 				// showMaxMin: false,
 				axisLabel: 'Date',
-				tickFormat: (date) => d3.time.format('%d %b %y')(new Date(date)),
-				staggerLabels: true
+				tickFormat: date => d3.time.format('%d %b %y')(new Date(date)),
+				staggerLabels: true,
 			},
 			yAxis: {
 				showMaxMin: true,
 				// axisLabel: 'Weight',
-				tickFormat: (d) => d ? str ? d + str : d : null,
+				tickFormat: d => (d ? (str ? d + str : d) : null),
 				// axisLabelDistance: 0
 			},
 			legend: {
 				updateState: legend ? legend : false,
-			}
-		}
+			},
+		},
 	};
 }
 
 class patientViewerController {
-	constructor($mdDialog, patientsService) {
+	constructor($mdDialog, patientsService, excelService) {
 		'ngInject';
 		this.$mdDialog = $mdDialog;
 		this.patientsService = patientsService;
+		this.excelService = excelService;
 
 		this.patient.appointments = this.patient.appointments.map(a => {
 			a.clinicDate = new Date(a.clinicDate);
@@ -56,22 +57,28 @@ class patientViewerController {
 			boundaryLinks: true,
 			largeEditDialog: false,
 			pageSelector: false,
-			rowSelection: true
+			rowSelection: true,
 		};
 
 		this.query = {
 			order: 'clinicDate',
 			limit: 10,
 			limitOptions: [10, 25, 50],
-			page: 1
+			page: 1,
 		};
 		this.graphDataWeight = this.patient.graphData;
 		this.graphOptionsWeight = chartOptions('', true);
-		this.graphDataEss = this.patient.graphData.filter(e => e.key.includes('ESS'));
+		this.graphDataEss = this.patient.graphData.filter(e =>
+			e.key.includes('ESS')
+		);
 		this.graphOptionsEss = chartOptions();
-		this.graphDataFvc = this.patient.graphData.filter(e => e.key.includes('FVC'));
+		this.graphDataFvc = this.patient.graphData.filter(e =>
+			e.key.includes('FVC')
+		);
 		this.graphOptionsFvc = chartOptions('%');
-		this.graphDataSpO2 = this.patient.graphData.filter(e => e.key.includes('spO2'));
+		this.graphDataSpO2 = this.patient.graphData.filter(e =>
+			e.key.includes('spO2')
+		);
 		this.graphOptionsSpO2 = chartOptions('%');
 	}
 	exists(item, list) {
@@ -89,51 +96,90 @@ class patientViewerController {
 		this.graphDataWeight = this.patient.graphData;
 		this.graphOptionsWeight = chartOptions();
 		this.graphApiWeight.refreshWithTimeout(5);
-		this.graphDataEss = this.patient.graphData.filter(e => e.key.includes('ESS'));
+		this.graphDataEss = this.patient.graphData.filter(e =>
+			e.key.includes('ESS')
+		);
 		this.graphOptionsEss = chartOptions();
 		this.graphApiEss.refreshWithTimeout(5);
-		this.graphDataFvc = this.patient.graphData.filter(e => e.key.includes('FVC'));
+		this.graphDataFvc = this.patient.graphData.filter(e =>
+			e.key.includes('FVC')
+		);
 		this.graphOptionsFvc = chartOptions('%');
 		this.graphApiFvc.refreshWithTimeout(5);
-		this.graphDataSpO2 = this.patient.graphData.filter(e => e.key.includes('spO2'));
+		this.graphDataSpO2 = this.patient.graphData.filter(e =>
+			e.key.includes('spO2')
+		);
 		this.graphOptionsSpO2 = chartOptions('%');
 		this.graphApiSpO2.refreshWithTimeout(5);
 	}
 	addAppointment(ev) {
-		this.$mdDialog.show({
-			locals: {
-				event: ev,
-				patientId: this.patient._id,
-				appointment: {}
-			},
-			contentElement: '#appointmentEditor',
-			parent: angular.element(document.body),
-			targetEvent: ev,
-			clickOutsideToClose: false,
-			fullscreen: false
-		}).then(patient => {
-			this.patient = patient;
-		});
+		this.$mdDialog
+			.show({
+				locals: {
+					event: ev,
+					patientId: this.patient._id,
+					appointment: {},
+				},
+				contentElement: '#appointmentEditor',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose: false,
+				fullscreen: false,
+			})
+			.then(patient => {
+				this.patient = patient;
+			});
 	}
 	editAppointment(ev, appointment) {
-		this.$mdDialog.show({
-			locals: {
-				event: ev,
-				patientId: this.patient._id,
-				appointment
-			},
-			contentElement: '#appointmentEditor',
-			parent: angular.element(document.body),
-			targetEvent: ev,
-			clickOutsideToClose: false,
-			fullscreen: false
-		}).then(patient => {
-			this.selected = [];
-			this.patient = patient;
-		});
+		this.$mdDialog
+			.show({
+				locals: {
+					event: ev,
+					patientId: this.patient._id,
+					appointment,
+				},
+				contentElement: '#appointmentEditor',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose: false,
+				fullscreen: false,
+			})
+			.then(patient => {
+				this.selected = [];
+				this.patient = patient;
+			});
+	}
+	clinicLetter(a) {
+		// speech: { type: Number, default: null },
+		// salivation: { type: Number, default: null },
+		// swallowing: { type: Number, default: null },
+		// handwriting: { type: Number, default: null },
+		// cutting: { type: Number, default: null },
+		// dressing: { type: Number, default: null },
+		// turning: { type: Number, default: null },
+		// walking: { type: Number, default: null },
+		// climbing: { type: Number, default: null },
+		// dyspnea: { type: Number, default: null },
+		// orthopnea: { type: Number, default: null },
+		// respiratory: { type: Number, default: null },
+		console.log(a);
+		const outcomes = `Weight ${a.weight} kg, ALSFRS-R ${a.alsfrs
+			.total}/48 (${a.alsfrs.speech}/${a.alsfrs.salivation}/${a.alsfrs
+			.swallowing}/${a.alsfrs.handwriting}/${a.alsfrs.cutting}/${a.alsfrs
+			.dressing}/${a.alsfrs.dressing}/${a.alsfrs.turning}/${a.alsfrs
+			.walking}/${a.alsfrs.climbing}/${a.alsfrs.dyspnea}/${a.alsfrs
+			.orthopnea}/${a.alsfrs.respiratory}). ESS ${a.ess
+			.total}. SpO2 ${a.spO2}%. SNP ${a.snp}. ABG - pH ${a.abg
+			.pH}, pO2 ${a.abg.pO2}, pCO2 ${a.abg.pCO2}, BE ${a.abg.be}, HCO3 ${a
+			.abg.HCO3}.`;
+		console.log(outcomes);
+	}
+	exportAppointments() {
+		this.excelService.exportAppointments(this.patient._id);
 	}
 	deleteConfirm(ev, appointment) {
-		const confirm = this.$mdDialog.confirm()
+		const confirm = this.$mdDialog
+			.confirm()
 			.title('Delete Appointment')
 			.textContent('Are you sure you want to delete this appointment?')
 			.ariaLabel('Are you sure you want to delete this appointment?')
@@ -142,7 +188,9 @@ class patientViewerController {
 			.cancel('Cancel');
 		this.$mdDialog.show(confirm).then(() => {
 			this.patientsService.deleteAppointment(appointment._id);
-			this.patient.appointments = this.patient.appointments.filter(a => a._id !== appointment._id);
+			this.patient.appointments = this.patient.appointments.filter(
+				a => a._id !== appointment._id
+			);
 		});
 	}
 }

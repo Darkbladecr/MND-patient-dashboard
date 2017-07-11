@@ -3,13 +3,13 @@ import mongoose from 'mongoose';
 const AppointmentSchema = new mongoose.Schema({
 	clinicDate: {
 		type: Date,
-		default: Date.now
+		default: Date.now,
 	},
 	weight: {
 		type: Number,
 		default: 0,
-		get: (num) => (num / 100).toFixed(2),
-		set: (num) => num * 100
+		get: num => (num / 100).toFixed(2),
+		set: num => num * 100,
 	},
 	alsfrs: {
 		speech: { type: Number, default: null },
@@ -24,7 +24,7 @@ const AppointmentSchema = new mongoose.Schema({
 		dyspnea: { type: Number, default: null },
 		orthopnea: { type: Number, default: null },
 		respiratory: { type: Number, default: null },
-		total: { type: Number, default: null }
+		total: { type: Number, default: null },
 	},
 	ess: {
 		sittingAndReading: { type: Number, default: null },
@@ -35,11 +35,11 @@ const AppointmentSchema = new mongoose.Schema({
 		sittingAndTalking: { type: Number, default: null },
 		sittingAfterLunch: { type: Number, default: null },
 		carTraffic: { type: Number, default: null },
-		total: { type: Number, default: null }
+		total: { type: Number, default: null },
 	},
 	fvc: {
 		sitting: { type: Number, default: null },
-		supine: { type: Number, default: null }
+		supine: { type: Number, default: null },
 	},
 	snp: { type: Number, default: null },
 	spO2: { type: Number, default: null },
@@ -47,41 +47,41 @@ const AppointmentSchema = new mongoose.Schema({
 		pH: {
 			type: Number,
 			default: null,
-			get: (num) => (num / 100).toFixed(2),
-			set: (num) => num * 100
+			get: num => (num / 100).toFixed(2),
+			set: num => num * 100,
 		},
 		pO2: {
 			type: Number,
 			default: null,
-			get: (num) => (num / 100).toFixed(2),
-			set: (num) => num * 100
+			get: num => (num / 100).toFixed(2),
+			set: num => num * 100,
 		},
 		pCO2: {
 			type: Number,
 			default: null,
-			get: (num) => (num / 100).toFixed(2),
-			set: (num) => num * 100
+			get: num => (num / 100).toFixed(2),
+			set: num => num * 100,
 		},
 		HCO3: {
 			type: Number,
 			default: null,
-			get: (num) => (num / 100).toFixed(2),
-			set: (num) => num * 100
+			get: num => (num / 100).toFixed(2),
+			set: num => num * 100,
 		},
 		be: {
 			type: Number,
 			default: null,
-			get: (num) => (num / 100).toFixed(2),
-			set: (num) => num * 100
-		}
-	}
+			get: num => (num / 100).toFixed(2),
+			set: num => num * 100,
+		},
+	},
 });
 
 const PatientSchema = new mongoose.Schema({
-	firstName: { type: String, required: true },
-	lastName: { type: String, required: true },
-	gender: { type: String, required: true },
-	ethnicity: { type: String, required: true },
+	firstName: { type: String },
+	lastName: { type: String },
+	gender: { type: String },
+	ethnicity: { type: String },
 	diagnosisDate: { type: Date, default: null },
 	onsetDate: { type: Date, default: null },
 	mndType: { type: [String], default: [] },
@@ -91,30 +91,29 @@ const PatientSchema = new mongoose.Schema({
 	deathPlace: { type: String, default: null },
 	patientNumber: { type: String, default: null },
 	NHSnumber: { type: String, default: null },
-	dateOfBirth: { type: Date, required: true },
+	dateOfBirth: { type: Date },
 	createdAt: {
 		type: Date,
-		default: Date.now
+		default: Date.now,
 	},
 	lastUpdated: {
 		type: Date,
-		default: Date.now
+		default: Date.now,
 	},
-	appointments: [AppointmentSchema]
+	appointments: [AppointmentSchema],
 });
 PatientSchema.index({
 	firstName: 'text',
 	lastName: 'text',
 });
 PatientSchema.index({
-	patientNumber: 1
+	patientNumber: 1,
 });
 PatientSchema.index({
-	NHSnumber: 1
+	NHSnumber: 1,
 });
 PatientSchema.index({
-	dateOfBirth: 1
+	dateOfBirth: 1,
 });
-
 
 export default PatientSchema;
