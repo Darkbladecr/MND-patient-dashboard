@@ -12,6 +12,10 @@
 .input-date {
 	min-width: 200px;
 }
+.deceased-cell {
+	background-color: rgba(255, 0, 0, 0.2);
+}
+
 // Center
 .center {
 	.header {
@@ -22,7 +26,7 @@
 			margin: 0;
 			width: 56px;
 			height: 56px;
-			background: #FFFFFF;
+			background: #ffffff;
 			border-radius: 0;
 			border-left: 1px solid rgba(0, 0, 0, 0.12);
 		}
@@ -31,7 +35,7 @@
 			height: 56px;
 			line-height: 56px;
 			padding: 18px;
-			background: #FFFFFF;
+			background: #ffffff;
 
 			.icon {
 				margin: 0;
@@ -59,14 +63,14 @@
 			overflow: hidden;
 
 			.todo-list-pane {
-				background: #FAFAFA;
+				background: #fafafa;
 			}
 		}
 	}
 }
 // Sidenav
 .sidenav {
-	background-color: #F5F5F5;
+	background-color: #f5f5f5;
 	.header {
 		.logo {
 			.logo-icon {
@@ -204,7 +208,8 @@ md-dialog {
 					font-weight: 500;
 				}
 
-				.size {}
+				.size {
+				}
 
 				.md-button {
 					margin: 0;

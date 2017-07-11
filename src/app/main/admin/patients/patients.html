@@ -69,7 +69,7 @@
 									</tr>
 								</thead>
 								<tbody md-body>
-									<tr md-row md-select="patient" md-auto-select="$ctrl.options.autoSelect" ng-repeat="patient in $ctrl.patients | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit track by patient._id">
+									<tr ng-class="{'deceased-cell': patient.deathDate}" md-row md-select="patient" md-auto-select="$ctrl.options.autoSelect" ng-repeat="patient in $ctrl.patients | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit : ($ctrl.query.page -1) * $ctrl.query.limit track by patient._id">
 										<td md-cell>{{patient.patientNumber}}<br />{{patient.NHSnumber}}</td>
 										<td md-cell><md-icon md-font-icon="icon-gender-{{patient.gender}}" class="icon"></md-icon>{{patient.lastName}}, {{patient.firstName}}</td>
 										<td md-cell>{{patient.dateOfBirth | date:'dd/MM/yy'}}</td>
