@@ -96,10 +96,11 @@ const AppointmentSchema = new mongoose.Schema({
 
 const PatientSchema = new mongoose.Schema({
 	firstName: { type: String },
-	lastName: { type: String, default: '' },
+	lastName: { type: String },
 	gender: { type: String },
 	ethnicity: { type: String },
 	postcode: { type: String, default: '' },
+	referredBy: { type: String, default: '' },
 	diagnosisDate: { type: Date, default: null },
 	onsetDate: { type: Date, default: null },
 	mndType: { type: String, default: '' },

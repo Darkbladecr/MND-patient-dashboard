@@ -21,7 +21,10 @@
 					</md-input-container>
 					<md-input-container>
 						<label>Last Name</label>
-						<input type="text" name="lastName" ng-model="vm.patient.lastName" autocomplete="off">
+						<input type="text" name="lastName" ng-model="vm.patient.lastName" autocomplete="off" required>
+						<div ng-messages="patientForm.lastName.$error">
+							<div ng-message="required">This is required.</div>
+						</div>
 					</md-input-container>
 					<md-input-container class="input-date">
 						<label>Date of Birth</label>
@@ -58,6 +61,16 @@
 					<md-input-container>
 						<label>Postcode</label>
 						<input type="text" name="postcode" ng-model="vm.patient.postcode" autocomplete="off">
+					</md-input-container>
+					<md-input-container style="height:57.5px;">
+						<label>Referred By</label>
+						<md-select name="referredBy" ng-model="vm.patient.referredBy">
+							<md-option value="Neurologist">Neurologist</md-option>
+							<md-option value="GP">GP</md-option>
+							<md-option value="General Medicine">General Medicine</md-option>
+							<md-option value="Physiotherapist">Physiotherapist</md-option>
+							<md-option value="Neurosurgeon">Neurosurgeon</md-option>
+						</md-select>
 					</md-input-container>
 				</div>
 				<div>

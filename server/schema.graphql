@@ -34,6 +34,7 @@ type Patient {
 	gender: String
 	ethnicity: String
 	postcode: String
+	referredBy: String
 	diagnosisDate: Date
 	onsetDate: Date
 	mndType: String
@@ -57,6 +58,7 @@ input PatientInput {
 	gender: String
 	ethnicity: String
 	postcode: String
+	referredBy: String
 	diagnosisDate: Date
 	onsetDate: Date
 	mndType: String
