@@ -54,7 +54,10 @@ export default class AppointmentDialogController {
 								this.appointment.alsfrs
 							).filter(e => e !== 'total');
 							this.appointment.alsfrs.total = keys.reduce(
-								(sum, k) => sum + this.appointment.alsfrs[k],
+								(sum, k) =>
+									k !== '__typename'
+										? sum + this.appointment.alsfrs[k]
+										: sum,
 								0
 							);
 						} else {
@@ -75,7 +78,10 @@ export default class AppointmentDialogController {
 								this.appointment.ess
 							).filter(e => e !== 'total');
 							this.appointment.ess.total = keys.reduce(
-								(sum, k) => sum + this.appointment.ess[k],
+								(sum, k) =>
+									k !== '__typename'
+										? sum + this.appointment.ess[k]
+										: sum,
 								0
 							);
 						} else {

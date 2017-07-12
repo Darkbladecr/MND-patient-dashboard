@@ -84,17 +84,6 @@ class patientViewerController {
 		);
 		this.graphOptionsSpO2 = chartOptions('%');
 	}
-	exists(item, list) {
-		return list.indexOf(item) > -1;
-	}
-	toggle(item, list) {
-		var idx = list.indexOf(item);
-		if (idx > -1) {
-			list.splice(idx, 1);
-		} else {
-			list.push(item);
-		}
-	}
 	refreshGraphs() {
 		this.graphDataWeight = this.patient.graphData;
 		this.graphOptionsWeight = chartOptions();
@@ -158,7 +147,8 @@ class patientViewerController {
 			.dressing}/${a.alsfrs.dressing}/${a.alsfrs.turning}/${a.alsfrs
 			.walking}/${a.alsfrs.climbing}/${a.alsfrs.dyspnea}/${a.alsfrs
 			.orthopnea}/${a.alsfrs.respiratory}). ESS ${a.ess
-			.total}. SpO2 ${a.spO2}%. SNP ${a.snp}. ABG - pH ${a.abg
+			.total}. SpO2 ${a.spO2}%. SNP ${a.snp.score} (Size ${a.snp
+			.size} in the ${a.snp.nostril} nostril). ABG - pH ${a.abg
 			.pH}, pO2 ${a.abg.pO2}, pCO2 ${a.abg.pCO2}, BE ${a.abg.be}, HCO3 ${a
 			.abg.HCO3}.`;
 		this.$mdDialog.show({

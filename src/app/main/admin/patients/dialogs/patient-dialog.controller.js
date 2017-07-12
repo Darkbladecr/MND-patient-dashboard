@@ -15,6 +15,7 @@ export default class UserDialogController {
 				lastName: this.patient.lastName,
 				gender: this.patient.gender,
 				ethnicity: this.patient.ethnicity,
+				referredBy: this.patient.referredBy,
 				postcode: this.patient.postcode,
 				diagnosisDate: this.patient.diagnosisDate,
 				onsetDate: this.patient.onsetDate,
