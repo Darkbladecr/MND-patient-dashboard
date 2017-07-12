@@ -73,6 +73,10 @@
 								<h3>Specialised Scores</h3>
 								<md-button class="md-raised md-primary" ng-click="vm.selectedIndex = 1">ALSFRS-R ({{vm.appointment.alsfrs.total || 'Not set'}})</md-button>
 								<md-button class="md-raised md-primary" ng-click="vm.selectedIndex = 2">ESS ({{vm.appointment.ess.total || 'Not set'}})</md-button>
+								<md-input-container>
+									<label>Assessor</label>
+									<input type="text" name="assessor" ng-model="vm.appointment.assessor" autocomplete="off">
+								</md-input-container>
 								<h3>Arterial Blood Gas (ABG)</h3>
 								<div>
 									<md-input-container>

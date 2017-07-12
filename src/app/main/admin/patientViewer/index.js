@@ -14,51 +14,51 @@ function config($stateProvider) {
 	'ngInject';
 
 	// State
-	$stateProvider
-		.state('app.patientViewer', {
-			url: '/patients/:patientId',
-			views: {
-				'content@app': {
-					template: '<patient-viewer patient="vm.patient"></patient-viewer>',
-					controller: 'patientCtrl as vm',
-					resolve: {
-						patient: (patientsService, $stateParams) => {
-							'ngInject';
-							return patientsService.getPatientById($stateParams.patientId);
-						}
-					}
-				}
-			}
-		});
+	$stateProvider.state('app.patientViewer', {
+		url: '/patients/:patientId',
+		views: {
+			'content@app': {
+				template:
+					'<patient-viewer patient="vm.patient"></patient-viewer>',
+				controller: 'patientCtrl as vm',
+				resolve: {
+					patient: (patientsService, $stateParams) => {
+						'ngInject';
+						return patientsService.getPatientById(
+							$stateParams.patientId
+						);
+					},
+				},
+			},
+		},
+	});
 }
 
-function patientCtrl(patient, $state){
+function patientCtrl(patient, $state) {
 	'ngInject';
-	if(patient){
+	if (patient) {
 		this.patient = patient;
 	} else {
 		$state.go('app.admin_patients');
 	}
 }
 export default angular
-	.module('app.admin.patientViewer', [
-		'nvd3'
-	])
+	.module('app.admin.patientViewer', ['nvd3'])
 	.config(config)
 	.controller('patientCtrl', patientCtrl)
 	.component('patientViewer', {
 		bindings: {
-			patient: '<'
+			patient: '<',
 		},
 		controller,
-		template
+		template,
 	})
 	.component('appointmentDialog', {
 		bindings: {
 			patientId: '<',
-			appointment: '<'
+			appointment: '<',
 		},
 		controller: appointmentDialogController,
 		controllerAs: 'vm',
-		template: appointmentDialogTemplate
+		template: appointmentDialogTemplate,
 	});

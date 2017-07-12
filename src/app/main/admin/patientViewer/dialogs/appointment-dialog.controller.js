@@ -6,19 +6,34 @@ export default class AppointmentDialogController {
 		this.alfrsDialog = $mdDialog;
 		this.patientsService = patientsService;
 
-		this.appointment = this.appointment ? this.appointmnet : {};
-
-		this.appointment.clinicDate = this.appointment.hasOwnProperty(
-			'clinicDate'
-		)
-			? this.appointment.clinicDate
-			: new Date();
-
 		$scope.$watch(
 			'vm.appointment.weight',
 			(newValue, oldValue) => {
 				if (newValue !== oldValue) {
-					if (this.appointment.weight && this.appointment.height) {
+					if (
+						this.appointment &&
+						this.appointment.weight &&
+						this.appointment.height
+					) {
+						const bmi =
+							this.appointment.weight /
+							(this.appointment.height * this.appointment.height);
+						this.appointment.bmi = Number(bmi.toFixed(2));
+					}
+				}
+			},
+			true
+		);
+
+		$scope.$watch(
+			'vm.appointment.height',
+			(newValue, oldValue) => {
+				if (newValue !== oldValue) {
+					if (
+						this.appointment &&
+						this.appointment.weight &&
+						this.appointment.height
+					) {
 						const bmi =
 							this.appointment.weight /
 							(this.appointment.height * this.appointment.height);
@@ -33,16 +48,18 @@ export default class AppointmentDialogController {
 			'vm.appointment.alsfrs',
 			(newValue, oldValue) => {
 				if (newValue !== oldValue) {
-					if (this.appointment.hasOwnProperty('alsfrs')) {
-						const keys = Object.keys(
-							this.appointment.alsfrs
-						).filter(e => e !== 'total');
-						this.appointment.alsfrs.total = keys.reduce(
-							(sum, k) => sum + this.appointment.alsfrs[k],
-							0
-						);
-					} else {
-						this.appointment.alsfrs.total = 0;
+					if (this.appointment) {
+						if (this.appointment.alsfrs) {
+							const keys = Object.keys(
+								this.appointment.alsfrs
+							).filter(e => e !== 'total');
+							this.appointment.alsfrs.total = keys.reduce(
+								(sum, k) => sum + this.appointment.alsfrs[k],
+								0
+							);
+						} else {
+							this.appointment.alsfrs.total = 0;
+						}
 					}
 				}
 			},
@@ -52,16 +69,18 @@ export default class AppointmentDialogController {
 			'vm.appointment.ess',
 			(newValue, oldValue) => {
 				if (newValue !== oldValue) {
-					if (this.appointment.hasOwnProperty('ess')) {
-						const keys = Object.keys(this.appointment.ess).filter(
-							e => e !== 'total'
-						);
-						this.appointment.ess.total = keys.reduce(
-							(sum, k) => sum + this.appointment.ess[k],
-							0
-						);
-					} else {
-						this.appointment.ess.total = 0;
+					if (this.appointment) {
+						if (this.appointment.ess) {
+							const keys = Object.keys(
+								this.appointment.ess
+							).filter(e => e !== 'total');
+							this.appointment.ess.total = keys.reduce(
+								(sum, k) => sum + this.appointment.ess[k],
+								0
+							);
+						} else {
+							this.appointment.ess.total = 0;
+						}
 					}
 				}
 			},

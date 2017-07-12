@@ -20,6 +20,7 @@ mutation deleteAppointment($token:String!, $appointmentId:String!) {
 			appointments {
 				_id
 				clinicDate
+				assessor
 				weight
 				height
 				bmi

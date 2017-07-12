@@ -42,11 +42,12 @@ function chartOptions(str, legend) {
 }
 
 class patientViewerController {
-	constructor($mdDialog, patientsService, excelService) {
+	constructor($mdDialog, patientsService, excelService, AuthService) {
 		'ngInject';
 		this.$mdDialog = $mdDialog;
 		this.patientsService = patientsService;
 		this.excelService = excelService;
+		this.AuthService = AuthService;
 
 		this.patient.appointments = this.patient.appointments.map(a => {
 			a.clinicDate = new Date(a.clinicDate);
@@ -115,13 +116,15 @@ class patientViewerController {
 		this.graphApiSpO2.refreshWithTimeout(5);
 	}
 	addAppointment(ev) {
+		this.selected = [
+			{
+				clinicDate: new Date(),
+				assessor: `${this.AuthService.currentUser()
+					.firstName} ${this.AuthService.currentUser().lastName}`,
+			},
+		];
 		this.$mdDialog
 			.show({
-				locals: {
-					event: ev,
-					patientId: this.patient._id,
-					appointment: {},
-				},
 				contentElement: '#appointmentEditor',
 				parent: angular.element(document.body),
 				targetEvent: ev,
@@ -133,14 +136,9 @@ class patientViewerController {
 				this.refreshGraphs();
 			});
 	}
-	editAppointment(ev, appointment) {
+	editAppointment(ev) {
 		this.$mdDialog
 			.show({
-				locals: {
-					event: ev,
-					patientId: this.patient._id,
-					appointment,
-				},
 				contentElement: '#appointmentEditor',
 				parent: angular.element(document.body),
 				targetEvent: ev,

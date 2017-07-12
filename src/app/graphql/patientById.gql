@@ -29,6 +29,7 @@ query getPatientById($token:String!, $_id:String!) {
 			appointments {
 				_id
 				clinicDate
+				assessor
 				weight
 				height
 				bmi

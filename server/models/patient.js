@@ -23,7 +23,7 @@ const AppointmentSchema = new mongoose.Schema({
 		get: num => (num / 100).toFixed(2),
 		set: num => num * 100,
 	},
-	assessor: String,
+	assessor: { type: String, default: '' },
 	alsfrs: {
 		speech: { type: Number, default: null },
 		salivation: { type: Number, default: null },

@@ -20,6 +20,7 @@ mutation addAppointment($token:String!, $patientId:String!, $appointment:Appoint
 			appointments {
 				_id
 				clinicDate
+				assessor
 				weight
 				height
 				bmi
