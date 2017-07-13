@@ -4,13 +4,17 @@ Patient Excel Exporter.
 Exports the current patient's details from the mongoDB database
 """
 
+import sys
 from datetime import datetime
+from os import chdir
 from os.path import exists
 from time import sleep
 
 import numpy as np
 from openpyxl import Workbook
 from pymongo import MongoClient
+
+chdir(sys.argv[1]) if sys.argv[1] else sys.exit()
 
 client = MongoClient('localhost', 27017)
 db = client['mnd-dashboard']

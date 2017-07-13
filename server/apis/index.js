@@ -42,6 +42,7 @@ router.get('/test', (req, res) => {
 // 	const options = {
 // 		mode: 'text',
 // 		scriptPath: __dirname,
+// 		args: [__dirname],
 // 	};
 // 	exporter(res, 'patientsExport.py', options, 'patientsExport.xlsx');
 // });
@@ -49,7 +50,7 @@ router.get('/test', (req, res) => {
 // 	const options = {
 // 		mode: 'text',
 // 		scriptPath: __dirname,
-// 		args: [req.body._id],
+// 		args: [__dirname, req.body._id],
 // 	};
 // 	exporter(res, 'appointmentsExport.py', options, 'appointmentsExport.xlsx');
 // });

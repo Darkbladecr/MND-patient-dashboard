@@ -5,6 +5,7 @@ Exports the current patient's appoitnments from the mongoDB database
 """
 
 import sys
+from os import chdir
 from os.path import exists
 from time import sleep
 
@@ -13,7 +14,8 @@ from bson.objectid import ObjectId
 from openpyxl import Workbook
 from pymongo import MongoClient
 
-_id = sys.argv[1] if sys.argv[1] else sys.exit()
+chdir(sys.argv[1]) if sys.argv[1] else sys.exit()
+_id = sys.argv[2] if sys.argv[2] else sys.exit()
 # _id = '58ef74e7e500480538b9c724'
 
 client = MongoClient('localhost', 27017)
@@ -29,7 +31,7 @@ def parseFloat(num):
         return None
 
 
-dest_filename = 'temp/appointmentsExport.xlsx'
+dest_filename = 'appointmentsExport.xlsx'
 wb = Workbook()
 ws = wb.active
 ws.title = '%s %s' % (patient['firstName'][0], patient['lastName'])
