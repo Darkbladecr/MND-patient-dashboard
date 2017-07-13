@@ -8,11 +8,12 @@ import deleteAppointmentQL from '../graphql/deleteAppointment.gql';
 import gql from 'graphql-tag';
 
 export default class patientsService {
-	constructor(apollo, graphqlService, AuthService) {
+	constructor(apollo, graphqlService, AuthService, toastService) {
 		'ngInject';
 		this.apollo = apollo;
 		this.graphqlService = graphqlService;
 		this.AuthService = AuthService;
+		this.toastService = toastService;
 	}
 	getPatientById(_id) {
 		return this.apollo
@@ -80,6 +81,7 @@ export default class patientsService {
 			.then(this.graphqlService.extract)
 			.then(
 				result => {
+					this.toastService.simple('Patient created.');
 					const patient = result.createPatient;
 					patient.dateOfBirth = new Date(patient.dateOfBirth);
 					return patient;
@@ -88,17 +90,37 @@ export default class patientsService {
 			);
 	}
 	updatePatient(patient) {
+		const update = {
+			_id: patient._id,
+			firstName: patient.firstName,
+			lastName: patient.lastName,
+			gender: patient.gender,
+			ethnicity: patient.ethnicity,
+			referredBy: patient.referredBy,
+			postcode: patient.postcode,
+			diagnosisDate: patient.diagnosisDate,
+			onsetDate: patient.onsetDate,
+			mndType: patient.mndType,
+			gastrostomyDate: patient.gastrostomyDate,
+			nivDate: patient.nivDate,
+			deathDate: patient.deathDate,
+			deathPlace: patient.deathPlace,
+			dateOfBirth: patient.dateOfBirth,
+			patientNumber: patient.patientNumber,
+			NHSnumber: patient.NHSnumber,
+		};
 		return this.apollo
 			.mutate({
 				mutation: updatePatient,
 				variables: {
 					token: this.AuthService.getToken(),
-					patient,
+					patient: update,
 				},
 			})
 			.then(this.graphqlService.extract)
 			.then(
 				result => {
+					this.toastService.simple('Patient updated.');
 					const patient = result.updatePatient;
 					patient.dateOfBirth = new Date(patient.dateOfBirth);
 					return patient;
@@ -126,6 +148,7 @@ export default class patientsService {
 			.then(this.graphqlService.extract)
 			.then(
 				result => {
+					this.toastService.simple('Patient deleted.');
 					return result.deletePatient._id;
 				},
 				err => this.graphqlService.error(err)
@@ -144,6 +167,7 @@ export default class patientsService {
 			.then(this.graphqlService.extract)
 			.then(
 				result => {
+					this.toastService.simple('Appointment added.');
 					const patient = result.addAppointment;
 					patient.appointments = patient.appointments.map(a => {
 						a.clinicDate = new Date(a.clinicDate);
@@ -155,17 +179,25 @@ export default class patientsService {
 			);
 	}
 	updateAppointment(appointment) {
+		const update = Object.assign({}, appointment);
+		delete update.__typename;
+		delete update.abg.__typename;
+		delete update.alsfrs.__typename;
+		delete update.ess.__typename;
+		delete update.fvc.__typename;
+		delete update.snp.__typename;
 		return this.apollo
 			.mutate({
 				mutation: updateAppointmentQL,
 				variables: {
 					token: this.AuthService.getToken(),
-					appointment,
+					appointment: update,
 				},
 			})
 			.then(this.graphqlService.extract)
 			.then(
 				result => {
+					this.toastService.simple('Appointment updated.');
 					const patient = result.updateAppointment;
 					patient.appointments = patient.appointments.map(a => {
 						a.clinicDate = new Date(a.clinicDate);
@@ -188,6 +220,7 @@ export default class patientsService {
 			.then(this.graphqlService.extract)
 			.then(
 				result => {
+					this.toastService.simple('Appointment deleted.');
 					const patient = result.deleteAppointment;
 					patient.appointments = patient.appointments.map(a => {
 						a.clinicDate = new Date(a.clinicDate);

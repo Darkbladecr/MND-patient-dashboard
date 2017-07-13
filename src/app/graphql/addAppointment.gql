@@ -1,3 +1,4 @@
+#import './appointmentFragment.gql'
 mutation addAppointment($token:String!, $patientId:String!, $appointment:AppointmentInput!) {
 	restricted(token:$token) {
 		addAppointment(patientId:$patientId, appointment:$appointment){
@@ -14,55 +15,7 @@ mutation addAppointment($token:String!, $patientId:String!, $appointment:Appoint
 					y
 				}
 			}
-			appointments {
-				_id
-				clinicDate
-				assessor
-				weight
-				height
-				bmi
-				alsfrs {
-					speech
-					salivation
-					swallowing
-					handwriting
-					cutting
-					dressing
-					turning
-					walking
-					climbing
-					dyspnea
-					orthopnea
-					respiratory
-					total
-				}
-				ess {
-					sittingAndReading
-					watching
-					sittingInactive
-					carPassenger
-					lyingDown
-					sittingAndTalking
-					sittingAfterLunch
-					carTraffic
-					total
-				}
-				fvc {
-					sitting
-					supine
-				}
-				snp {
-					nostril
-					size
-					score
-				}
-				spO2
-				abg {
-					pH
-					pO2
-					pCO2
-				}
-			}
+			...AppointmentInfo
 		}
 	}
 }

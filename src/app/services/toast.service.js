@@ -4,23 +4,30 @@ export default class toastService {
 		this.$mdToast = $mdToast;
 		this.$document = $document;
 	}
-	simple(message, position = 'top right', parent = '#toastBounds', time = 3000) {
+	simple(
+		message,
+		position = 'top right',
+		parent = '#toastBounds',
+		time = 1500
+	) {
 		return this.$mdToast.show(
-			this.$mdToast.simple()
-			.textContent(message)
-			.position(position)
-			.parent(this.$document[0].querySelector(parent))
-			.hideDelay(time)
+			this.$mdToast
+				.simple()
+				.textContent(message)
+				.position(position)
+				.parent(this.$document[0].querySelector(parent))
+				.hideDelay(time)
 		);
 	}
-	error(message, position = 'top right', parent = '#toastBounds', time = 0){
+	error(message, position = 'top right', parent = '#toastBounds', time = 0) {
 		return this.$mdToast.show(
-			this.$mdToast.simple()
-			.textContent(message)
-			.action('Close')
-			.position(position)
-			.parent(this.$document[0].querySelector(parent))
-			.hideDelay(time)
+			this.$mdToast
+				.simple()
+				.textContent(message)
+				.action('Close')
+				.position(position)
+				.parent(this.$document[0].querySelector(parent))
+				.hideDelay(time)
 		);
 	}
 }

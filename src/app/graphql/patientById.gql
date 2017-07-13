@@ -1,25 +1,8 @@
+#import './patientFragment.gql'
 query getPatientById($token:String!, $_id:String!) {
 	restricted(token:$token) {
 		patient(_id:$_id){
-			_id
-			firstName
-			lastName
-			gender
-			ethnicity
-			postcode
-			referredBy
-			diagnosisDate
-			onsetDate
-			mndType
-			gastrostomyDate
-			nivDate
-			deathDate
-			deathPlace
-			patientNumber
-			NHSnumber
-			dateOfBirth
-			createdAt
-			lastUpdated
+			...PatientInfo
 			graphData {
 				key
 				values {

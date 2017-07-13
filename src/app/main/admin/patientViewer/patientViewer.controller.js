@@ -121,6 +121,7 @@ class patientViewerController {
 				fullscreen: false,
 			})
 			.then(patient => {
+				this.selected = [];
 				this.patient = patient;
 				this.refreshGraphs();
 			});

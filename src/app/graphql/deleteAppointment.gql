@@ -1,3 +1,4 @@
+#import './appointmentFragment.gql'
 mutation deleteAppointment($token:String!, $appointmentId:String!) {
 	restricted(token:$token) {
 		deleteAppointment(appointmentId:$appointmentId){
@@ -14,55 +15,7 @@ mutation deleteAppointment($token:String!, $appointmentId:String!) {
 					y
 				}
 			}
-			appointments {
-				_id
-				clinicDate
-				assessor
-				weight
-				height
-				bmi
-				alsfrs {
-					speech
-					salivation
-					swallowing
-					handwriting
-					cutting
-					dressing
-					turning
-					walking
-					climbing
-					dyspnea
-					orthopnea
-					respiratory
-					total
-				}
-				ess {
-					sittingAndReading
-					watching
-					sittingInactive
-					carPassenger
-					lyingDown
-					sittingAndTalking
-					sittingAfterLunch
-					carTraffic
-					total
-				}
-				fvc {
-					sitting
-					supine
-				}
-				snp {
-					nostril
-					size
-					score
-				}
-				spO2
-				abg {
-					pH
-					pO2
-					pCO2
-				}
-			}
+			...AppointmentInfo
 		}
 	}
 }

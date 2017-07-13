@@ -1,28 +1,11 @@
+#import './patientFragment.gql'
 mutation updatePatient(
 	$token: String!
 	$patient: PatientInput!
 ) {
 	restricted(token: $token) {
 		updatePatient(patient: $patient) {
-			_id
-			firstName
-			lastName
-			gender
-			ethnicity
-			postcode
-			referredBy
-			diagnosisDate
-			onsetDate
-			mndType
-			gastrostomyDate
-			nivDate
-			deathDate
-			deathPlace
-			patientNumber
-			NHSnumber
-			dateOfBirth
-			createdAt
-			lastUpdated
+			...PatientInfo
 		}
 	}
 }
