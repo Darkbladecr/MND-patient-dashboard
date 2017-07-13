@@ -105,6 +105,7 @@
     "nodemailer-mailgun-transport": "^1.2.2",
     "nvd3": "^1.8.4",
     "optics-agent": "^1.1.2",
+    "papaparse": "^4.3.3",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "perfect-scrollbar": "^0.6.13",

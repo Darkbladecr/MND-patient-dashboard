@@ -20,7 +20,7 @@
 						<div>
 							<md-input-container style="min-width:200px;">
 								<label>Clinic Date</label>
-								<md-datepicker name="clinicDate" ng-model="vm.appointment.clinicDate" md-placeholder="Enter Date" required></md-datepicker>
+								<md-datepicker name="clinicDate" ng-model="vm.appointment.clinicDate" md-placeholder="Enter Date" md-min-date="vm.minDate" required></md-datepicker>
 								<div ng-messages="appointmentForm.clinicDate.$error">
 									<div ng-message="required">This is required.</div>
 								</div>

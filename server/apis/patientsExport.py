@@ -5,6 +5,8 @@ Exports the current patient's details from the mongoDB database
 """
 
 from datetime import datetime
+from os.path import exists
+from time import sleep
 
 import numpy as np
 from openpyxl import Workbook
@@ -104,3 +106,5 @@ for p in patients:
     ws.append(data)
 
 wb.save(filename=dest_filename)
+while not exists(dest_filename):
+    sleep(1)

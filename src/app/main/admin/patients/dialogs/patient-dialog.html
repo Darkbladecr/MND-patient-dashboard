@@ -28,7 +28,7 @@
 					</md-input-container>
 					<md-input-container class="input-date">
 						<label>Date of Birth</label>
-						<md-datepicker name="dateOfBirth" ng-model="vm.patient.dateOfBirth" md-placeholder="Enter Date" md-current-view="year" required></md-datepicker>
+						<md-datepicker name="dateOfBirth" ng-model="vm.patient.dateOfBirth" md-placeholder="Enter Date" md-current-view="year" md-min-date="vm.minDate" required></md-datepicker>
 						<div ng-messages="patientForm.dateOfBirth.$error">
 							<div ng-message="required">This is required.</div>
 						</div>
@@ -86,25 +86,25 @@
 				<div>
 					<md-input-container class="input-date">
 						<label>Diagnosis Date</label>
-						<md-datepicker name="diagnosisDate" ng-model="vm.patient.diagnosisDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+						<md-datepicker name="diagnosisDate" ng-model="vm.patient.diagnosisDate" md-placeholder="Enter Date" md-current-view="year" md-min-date="vm.minDate"></md-datepicker>
 					</md-input-container>
 					<md-input-container class="input-date">
 						<label>Onset Date</label>
-						<md-datepicker name="onsetDate" ng-model="vm.patient.onsetDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+						<md-datepicker name="onsetDate" ng-model="vm.patient.onsetDate" md-placeholder="Enter Date" md-current-view="year" md-min-date="vm.minDate"></md-datepicker>
 					</md-input-container>
 					<md-input-container class="input-date">
 						<label>Gastrostomy Date</label>
-						<md-datepicker name="gastrostomyDate" ng-model="vm.patient.gastrostomyDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+						<md-datepicker name="gastrostomyDate" ng-model="vm.patient.gastrostomyDate" md-placeholder="Enter Date" md-current-view="year" md-min-date="vm.minDate"></md-datepicker>
 					</md-input-container>
 					<md-input-container class="input-date">
 						<label>NIV Date</label>
-						<md-datepicker name="nivDate" ng-model="vm.patient.nivDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+						<md-datepicker name="nivDate" ng-model="vm.patient.nivDate" md-placeholder="Enter Date" md-current-view="year" md-min-date="vm.minDate"></md-datepicker>
 					</md-input-container>
 				</div>
 				<div>
 					<md-input-container class="input-date">
 						<label>Date of Death</label>
-						<md-datepicker name="deathDate" ng-model="vm.patient.deathDate" md-placeholder="Enter Date" md-current-view="year"></md-datepicker>
+						<md-datepicker name="deathDate" ng-model="vm.patient.deathDate" md-placeholder="Enter Date" md-current-view="year" md-min-date="vm.minDate"></md-datepicker>
 					</md-input-container>
 					<md-input-container class="input-date">
 						<label>Place of Death</label>

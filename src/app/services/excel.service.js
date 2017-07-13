@@ -9,8 +9,7 @@ export default class excelService {
 			headers: {
 				authorization: `Bearer ${this.AuthService.getToken()}`,
 				'Content-type': 'application/json',
-				Accept:
-					'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+				Accept: 'text/csv',
 			},
 			responseType: 'blob',
 		};
@@ -21,7 +20,7 @@ export default class excelService {
 			this.FileSaver.saveAs(
 				data,
 				`MND_patients_data-${date.getDate()}-${date.getMonth() +
-					1}-${date.getFullYear()}.xlsx`
+					1}-${date.getFullYear()}.csv`
 			);
 		});
 	}
@@ -33,7 +32,7 @@ export default class excelService {
 				this.FileSaver.saveAs(
 					data,
 					`${filename}-${date.getDate()}-${date.getMonth() +
-						1}-${date.getFullYear()}.xlsx`
+						1}-${date.getFullYear()}.csv`
 				);
 			});
 	}

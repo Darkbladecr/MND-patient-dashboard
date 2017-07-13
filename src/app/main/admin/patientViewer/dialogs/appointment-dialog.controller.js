@@ -6,6 +6,8 @@ export default class AppointmentDialogController {
 		this.alfrsDialog = $mdDialog;
 		this.patientsService = patientsService;
 
+		this.minDate = new Date(1990, 0, 1);
+
 		$scope.$watch(
 			'vm.appointment.weight',
 			(newValue, oldValue) => {

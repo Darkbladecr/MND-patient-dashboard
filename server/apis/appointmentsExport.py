@@ -5,6 +5,8 @@ Exports the current patient's appoitnments from the mongoDB database
 """
 
 import sys
+from os.path import exists
+from time import sleep
 
 import numpy as np
 from bson.objectid import ObjectId
@@ -27,7 +29,7 @@ def parseFloat(num):
         return None
 
 
-dest_filename = 'appointmentsExport.xlsx'
+dest_filename = 'temp/appointmentsExport.xlsx'
 wb = Workbook()
 ws = wb.active
 ws.title = '%s %s' % (patient['firstName'][0], patient['lastName'])
@@ -69,3 +71,5 @@ for i, a in enumerate(patient['appointments']):
     ws.append(data)
 
 wb.save(filename=dest_filename)
+while not exists(dest_filename):
+    sleep(1)
