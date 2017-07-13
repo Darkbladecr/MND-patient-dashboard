@@ -9,6 +9,7 @@ export default class UsersController {
 		usersService,
 		patientsService,
 		AuthService,
+		excelService,
 		$scope,
 		$q,
 		$window,
@@ -20,6 +21,7 @@ export default class UsersController {
 		this.usersService = usersService;
 		this.patientsService = patientsService;
 		this.AuthService = AuthService;
+		this.excelService = excelService;
 		this.$scope = $scope;
 		this.$q = $q;
 		this.$window = $window;
@@ -79,6 +81,9 @@ export default class UsersController {
 	}
 	viewPatient(patient) {
 		this.$state.go('app.patientViewer', { patientId: patient._id });
+	}
+	exportPatients() {
+		this.excelService.exportPatients();
 	}
 	addPatient(ev) {
 		this.$mdDialog

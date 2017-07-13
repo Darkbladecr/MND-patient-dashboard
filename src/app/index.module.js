@@ -2,6 +2,8 @@ import 'jquery';
 import '../libs_modified/fatools.scss';
 import angular from 'angular';
 
+import fileSaver from 'angular-file-saver';
+
 import appCore from './core';
 import IndexController from './index.controller';
 import apiService from './index.api';
@@ -15,49 +17,49 @@ import routeConfig from './index.route';
 import runBlock from './index.run';
 
 angular
-    .module('fuse', [
+	.module('fuse', [
+		fileSaver, // ngFileSaver
 
-        // Core
-        appCore.name,
-        appServices.name,
+		// Core
+		appCore.name,
+		appServices.name,
 
-        // Navigation
-        appNavigation.name,
+		// Navigation
+		appNavigation.name,
 
-        // Toolbar
-        appToolbar.name,
+		// Toolbar
+		appToolbar.name,
 
-        // Quick Panel
-        appQuickPanel.name,
+		// Quick Panel
+		appQuickPanel.name,
 
-        // Apps
-		appMain.name
-        // 'app.dashboards',
-        // 'app.calendar',
-        // 'app.e-commerce',
-        // 'app.mail',
-        // 'app.chat',
-        // 'app.file-manager',
-        // 'app.gantt-chart',
-        // 'app.scrumboard',
-        // 'app.todo',
-        // 'app.contacts',
-        // 'app.notes',
+		// Apps
+		appMain.name,
+		// 'app.dashboards',
+		// 'app.calendar',
+		// 'app.e-commerce',
+		// 'app.mail',
+		// 'app.chat',
+		// 'app.file-manager',
+		// 'app.gantt-chart',
+		// 'app.scrumboard',
+		// 'app.todo',
+		// 'app.contacts',
+		// 'app.notes',
 
-        // Pages
-        // appPages.name,
-        // appAdmin.name,
-        // 'app.sample'
+		// Pages
+		// appPages.name,
+		// appAdmin.name,
+		// 'app.sample'
 
-        // User Interface
-        // 'app.ui',
+		// User Interface
+		// 'app.ui',
 
-        // Components
-        // 'app.components'
-    ])
-    .run(runBlock)
-    .config(config)
-    .config(routeConfig)
-    .controller('IndexController', IndexController)
-    .factory('api', apiService)
-    ;
+		// Components
+		// 'app.components'
+	])
+	.run(runBlock)
+	.config(config)
+	.config(routeConfig)
+	.controller('IndexController', IndexController)
+	.factory('api', apiService);

@@ -166,7 +166,10 @@ class patientViewerController {
 		});
 	}
 	exportAppointments() {
-		this.excelService.exportAppointments(this.patient._id);
+		const name = `${this.patient.firstName.charAt(0)}_${this.patient
+			.lastName}`;
+		const safename = name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+		this.excelService.exportAppointments(this.patient._id, safename);
 	}
 	deleteConfirm(ev, appointment) {
 		const confirm = this.$mdDialog

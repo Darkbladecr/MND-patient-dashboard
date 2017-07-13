@@ -1,0 +1,28 @@
+mutation createPatient(
+	$token: String!
+	$patient: PatientInput!
+) {
+	restricted(token: $token) {
+		createPatient(patient: $patient) {
+			_id
+			firstName
+			lastName
+			gender
+			ethnicity
+			postcode
+			referredBy
+			diagnosisDate
+			onsetDate
+			mndType
+			gastrostomyDate
+			nivDate
+			deathDate
+			deathPlace
+			patientNumber
+			NHSnumber
+			dateOfBirth
+			createdAt
+			lastUpdated
+		}
+	}
+}

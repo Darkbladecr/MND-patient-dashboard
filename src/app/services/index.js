@@ -51,7 +51,7 @@ function config($httpProvider, apolloProvider) {
 		process.env.NODE_ENV === 'production' ? false : true;
 	const client = new ApolloClient({
 		networkInterface,
-		addTypename: true,
+		addTypename: false,
 		connectToDevTools,
 		dataIdFromObject: result => {
 			if (result._id) {

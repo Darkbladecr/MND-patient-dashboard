@@ -1,7 +1,9 @@
 import { Router } from 'express';
-import jwtvalidation from '../jwtvalidation';
+import PythonShell from 'python-shell';
+// import jwtvalidation from '../jwtvalidation';
 import fs from 'fs';
 import path from 'path';
+import logger from '../logger';
 
 let router = Router();
 // router.use(jwtvalidation);
@@ -11,19 +13,46 @@ router.get('/test', (req, res) => {
 	});
 });
 
-router.post('/appointmentsExport', (req, res) => {
-	const filename = 'appointmentsExport.xlsx';
-	const filePath = path.join(__dirname, filename);
-	const stat = fs.statSync(filePath);
-	res.writeHead(200, {
-		// 'Content-Type': 'application/octet-stream',
-		'Content-Type':
-			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-		'Content-Length': stat.size,
-		'Content-Disposition': 'attachment; filename=' + filename,
+function exporter(res, script, options, filename) {
+	PythonShell.run(script, options, err => {
+		if (err) {
+			logger.error(err);
+			throw err;
+		}
+		const filePath = path.join(__dirname, filename);
+		fs.exists(filePath, exists => {
+			if (exists) {
+				const stat = fs.statSync(filePath);
+				res.writeHead(200, {
+					'Content-Type':
+						'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+					'Content-Length': stat.size,
+					'Content-Disposition': `attachment; filename=${filename}`,
+				});
+				fs.createReadStream(filePath).pipe(res);
+			} else {
+				res.writeHead(400, { 'Content-Type': 'text/plain' });
+				res.end('ERROR File does NOT Exists');
+			}
+		});
 	});
-	const readStream = fs.createReadStream(filePath);
-	readStream.pipe(res);
+}
+
+router.get('/patientsExport', (req, res) => {
+	const options = {
+		mode: 'text',
+		scriptPath: __dirname,
+	};
+	exporter(res, 'patientsExport.py', options, 'patientsExport.xlsx');
+});
+
+router.post('/appointmentsExport', (req, res) => {
+	const options = {
+		mode: 'text',
+		scriptPath: __dirname,
+		args: [req.body._id],
+	};
+	exporter(res, 'appointmentsExport.py', options, 'appointmentsExport.xlsx');
 });
 
 export default router;

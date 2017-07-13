@@ -1,0 +1,21 @@
+fragment PatientInfo on Patient {
+	_id
+	firstName
+	lastName
+	gender
+	ethnicity
+	postcode
+	referredBy
+	diagnosisDate
+	onsetDate
+	mndType
+	gastrostomyDate
+	nivDate
+	deathDate
+	deathPlace
+	patientNumber
+	NHSnumber
+	dateOfBirth
+	createdAt
+	lastUpdated
+}

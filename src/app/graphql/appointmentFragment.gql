@@ -1,0 +1,64 @@
+fragment AppointmentInfo on Patient {
+	_id
+	firstName
+	lastName
+	gender
+	patientNumber
+	NHSnumber
+	graphData {
+		key
+		values {
+			x
+			y
+		}
+	}
+	appointments {
+		_id
+		clinicDate
+		assessor
+		weight
+		height
+		bmi
+		alsfrs {
+			speech
+			salivation
+			swallowing
+			handwriting
+			cutting
+			dressing
+			turning
+			walking
+			climbing
+			dyspnea
+			orthopnea
+			respiratory
+			total
+		}
+		ess {
+			sittingAndReading
+			watching
+			sittingInactive
+			carPassenger
+			lyingDown
+			sittingAndTalking
+			sittingAfterLunch
+			carTraffic
+			total
+		}
+		fvc {
+			sitting
+			supine
+		}
+		snp {
+			nostril
+			size
+			score
+		}
+		spO2
+		abg {
+			pH
+			pO2
+			pCO2
+		}
+	}
+}

@@ -1,9 +1,81 @@
-#import "./appointmentFragment.gql"
-
 query getPatientById($token:String!, $_id:String!) {
 	restricted(token:$token) {
 		patient(_id:$_id){
-			...AppointmentInfo
+			_id
+			firstName
+			lastName
+			gender
+			ethnicity
+			postcode
+			referredBy
+			diagnosisDate
+			onsetDate
+			mndType
+			gastrostomyDate
+			nivDate
+			deathDate
+			deathPlace
+			patientNumber
+			NHSnumber
+			dateOfBirth
+			createdAt
+			lastUpdated
+			graphData {
+				key
+				values {
+					x
+					y
+				}
+			}
+			appointments {
+				_id
+				clinicDate
+				assessor
+				weight
+				height
+				bmi
+				alsfrs {
+					speech
+					salivation
+					swallowing
+					handwriting
+					cutting
+					dressing
+					turning
+					walking
+					climbing
+					dyspnea
+					orthopnea
+					respiratory
+					total
+				}
+				ess {
+					sittingAndReading
+					watching
+					sittingInactive
+					carPassenger
+					lyingDown
+					sittingAndTalking
+					sittingAfterLunch
+					carTraffic
+					total
+				}
+				fvc {
+					sitting
+					supine
+				}
+				snp {
+					nostril
+					size
+					score
+				}
+				spO2
+				abg {
+					pH
+					pO2
+					pCO2
+				}
+			}
 		}
 	}
 }

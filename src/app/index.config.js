@@ -4,10 +4,10 @@ function config($provide, $compileProvider, $qProvider, $mdDateLocaleProvider) {
 	'ngInject';
 	'use strict';
 
-	$mdDateLocaleProvider.formatDate = (date) => {
+	$mdDateLocaleProvider.formatDate = date => {
 		return date ? moment(date).format('DD/MM/YYYY') : null;
 	};
-	$mdDateLocaleProvider.parseDate = (dateString) => {
+	$mdDateLocaleProvider.parseDate = dateString => {
 		const m = moment(dateString, 'DD/MM/YYYY', true);
 		return m.isValid() ? m.toDate() : new Date(NaN);
 	};
@@ -28,7 +28,17 @@ function config($provide, $compileProvider, $qProvider, $mdDateLocaleProvider) {
 		'$delegate',
 		function(taOptions) {
 			taOptions.toolbar = [
-				['bold', 'italics', 'underline', 'ul', 'ol', 'quote', 'insertImage', 'insertLink', 'html']
+				[
+					'bold',
+					'italics',
+					'underline',
+					'ul',
+					'ol',
+					'quote',
+					'insertImage',
+					'insertLink',
+					'html',
+				],
 			];
 
 			taOptions.forceTextAngularSanitize = false;
@@ -41,11 +51,11 @@ function config($provide, $compileProvider, $qProvider, $mdDateLocaleProvider) {
 				toolbarButtonActive: 'active',
 				disabled: '',
 				textEditor: 'form-control',
-				htmlEditor: 'form-control'
+				htmlEditor: 'form-control',
 			};
 
 			return taOptions;
-		}
+		},
 	]);
 
 	// Text Angular tools
@@ -74,7 +84,7 @@ function config($provide, $compileProvider, $qProvider, $mdDateLocaleProvider) {
 			taTools.insertVideo.iconclass = 'icon-filmstrip';
 
 			return taTools;
-		}
+		},
 	]);
 }
 export default config;

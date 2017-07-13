@@ -1,0 +1,28 @@
+query getPatients($token: String!, $search: String) {
+	restricted(token: $token) {
+		patients(search: $search) {
+			_id
+			firstName
+			lastName
+			gender
+			ethnicity
+			postcode
+			referredBy
+			diagnosisDate
+			onsetDate
+			mndType
+			gastrostomyDate
+			nivDate
+			deathDate
+			deathPlace
+			patientNumber
+			NHSnumber
+			dateOfBirth
+			createdAt
+			lastUpdated
+			appointments {
+				_id
+			}
+		}
+	}
+}
