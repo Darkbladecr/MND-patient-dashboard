@@ -153,4 +153,4 @@ class Patient extends Document {
 	}
 }
 
-export { Patient, Appointment };
+export { Patient, Appointment, ALSFRS, ESS, FVC, SNP, ABG };

@@ -1,6 +1,6 @@
 import TempUser from './tempuser';
 import User from './user';
-import { Patient, Appointment } from './patient';
+import { Patient, Appointment, ALSFRS, ESS, FVC, SNP, ABG } from './patient';
 import camo from 'camo';
 
 // camo.connect(process.env.MONGODB).then(database => {
@@ -51,4 +51,4 @@ camo.connect('nedb://database').then(() => {
 	// });
 });
 
-export { User, TempUser, Patient, Appointment };
+export { User, TempUser, Patient, Appointment, ALSFRS, ESS, FVC, SNP, ABG };

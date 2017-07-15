@@ -1,4 +1,12 @@
-import { Patient, Appointment } from '../../../models';
+import {
+	Patient,
+	Appointment,
+	ALSFRS,
+	ESS,
+	FVC,
+	SNP,
+	ABG,
+} from '../../../models';
 import logger from '../../../logger';
 
 function createPatient(obj, { patient }) {
@@ -49,7 +57,25 @@ function addAppointment(obj, { patientId, appointment }) {
 	return new Promise((resolve, reject) => {
 		Patient.findOne({ _id: patientId }).then(
 			patient => {
-				patient.appointments.push(Appointment.create(appointment));
+				const alsfrs = ALSFRS.create(
+					Object.assign({}, appointment.alsfrs)
+				);
+				delete appointment.alsfrs;
+				const ess = ESS.create(Object.assign({}, appointment.ess));
+				delete appointment.ess;
+				const fvc = FVC.create(Object.assign({}, appointment.fvc));
+				delete appointment.fvc;
+				const snp = SNP.create(Object.assign({}, appointment.snp));
+				delete appointment.snp;
+				const abg = ABG.create(Object.assign({}, appointment.abg));
+				delete appointment.abg;
+				const appoint = Appointment.create(appointment);
+				appoint.alsfrs = alsfrs;
+				appoint.ess = ess;
+				appoint.fvc = fvc;
+				appoint.snp = snp;
+				appoint.abg = abg;
+				patient.appointments.push(appoint);
 				patient.save().then(
 					patient => resolve(patient),
 					err => {
