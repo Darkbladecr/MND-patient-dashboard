@@ -1,10 +1,10 @@
 import { Patient } from '../../../models';
 import logger from '../../../logger';
 
-function patient(obj, {_id}){
+function patient(obj, { _id }) {
 	return new Promise((resolve, reject) => {
-		Patient.findById(_id, (err, patient) => {
-			if(err){
+		Patient.findOne({ _id }, (err, patient) => {
+			if (err) {
 				logger.error(err);
 				return reject(err);
 			}
@@ -13,9 +13,29 @@ function patient(obj, {_id}){
 	});
 }
 
-function patients(obj, {search}) {
+function patients(obj, { search }) {
 	return new Promise((resolve, reject) => {
-		const patients = search && search.length > 1 ? Patient.find({ $text: { $search: search } }, { score: { $meta: 'textScore' } }) : Patient.find({});
+		let patients;
+		if (search && search.length > 1) {
+			const regex = new RegExp(search);
+			patients = Patient.find(
+				{
+					$or: [
+						{ firstName: { $regex: regex } },
+						{ lastName: { $regex: regex } },
+					],
+				},
+				(err, patients) => {
+					if (err) {
+						logger.error(err);
+						return reject(err);
+					}
+					return resolve(patients);
+				}
+			);
+		} else {
+			patients = Patient.find({});
+		}
 		patients.exec((err, patients) => {
 			if (err) {
 				logger.error(err);

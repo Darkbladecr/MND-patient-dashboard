@@ -11,18 +11,20 @@ function resetPasswordPrep(obj) {
 function resetPassword(obj, args) {
 	return new Promise((resolve, reject) => {
 		if (args.key === obj._id) {
-			User.findById(obj._id, (err, user) => {
+			User.findOne({ _id: obj._id }, (err, user) => {
 				if (err) {
 					logger.error(err);
 					return reject(err);
 				} else {
 					user.setPassword(args.password);
-					user.save((err) => {
+					user.save(err => {
 						if (err) {
 							logger.error(err);
 							return reject(err);
 						} else {
-							return resolve('Password updated, you can now login.');
+							return resolve(
+								'Password updated, you can now login.'
+							);
 						}
 					});
 				}
@@ -45,33 +47,38 @@ function updateUser(obj, args) {
 			password = args.data.password;
 			delete args.data.password;
 		}
-		User.findByIdAndUpdate(obj._id, args.data, { new: true }, (err, user) => {
-			if (err) {
-				logger.error(err);
-				return reject(err);
-			}
-			if (user) {
-				if (password && oldPassword) {
-					if (user.validPassword(oldPassword)) {
-						user.setPassword(password);
-					} else {
-						return reject('Incorrect current password');
-					}
+		User.update(
+			{ _id: obj._id },
+			args.data,
+			{},
+			(err, numReplaced, user) => {
+				if (err) {
+					logger.error(err);
+					return reject(err);
 				}
-				user.updateLastActivity();
-				user.save((err, updatedUser) => {
-					if (err) {
-						logger.error(err);
-						return reject(err);
+				if (user) {
+					if (password && oldPassword) {
+						if (user.validPassword(oldPassword)) {
+							user.setPassword(password);
+						} else {
+							return reject('Incorrect current password');
+						}
 					}
-					if (updatedUser) {
-						return resolve(updatedUser.generateJWT(1));
-					}
-				});
-			} else {
-				reject('No user found.');
+					user.updateLastActivity();
+					user.save((err, updatedUser) => {
+						if (err) {
+							logger.error(err);
+							return reject(err);
+						}
+						if (updatedUser) {
+							return resolve(updatedUser.generateJWT(1));
+						}
+					});
+				} else {
+					reject('No user found.');
+				}
 			}
-		});
+		);
 	});
 }
 

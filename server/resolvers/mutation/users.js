@@ -1,7 +1,6 @@
 import { TempUser, User } from '../../models';
 import logger from '../../logger';
 
-
 function registerUser(obj, args) {
 	const usernameLowerCase = args.data.username.toLowerCase();
 	let password = args.data.password;
@@ -16,35 +15,40 @@ function registerUser(obj, args) {
 			if (user) {
 				reject('Account already created with this username.');
 			} else {
-				TempUser.findOne({ username: usernameLowerCase }, (err, user) => {
-					if (err) {
-						logger.error(err);
-						return reject(err);
+				TempUser.findOne(
+					{ username: usernameLowerCase },
+					(err, user) => {
+						if (err) {
+							logger.error(err);
+							return reject(err);
+						}
+						if (user) {
+							reject(
+								'Please check your email to activate your account.'
+							);
+						} else {
+							logger.debug(args.data);
+							const data = Object.assign({}, args.data);
+							const user = new User(data);
+							user.setPassword(password);
+							user.save((err, user) => {
+								if (err) {
+									logger.error(err);
+									return reject(err);
+								}
+								return resolve(user.generateJWT(1));
+							});
+						}
 					}
-					if (user) {
-						reject('Please check your email to activate your account.');
-					} else {
-						logger.debug(args.data);
-						const user = new User(args.data);
-						user.setPassword(password);
-						user.save((err, user) => {
-							if(err){
-								logger.error(err);
-								return reject(err);
-							}
-							return resolve(user.generateJWT(1));
-						});
-					}
-				});
+				);
 			}
 		});
 	});
 }
 
-
 function activateUser(obj, args) {
 	return new Promise((resolve, reject) => {
-		TempUser.findById(args._id, (err, tempuser) => {
+		TempUser.findOne({ _id: args._id }, (err, tempuser) => {
 			if (err) {
 				logger.error(err);
 				return reject(err);
@@ -54,31 +58,34 @@ function activateUser(obj, args) {
 				logger.error(err);
 				return reject(err);
 			} else {
-				User.create({
-					username: tempuser.username,
-					firstName: tempuser.firstName,
-					lastName: tempuser.lastName,
-					hash: tempuser.hash,
-					salt: tempuser.salt,
-				}, (err, user) => {
-					if (err) {
-						logger.error(err);
-						return reject(err);
+				User.insert(
+					{
+						username: tempuser.username,
+						firstName: tempuser.firstName,
+						lastName: tempuser.lastName,
+						hash: tempuser.hash,
+						salt: tempuser.salt,
+					},
+					(err, user) => {
+						if (err) {
+							logger.error(err);
+							return reject(err);
+						}
+						if (!user) {
+							const err = 'User creation failed';
+							logger.error(err);
+							return reject(err);
+						} else {
+							TempUser.remove({ _id: args._id }, {}, err => {
+								if (err) {
+									logger.error(err);
+									return reject(err);
+								}
+								return resolve(user.generateJWT(1));
+							});
+						}
 					}
-					if (!user) {
-						const err = 'User creation failed';
-						logger.error(err);
-						return reject(err);
-					} else {
-						TempUser.findByIdAndRemove(args._id, (err) => {
-							if (err) {
-								logger.error(err);
-								return reject(err);
-							}
-							return resolve(user.generateJWT(1));
-						});
-					}
-				});
+				);
 			}
 		});
 	});
@@ -97,7 +104,7 @@ function loginUser(obj, args) {
 					return reject('Incorrect password.');
 				} else {
 					user.updateLastActivity();
-					user.save((err) => {
+					user.save(err => {
 						if (err) {
 							logger.error(err);
 							return reject(err);

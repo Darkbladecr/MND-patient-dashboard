@@ -3,7 +3,7 @@ export default class UserDialogController {
 		'ngInject';
 		this.$mdDialog = $mdDialog;
 		this.patientsService = patientsService;
-		this.minDate = new Date(1990, 0, 1);
+		this.minDate = new Date(1900, 0, 1);
 
 		this.title = '_id' in patient ? 'Edit Patient' : 'Add New Patient';
 		this.patient = patient;

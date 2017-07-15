@@ -1,17 +1,59 @@
-import { Patient, User } from '../../../models';
+import { Patient, Appointment } from '../../../models';
 import logger from '../../../logger';
 
-function createPatient(obj, { patient }) {
+function createPatient(obj, args) {
 	return new Promise((resolve, reject) => {
-		new Patient(patient).save((err, patient) => {
+		const patient = Object.assign({}, args.patient);
+		Patient.insert(patient, (err, patient) => {
 			if (err) {
 				logger.error(err);
 				return reject(err);
 			}
-			User.findByIdAndUpdate(
-				obj._id,
-				{ $addToSet: { patients: patient._id } },
-				err => {
+			return resolve(patient);
+		});
+	});
+}
+
+function updatePatient(obj, args) {
+	return new Promise((resolve, reject) => {
+		const _id = args.patient._id;
+		delete args.patient._id;
+		const patient = Object.assign({}, args.patient);
+		Patient.update({ _id }, patient, {}, (err, numReplaced, patient) => {
+			if (err) {
+				logger.error(err);
+				return reject(err);
+			}
+			return resolve(patient);
+		});
+	});
+}
+
+function deletePatient(obj, { _id }) {
+	return new Promise((resolve, reject) => {
+		Patient.remove({ _id }, {}, err => {
+			if (err) {
+				logger.error(err);
+				return reject(err);
+			}
+			return resolve({ _id });
+		});
+	});
+}
+
+function addAppointment(obj, { patientId, appointment }) {
+	return new Promise((resolve, reject) => {
+		const clinic = Object.assign({}, appointment);
+		Appointment.insert(clinic, (err, appointment) => {
+			if (err) {
+				logger.error(err);
+				return reject(err);
+			}
+			Patient.update(
+				{ _id: patientId },
+				{ $addToSet: { appointments: appointment._id } },
+				{},
+				(err, numReplaced, patient) => {
 					if (err) {
 						logger.error(err);
 						return reject(err);
@@ -23,124 +65,52 @@ function createPatient(obj, { patient }) {
 	});
 }
 
-function updatePatient(obj, { patient }) {
+function updateAppointment(obj, { appointment }) {
 	return new Promise((resolve, reject) => {
-		const _id = patient._id;
-		delete patient._id;
-		Patient.findByIdAndUpdate(
-			_id,
-			patient,
-			{ new: true },
-			(err, patient) => {
-				if (err) {
-					logger.error(err);
-					return reject(err);
-				}
-				return resolve(patient);
-			}
-		);
-	});
-}
-
-function deletePatient(obj, { _id }) {
-	return new Promise((resolve, reject) => {
-		Patient.findByIdAndRemove(_id, (err, patient) => {
+		const clinic = Object.assign({}, appointment);
+		Appointment.update({ _id: clinic._id }, clinic, {}, err => {
 			if (err) {
 				logger.error(err);
 				return reject(err);
 			}
-			return resolve(patient);
+			Patient.findOne(
+				{ appointments: appointment._id },
+				(err, patient) => {
+					if (err) {
+						logger.error(err);
+						return reject(err);
+					}
+					return resolve(patient);
+				}
+			);
 		});
 	});
 }
 
-function addAppointment(obj, { patientId, appointment }) {
-	return new Promise((resolve, reject) => {
-		Patient.findByIdAndUpdate(
-			patientId,
-			{ $addToSet: { appointments: appointment } },
-			{ new: true },
-			(err, patient) => {
-				if (err) {
-					logger.error(err);
-					return reject(err);
-				}
-				return resolve(patient);
-			}
-		);
-	});
-}
-
-function updateAppointment(obj, { appointment }) {
-	return new Promise((resolve, reject) => {
-		appointment.weight = appointment.weight * 100;
-		appointment.height = appointment.height * 100;
-		appointment.bmi = appointment.bmi * 100;
-		Patient.findOneAndUpdate(
-			{ 'appointments._id': appointment._id },
-			{
-				$set: {
-					'appointments.$': appointment,
-				},
-			},
-			{ new: true },
-			(err, patient) => {
-				if (err) {
-					logger.error(err);
-					return reject(err);
-				}
-				return resolve(patient);
-			}
-		);
-	});
-}
-
-// const appointment = {
-// 	"clinicDate": "2017-04-11T23:00:00.000Z",
-// 	"weight": 6420,
-// 	"alsfrs": { "speech": 3, "salivation": 3, "swallowing": 2, "handwriting": 3, "cutting": 3, "dressing": 3, "turning": 3, "walking": 3, "climbing": 3, "dyspnea": 3, "orthopnea": 3, "respiratory": 2, "total": 34 },
-// 	"ess": { "sittingAndReading": null, "watching": null, "sittingInactive": null, "carPassenger": null, "lyingDown": null, "sittingAndTalking": null, "sittingAfterLunch": null, "carTraffic": null, "total": null },
-// 	"fvc": { "sitting": 81, "supine": 82 },
-// 	"snp": 46,
-// 	"spO2": 97,
-// 	"abg": { "pH": 0, "pO2": 0, "pCO2": 0 }
-// };
-//
-// Patient.findOneAndUpdate({ "appointments._id": "58ee9b53ae149941319e612f" }, {
-// 	$set: {
-// 		'appointments.$': appointment
-// 	}
-// }, { new: true }, (err, p) => {
-// 	console.log(p.appointments);
-// });
-
 function deleteAppointment(obj, { appointmentId }) {
 	return new Promise((resolve, reject) => {
-		Patient.findOneAndUpdate(
-			{ 'appointments._id': appointmentId },
-			{
-				$pull: { appointments: { _id: appointmentId } },
-			},
-			{ new: true },
-			(err, patient) => {
-				if (err) {
-					logger.error(err);
-					return reject(err);
-				}
-				return resolve(patient);
+		Appointment.remove({ _id: appointmentId }, {}, err => {
+			if (err) {
+				logger.error(err);
+				return reject(err);
 			}
-		);
+			Patient.update(
+				{ appointments: appointmentId },
+				{
+					$pull: { appointments: appointmentId },
+				},
+				{},
+				(err, num, patient) => {
+					if (err) {
+						logger.error(err);
+						return reject(err);
+					}
+					return resolve(patient);
+				}
+			);
+		});
 	});
 }
-
-// Patient.findOneAndUpdate({ 'appointments._id': "58ef78b281b4140695900bf1" }, {
-// 	$pull: { appointments: { _id: "58ef78b281b4140695900bf1" } }
-// }, { new: true }, (err, p) => {
-// 	if (err) {
-// 		logger.error(err);
-// 	}
-// 	console.log(p.appointments);
-// });
 
 export {
 	createPatient,

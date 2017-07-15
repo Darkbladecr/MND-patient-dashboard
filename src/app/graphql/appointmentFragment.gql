@@ -59,6 +59,8 @@ fragment AppointmentInfo on Patient {
 			pH
 			pO2
 			pCO2
+			HCO3
+			be
 		}
 	}
 }
