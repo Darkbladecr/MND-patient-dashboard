@@ -1,28 +1,40 @@
 import { Patient } from '../../../models';
 import logger from '../../../logger';
 
-function patient(obj, {_id}){
+function patient(obj, { _id }) {
 	return new Promise((resolve, reject) => {
-		Patient.findById(_id, (err, patient) => {
-			if(err){
+		Patient.findOne({ _id }).then(
+			patient => resolve(patient),
+			err => {
 				logger.error(err);
 				return reject(err);
 			}
-			return resolve(patient);
-		});
+		);
 	});
 }
 
-function patients(obj, {search}) {
+function patients(obj, { search }) {
 	return new Promise((resolve, reject) => {
-		const patients = search && search.length > 1 ? Patient.find({ $text: { $search: search } }, { score: { $meta: 'textScore' } }) : Patient.find({});
-		patients.exec((err, patients) => {
-			if (err) {
+		Patient.find({}).then(
+			patients => {
+				if (search && search.length > 1) {
+					const regex = new RegExp(search);
+					return resolve(
+						patients.filter(
+							p =>
+								regex.test(p.firstName) ||
+								regex.test(p.lastName)
+						)
+					);
+				} else {
+					resolve(patients);
+				}
+			},
+			err => {
 				logger.error(err);
 				return reject(err);
 			}
-			return resolve(patients);
-		});
+		);
 	});
 }
 

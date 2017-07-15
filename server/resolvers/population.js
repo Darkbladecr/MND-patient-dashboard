@@ -1,10 +1,4 @@
-import { Patient } from '../models';
-
-const UserResolve = {
-	patients(obj) {
-		return Patient.find().where('_id').in(obj.patients);
-	},
-};
+const UserResolve = {};
 
 function graphValues(graphType, appointments) {
 	let graphData;
