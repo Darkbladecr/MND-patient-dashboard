@@ -2,8 +2,6 @@ import 'jquery';
 import '../libs_modified/fatools.scss';
 import angular from 'angular';
 
-import fileSaver from 'angular-file-saver';
-
 import appCore from './core';
 import IndexController from './index.controller';
 import apiService from './index.api';
@@ -18,8 +16,6 @@ import runBlock from './index.run';
 
 angular
 	.module('fuse', [
-		fileSaver, // ngFileSaver
-
 		// Core
 		appCore.name,
 		appServices.name,

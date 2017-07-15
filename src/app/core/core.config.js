@@ -1,25 +1,30 @@
-function config($ariaProvider, $logProvider, msScrollConfigProvider, fuseConfigProvider) {
+function config(
+	$ariaProvider,
+	$logProvider,
+	msScrollConfigProvider,
+	fuseConfigProvider
+) {
 	'ngInject';
-    'use strict';
-    // Enable debug logging
-    $logProvider.debugEnabled(true);
+	'use strict';
+	// Enable debug logging
+	$logProvider.debugEnabled(true);
 
-    // ng-aria configuration
-    $ariaProvider.config({
-        tabindex: false
-    });
+	// ng-aria configuration
+	$ariaProvider.config({
+		tabindex: false,
+	});
 
-    // Fuse theme configurations
-    fuseConfigProvider.config({
-        'disableCustomScrollbars': false,
-        'disableCustomScrollbarsOnMobile': true,
-        'disableMdInkRippleOnMobile': true
-    });
+	// Fuse theme configurations
+	fuseConfigProvider.config({
+		disableCustomScrollbars: false,
+		disableCustomScrollbarsOnMobile: true,
+		disableMdInkRippleOnMobile: true,
+	});
 
-    // msScroll configuration
-    msScrollConfigProvider.config({
-        wheelPropagation: true
-    });
+	// msScroll configuration
+	msScrollConfigProvider.config({
+		wheelPropagation: true,
+	});
 }
 
 export default config;
