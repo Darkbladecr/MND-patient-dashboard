@@ -25,6 +25,14 @@
   },
   "build": {
 	"appId": "com.sysmed.MNDDashboard",
+	"icon": "src/icon.icns",
+	"dmg": {
+		"icon": "src/icon.icns"
+	},
+	"win": {
+		"target": "portable",
+		"icon": "src/icon.ico"
+	},
 	"files": ["main.js", "dist${/*}", "!(src|logs|server|distServer)${/*}"]
   },
   "repository": {
