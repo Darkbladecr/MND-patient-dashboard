@@ -49,10 +49,6 @@ class patientViewerController {
 		this.excelService = excelService;
 		this.AuthService = AuthService;
 
-		this.patient.appointments = this.patient.appointments.map(a => {
-			a.clinicDate = new Date(a.clinicDate);
-			return a;
-		});
 		this.selected = [];
 
 		this.options = {

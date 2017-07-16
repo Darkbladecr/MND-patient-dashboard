@@ -15,7 +15,9 @@ function config($httpProvider, apolloProvider) {
 	'ngInject';
 	'use strict';
 
-	const networkInterface = createNetworkInterface({ uri: '/graphql' });
+	const networkInterface = createNetworkInterface({
+		uri: '/graphql',
+	});
 	networkInterface.use([
 		{
 			applyMiddleware(req, next) {

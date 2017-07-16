@@ -23,7 +23,7 @@
 					</div>
 				</md-input-container>
 				<md-input-container class="md-block" md-no-float>
-					<input type="email" name="email" ng-model="vm.form.username" ng-change="vm.checkUsername()" placeholder="Email" ng-pattern="/^.+@.+\..+$/" required>
+					<input type="email" name="email" ng-model="vm.form.username" placeholder="Email" ng-pattern="/^.+@.+\..+$/" required>
 					<div ng-messages="registerForm.email.$error" role="alert" multiple>
 						<div ng-message="required">
 							<span>Email field is required</span>

@@ -39,4 +39,9 @@ jspm_packages
 dist
 distServer
 stats.html
+icons
 database
+*.sh
+*.cmd
+*.p12
+*.pfx

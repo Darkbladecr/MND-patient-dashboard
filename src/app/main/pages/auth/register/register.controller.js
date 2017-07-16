@@ -5,14 +5,6 @@ export default class RegisterController {
 		this.$state = $state;
 		this.$scope = $scope;
 		this.$log = $log;
-
-	}
-	checkUsername() {
-		if(this.form.username && this.form.username.length > 5 ){
-			this.AuthService.usernameAvailable(this.form.username).then((available) => {
-				this.$scope.registerForm.email.$setValidity('available', available);
-			});
-		}
 	}
 	submit() {
 		const user = {
@@ -20,7 +12,7 @@ export default class RegisterController {
 			firstName: this.form.firstName,
 			lastName: this.form.lastName,
 			password: this.form.password,
-			passwordConfirm: this.form.passwordConfirm
+			passwordConfirm: this.form.passwordConfirm,
 		};
 		this.AuthService.register(user).then(() => {
 			return this.$state.go('app.pages_auth_login');
