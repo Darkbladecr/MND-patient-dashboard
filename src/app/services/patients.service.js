@@ -44,7 +44,12 @@ export default class patientsService {
 				p => {
 					PatientResolve.appointments(p).then(
 						appointments => {
-							p = Object.assign({}, p, { appointments });
+							appointments = appointments.map(a =>
+								Object.assign({}, a)
+							);
+							p = Object.assign({}, p, {
+								appointments,
+							});
 							PatientResolve.graphData(p).then(
 								graphs => {
 									const final = Object.assign({}, p, {
@@ -246,7 +251,12 @@ export default class patientsService {
 				p => {
 					PatientResolve.appointments(p).then(
 						appointments => {
-							p = Object.assign({}, p, { appointments });
+							appointments = appointments.map(a =>
+								Object.assign({}, a)
+							);
+							p = Object.assign({}, p, {
+								appointments,
+							});
 							PatientResolve.graphData(p).then(
 								graphs => {
 									const final = Object.assign({}, p, {
@@ -300,6 +310,9 @@ export default class patientsService {
 				p => {
 					PatientResolve.appointments(p).then(
 						appointments => {
+							appointments = appointments.map(a =>
+								Object.assign({}, a)
+							);
 							p = Object.assign({}, p, { appointments });
 							PatientResolve.graphData(p).then(
 								graphs => {
@@ -352,7 +365,12 @@ export default class patientsService {
 				p => {
 					PatientResolve.appointments(p).then(
 						appointments => {
-							p = Object.assign({}, p, { appointments });
+							appointments = appointments.map(a =>
+								Object.assign({}, a)
+							);
+							p = Object.assign({}, p, {
+								appointments,
+							});
 							PatientResolve.graphData(p).then(
 								graphs => {
 									const final = Object.assign({}, p, {
