@@ -6,15 +6,15 @@ const AppointmentSchema = {
 	},
 	height: {
 		type: Number,
-		default: 0,
+		default: null,
 	},
 	weight: {
 		type: Number,
-		default: 0,
+		default: null,
 	},
 	bmi: {
 		type: Number,
-		default: 0,
+		default: null,
 	},
 	assessor: { type: String, default: '' },
 	alsfrs: {
@@ -56,23 +56,23 @@ const AppointmentSchema = {
 	abg: {
 		pH: {
 			type: Number,
-			default: 0,
+			default: null,
 		},
 		pO2: {
 			type: Number,
-			default: 0,
+			default: null,
 		},
 		pCO2: {
 			type: Number,
-			default: 0,
+			default: null,
 		},
 		HCO3: {
 			type: Number,
-			default: 0,
+			default: null,
 		},
 		be: {
 			type: Number,
-			default: 0,
+			default: null,
 		},
 	},
 };

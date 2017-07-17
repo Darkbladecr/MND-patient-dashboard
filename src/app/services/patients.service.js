@@ -9,6 +9,22 @@ import {
 } from './resolvers/mutation/restricted/patients';
 import { PatientResolve } from './resolvers/population';
 
+function nullDates(d) {
+	if (d instanceof Date && d === new Date(0)) {
+		return null;
+	} else {
+		return d;
+	}
+}
+function resolveDates(patient) {
+	patient.diagnosisDate = nullDates(patient.diagnosisDate);
+	patient.onsetDate = nullDates(patient.onsetDate);
+	patient.gastrostomyDate = nullDates(patient.gastrostomyDate);
+	patient.nivDate = nullDates(patient.nivDate);
+	patient.deathDate = nullDates(patient.deathDate);
+	return patient;
+}
+
 export default class patientsService {
 	constructor(apollo, graphqlService, AuthService, toastService) {
 		'ngInject';
@@ -21,12 +37,20 @@ export default class patientsService {
 		return new Promise(resolve => {
 			patient({}, { _id }).then(
 				p => {
-					PatientResolve.graphData(p).then(
-						graphs => {
-							const final = Object.assign({}, p, {
-								graphData: graphs,
-							});
-							return resolve(final);
+					PatientResolve.appointments(p).then(
+						appointments => {
+							p = Object.assign({}, p, { appointments });
+							PatientResolve.graphData(p).then(
+								graphs => {
+									const final = Object.assign({}, p, {
+										graphData: graphs,
+									});
+									return resolve(resolveDates(final));
+								},
+								err => {
+									throw err;
+								}
+							);
 						},
 						err => {
 							throw err;
@@ -73,7 +97,10 @@ export default class patientsService {
 	getPatients(search) {
 		return new Promise(resolve => {
 			patients({}, { search }).then(
-				p => resolve(p),
+				patients => {
+					const final = patients.map(resolveDates);
+					return resolve(final);
+				},
 				err => this.toastService.error(err)
 			);
 		});
@@ -101,7 +128,7 @@ export default class patientsService {
 			insertPatient({}, { patient }).then(
 				p => {
 					this.toastService.simple('Patient created.');
-					return resolve(p);
+					return resolve(resolveDates(p));
 				},
 				err => this.toastService.error(err)
 			);
@@ -149,7 +176,7 @@ export default class patientsService {
 			modifyPatient({}, { patient: update }).then(
 				p => {
 					this.toastService.simple('Patient updated.');
-					return resolve(p);
+					return resolve(resolveDates(p));
 				},
 				err => this.toastService.error(err)
 			);
@@ -212,13 +239,23 @@ export default class patientsService {
 		return new Promise(resolve => {
 			insertAppointment({}, { patientId, appointment }).then(
 				p => {
-					PatientResolve.graphData(p).then(
-						graphs => {
-							const final = Object.assign({}, p, {
-								graphData: graphs,
-							});
-							this.toastService.simple('Appointment added.');
-							return resolve(final);
+					PatientResolve.appointments(p).then(
+						appointments => {
+							p = Object.assign({}, p, { appointments });
+							PatientResolve.graphData(p).then(
+								graphs => {
+									const final = Object.assign({}, p, {
+										graphData: graphs,
+									});
+									this.toastService.simple(
+										'Appointment added.'
+									);
+									return resolve(final);
+								},
+								err => {
+									throw err;
+								}
+							);
 						},
 						err => {
 							throw err;
@@ -256,13 +293,23 @@ export default class patientsService {
 		return new Promise(resolve => {
 			modifyAppointment({}, { appointment: update }).then(
 				p => {
-					PatientResolve.graphData(p).then(
-						graphs => {
-							const final = Object.assign({}, p, {
-								graphData: graphs,
-							});
-							this.toastService.simple('Appointment updated.');
-							return resolve(final);
+					PatientResolve.appointments(p).then(
+						appointments => {
+							p = Object.assign({}, p, { appointments });
+							PatientResolve.graphData(p).then(
+								graphs => {
+									const final = Object.assign({}, p, {
+										graphData: graphs,
+									});
+									this.toastService.simple(
+										'Appointment updated.'
+									);
+									return resolve(final);
+								},
+								err => {
+									throw err;
+								}
+							);
 						},
 						err => {
 							throw err;
@@ -298,13 +345,23 @@ export default class patientsService {
 		return new Promise(resolve => {
 			removeAppointment({}, { appointmentId }).then(
 				p => {
-					PatientResolve.graphData(p).then(
-						graphs => {
-							const final = Object.assign({}, p, {
-								graphData: graphs,
-							});
-							this.toastService.simple('Appointment deleted.');
-							return resolve(final);
+					PatientResolve.appointments(p).then(
+						appointments => {
+							p = Object.assign({}, p, { appointments });
+							PatientResolve.graphData(p).then(
+								graphs => {
+									const final = Object.assign({}, p, {
+										graphData: graphs,
+									});
+									this.toastService.simple(
+										'Appointment deleted.'
+									);
+									return resolve(final);
+								},
+								err => {
+									throw err;
+								}
+							);
 						},
 						err => {
 							throw err;

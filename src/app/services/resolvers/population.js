@@ -55,25 +55,17 @@ function graphValues(graphType, appointments) {
 }
 const PatientResolve = {
 	graphData(obj) {
-		return new Promise((resolve, reject) => {
-			Appointment.find(
-				{ _id: { $in: obj.appointments } },
-				(err, appointments) => {
-					if (err) {
-						return reject(err);
-					}
-					const data = [
-						'weight',
-						'alsfrs',
-						'ess',
-						'fvcSitting',
-						'fvcSupine',
-						'snp',
-						'spO2',
-					].map(n => graphValues(n, appointments));
-					return resolve(data);
-				}
-			);
+		return new Promise(resolve => {
+			const data = [
+				'weight',
+				'alsfrs',
+				'ess',
+				'fvcSitting',
+				'fvcSupine',
+				'snp',
+				'spO2',
+			].map(n => graphValues(n, obj.appointments));
+			return resolve(data);
 		});
 	},
 	appointments(obj) {

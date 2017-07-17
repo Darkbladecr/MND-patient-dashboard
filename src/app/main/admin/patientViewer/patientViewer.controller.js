@@ -137,21 +137,11 @@ class patientViewerController {
 				this.refreshGraphs();
 			});
 	}
-	clinicLetter(ev, a) {
-		const outcomes = `Weight ${a.weight} kg, ALSFRS-R ${a.alsfrs
-			.total}/48 (${a.alsfrs.speech}/${a.alsfrs.salivation}/${a.alsfrs
-			.swallowing}/${a.alsfrs.handwriting}/${a.alsfrs.cutting}/${a.alsfrs
-			.dressing}/${a.alsfrs.dressing}/${a.alsfrs.turning}/${a.alsfrs
-			.walking}/${a.alsfrs.climbing}/${a.alsfrs.dyspnea}/${a.alsfrs
-			.orthopnea}/${a.alsfrs.respiratory}). ESS ${a.ess
-			.total}. SpO2 ${a.spO2}%. SNP ${a.snp.score} (Size ${a.snp
-			.size} in the ${a.snp.nostril} nostril). ABG - pH ${a.abg
-			.pH}, pO2 ${a.abg.pO2}, pCO2 ${a.abg.pCO2}, BE ${a.abg.be}, HCO3 ${a
-			.abg.HCO3}.`;
+	clinicLetter(ev, appointment) {
 		this.$mdDialog.show({
 			locals: {
 				event: ev,
-				outcomes: outcomes,
+				appointment,
 			},
 			controller: clinicLetterController,
 			controllerAs: 'vm',

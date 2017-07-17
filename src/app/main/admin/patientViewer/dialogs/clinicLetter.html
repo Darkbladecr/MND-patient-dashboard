@@ -9,8 +9,8 @@
 				</md-button>
 			</div>
 		</md-toolbar>
-		<md-dialog-content style="padding:0;">
-			<md-content>
+		<md-dialog-content>
+			<md-content layout-padding layout-margin>
 				<p id="letter">
 					{{vm.outcomes}}
 				</p>
@@ -22,7 +22,7 @@
 				Cancel
 			</md-button>
 			<md-button class="md-primary md-raised" ngclipboard data-clipboard-target="#letter" ng-click="vm.updateAppointment()" style="margin-right:20px;">
-				Save
+				Copy
 			</md-button>
 		</md-dialog-actions>
 		</form>

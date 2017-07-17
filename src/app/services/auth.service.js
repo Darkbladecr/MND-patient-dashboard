@@ -70,7 +70,7 @@ export default class AuthService {
 					);
 					return resolve();
 				},
-				err => this.toastService.error(err)
+				err => this.toastService.simple(err)
 			);
 		});
 	}

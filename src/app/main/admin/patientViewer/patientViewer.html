@@ -80,13 +80,13 @@
 													<td md-cell>{{appointment.clinicDate | date:'dd/MM/yy'}}</td>
 													<td md-cell>{{appointment.weight | number:1}}</td>
 													<td md-cell>{{appointment.bmi | number:1}}</td>
-													<td md-cell>{{appointment.alsfrs.total}}</td>
-													<td md-cell>{{appointment.ess.total}}</td>
-													<td md-cell>{{appointment.fvc.sitting}}</td>
-													<td md-cell>{{appointment.fvc.supine}}</td>
-													<td md-cell>{{appointment.snp.score}}</td>
-													<td md-cell>{{appointment.spO2}}</td>
-													<td md-cell>{{appointment.abg ? 'true' : 'false'}}</td>
+													<td md-cell>{{appointment.alsfrs.total | number:0}}</td>
+													<td md-cell>{{appointment.ess.total | number:0}}</td>
+													<td md-cell>{{appointment.fvc.sitting | number:0}}</td>
+													<td md-cell>{{appointment.fvc.supine | number:0}}</td>
+													<td md-cell>{{appointment.snp.score | number:0}}</td>
+													<td md-cell>{{appointment.spO2 | number:0}}</td>
+													<td md-cell>{{appointment.abg.pH ? 'true' : 'false'}}</td>
 													</td>
 												</tr>
 											</tbody>

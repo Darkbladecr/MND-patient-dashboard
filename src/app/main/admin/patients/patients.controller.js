@@ -145,6 +145,12 @@ export default class UsersController {
 			this.selected = [];
 		});
 	}
+	deceasedCheck(patient) {
+		if (patient.deathDate && patient.deathDate.getTime() !== 0) {
+			return true;
+		}
+		return false;
+	}
 	toggleSidenav(sidenavId) {
 		this.$mdSidenav(sidenavId).toggle();
 	}

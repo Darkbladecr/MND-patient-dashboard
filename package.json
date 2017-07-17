@@ -20,26 +20,29 @@
     "copy-files": "cp -R src/assets dist",
     "heroku-prebuild": "mkdir distServer && rm -r distServer",
     "heroku-postbuild": "npm run build && npm run build-backend",
-	"package": "build",
-	"postinstall": "electron-builder install-app-deps"
+    "package": "build",
+    "postinstall": "electron-builder install-app-deps"
   },
   "build": {
-	"appId": "com.sysmed.MNDDashboard",
-	"icon": "src/icon.icns",
-	"dmg": {
-		"icon": "src/icon.icns"
-	},
-	"win": {
-		"target": "portable",
-		"icon": "src/icon.ico"
-	},
-	"files": ["main.js", "dist${/*}", "!(src|logs|server|distServer)${/*}"]
+    "appId": "com.sysmed.MNDDashboard",
+    "icon": "src/icon.icns",
+    "dmg": {
+      "icon": "src/icon.icns"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "src/icon.ico"
+    },
+    "files": [
+      "main.js",
+      "dist${/*}",
+      "!(src|logs|server|distServer)${/*}"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Darkbladecr/ques.git"
   },
-  "author": "Stefan Mitrasinovic",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Darkbladecr/ques/issues"
@@ -83,6 +86,7 @@
     "apollo-client": "^1.0.1",
     "body-parser": "^1.15.2",
     "c3-angular": "^1.3.1",
+    "camo": "^0.12.3",
     "chartist": "^0.10.1",
     "clipboard": "^1.5.16",
     "compression": "^1.6.2",
@@ -117,6 +121,7 @@
     "mobile-detect": "^1.3.3",
     "moment": "^2.15.2",
     "moment-range": "^3.0.3",
+    "nedb": "^1.8.0",
     "ng-redux": "^3.4.0-beta.1",
     "ngclipboard": "^1.1.1",
     "node-schedule": "^1.2.1",
@@ -146,6 +151,7 @@
     "babel-loader": "^6.2.5",
     "babel-plugin-angularjs-annotate": "^0.7.0",
     "babel-plugin-inline-import": "^2.0.4",
+    "babel-preset-camo": "0.0.1",
     "babel-preset-es2015": "^6.22.0",
     "babel-watch": "^2.0.6",
     "browser-sync": "^2.17.5",

@@ -5,7 +5,9 @@ function config($provide, $compileProvider, $qProvider, $mdDateLocaleProvider) {
 	'use strict';
 
 	$mdDateLocaleProvider.formatDate = date => {
-		return date ? moment(date).format('DD/MM/YYYY') : null;
+		return date && date.getTime() !== 0
+			? moment(date).format('DD/MM/YYYY')
+			: null;
 	};
 	$mdDateLocaleProvider.parseDate = dateString => {
 		const m = moment(dateString, 'DD/MM/YYYY', true);
