@@ -1,9 +1,0 @@
-query getAuthors($token: String!) {
-	admin(token: $token) {
-		authors {
-			_id
-			firstName
-			lastName
-		}
-	}
-}

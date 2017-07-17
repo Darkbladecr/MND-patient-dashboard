@@ -2,8 +2,7 @@
 var webpack = require('webpack'),
 	path = require('path'),
 	ExtractTextPlugin = require('extract-text-webpack-plugin'),
-	HtmlWebpackPlugin = require('html-webpack-plugin'),
-	Visualizer = require('webpack-visualizer-plugin');
+	HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var SRC = __dirname + '/src';
 var DIST = __dirname + '/dist';
@@ -34,8 +33,6 @@ var config = {
 			$: 'jquery',
 			jQuery: 'jquery',
 			'window.jQuery': 'jquery',
-			lightGallery: 'lightgallery.js',
-			Flow: '@flowjs/flow.js',
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
@@ -50,12 +47,9 @@ var config = {
 			name: 'manifest',
 			minChunks: Infinity,
 		}),
-		new ExtractTextPlugin('[chunkhash].styles.css'),
+		new ExtractTextPlugin('[name].css'),
 		new HtmlWebpackPlugin({
 			template: path.join(SRC, 'index.ejs'),
-		}),
-		new Visualizer({
-			filename: '../stats.html',
 		}),
 	],
 	module: {
@@ -69,7 +63,7 @@ var config = {
 			{
 				test: /\.css$/,
 				use: ExtractTextPlugin.extract({
-					use: 'css-loader',
+					use: ['css-loader'],
 				}),
 			},
 			{
@@ -88,11 +82,6 @@ var config = {
 			{
 				test: /\.json$/,
 				loader: 'json-loader',
-			},
-			{
-				test: /\.gql$/,
-				exclude: /node_modules/,
-				loader: 'graphql-tag/loader',
 			},
 			{
 				test: /\.html$/,

@@ -15,9 +15,6 @@ import 'textangular';
 import 'angular-xeditable'; // 'xeditable'
 import 'angular-material-data-table'; // 'md.data.table'
 import 'angular-material-data-table/dist/md-data-table.min.css';
-import ngRedux from 'ng-redux';
-import '@flowjs/ng-flow';
-import '@flowjs/flow.js';
 import 'clipboard';
 import 'ngclipboard'; // 'ngclipboard'
 import 'angular-scroll'; // duScroll
@@ -151,8 +148,6 @@ export default angular
 		'textAngular',
 		'xeditable',
 		'md.data.table',
-		ngRedux,
-		'flow',
 		'ngclipboard',
 		'duScroll',
 		fileSaver, // ngFileSaver

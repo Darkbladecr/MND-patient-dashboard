@@ -26,9 +26,8 @@ function resolveDates(patient) {
 }
 
 export default class patientsService {
-	constructor(apollo, graphqlService, AuthService, toastService) {
+	constructor(graphqlService, AuthService, toastService) {
 		'ngInject';
-		this.apollo = apollo;
 		this.graphqlService = graphqlService;
 		this.AuthService = AuthService;
 		this.toastService = toastService;

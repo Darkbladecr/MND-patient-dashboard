@@ -1,5 +1,0 @@
-mutation editUser($token:String!, $_id: String, $userData:UserInput!){
-    restricted(token:$token){
-        updateUser(_id:$_id, data:$userData)
-    }
-}

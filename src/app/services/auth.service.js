@@ -1,11 +1,10 @@
 import { loginUser, registerUser } from './resolvers/mutation/users';
 
 export default class AuthService {
-	constructor($window, jwtHelper, apollo, toastService, graphqlService) {
+	constructor($window, jwtHelper, toastService, graphqlService) {
 		'ngInject';
 		this.$window = $window;
 		this.jwtHelper = jwtHelper;
-		this.apollo = apollo;
 		this.toastService = toastService;
 		this.graphqlService = graphqlService;
 	}
