@@ -57,13 +57,13 @@ var config = {
 			{
 				test: /\.scss$/,
 				use: ExtractTextPlugin.extract({
-					use: ['css-loader', 'sass-loader'],
+					use: ['css-loader?url=false', 'sass-loader'],
 				}),
 			},
 			{
 				test: /\.css$/,
 				use: ExtractTextPlugin.extract({
-					use: ['css-loader'],
+					use: ['css-loader?url=false'],
 				}),
 			},
 			{
@@ -103,10 +103,10 @@ var config = {
 		],
 		noParse: [/node_modules\/localforage/, /acron\/dist/],
 	},
+	target: 'electron-renderer',
 	node: {
-		net: 'empty',
-		tls: 'empty',
-		dns: 'empty',
+		__filename: false,
+		__dirname: false,
 	},
 };
 

@@ -1,3 +1,5 @@
+import { clipboard } from 'electron';
+
 export default class ClinicLetterController {
 	constructor($mdDialog, appointment) {
 		'ngInject';
@@ -40,6 +42,7 @@ export default class ClinicLetterController {
 		this.outcomes = outcomes;
 	}
 	closeDialog() {
+		clipboard.writeText(this.outcomes);
 		this.$mdDialog.hide();
 	}
 	cancelDialog() {

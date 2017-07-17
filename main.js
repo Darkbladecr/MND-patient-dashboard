@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const { download } = require('electron-dl');
 const path = require('path');
 const url = require('url');
 
@@ -53,3 +54,17 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+ipcMain.on('download-btn', (e, [csv, filename]) => {
+	const bomCode = '\ufeff';
+	let text = `data:attachment/csv;charset=utf-8,${bomCode}${encodeURIComponent(
+		csv
+	)}`;
+
+	download(BrowserWindow.getFocusedWindow(), text, {
+		saveAs: true,
+		filename: filename,
+	})
+		.then(dl => console.log(dl.getSavePath()))
+		.catch(console.error);
+});
