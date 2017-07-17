@@ -1,4 +1,6 @@
-import { loginUser, registerUser } from './resolvers/mutation/users';
+const { loginUser, registerUser } = require('electron').remote.require(
+	'./backend/resolvers/mutation/users'
+);
 
 export default class AuthService {
 	constructor($window, jwtHelper, toastService, graphqlService) {

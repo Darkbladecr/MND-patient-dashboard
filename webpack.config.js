@@ -5,7 +5,7 @@ var webpack = require('webpack'),
 	HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var SRC = __dirname + '/src';
-var DIST = __dirname + '/dist';
+var DIST = __dirname + '/build';
 
 var config = {
 	context: SRC,
@@ -101,7 +101,7 @@ var config = {
 				loader: 'ejs-compiled-loader',
 			},
 		],
-		noParse: [/node_modules\/localforage/, /acron\/dist/],
+		noParse: [/node_modules\/leveldown/, /acron\/dist/],
 	},
 	target: 'electron-renderer',
 	node: {

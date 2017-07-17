@@ -38,6 +38,7 @@ jspm_packages
 
 dist
 distServer
+build
 stats.html
 icons
 database

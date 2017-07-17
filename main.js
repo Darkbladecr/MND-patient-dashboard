@@ -1,5 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const { download } = require('electron-dl');
+const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
 
@@ -19,7 +18,7 @@ function createWindow() {
 	// and load the index.html of the app.
 	win.loadURL(
 		url.format({
-			pathname: path.join(__dirname, 'dist', 'index.html'),
+			pathname: path.join(__dirname, 'build', 'index.html'),
 			protocol: 'file:',
 			slashes: true,
 		})
@@ -59,17 +58,4 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-ipcMain.on('download-btn', (e, [csv, filename]) => {
-	const bomCode = '\ufeff';
-	let text = `data:attachment/csv;charset=utf-8,${bomCode}${encodeURIComponent(
-		csv
-	)}`;
-
-	download(BrowserWindow.getFocusedWindow(), text, {
-		saveAs: true,
-		filename: filename,
-	})
-		.then(dl => console.log(dl.getSavePath()))
-		.catch(console.error);
-});
+require('./backend/models');

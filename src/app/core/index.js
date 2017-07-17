@@ -15,8 +15,6 @@ import 'textangular';
 import 'angular-xeditable'; // 'xeditable'
 import 'angular-material-data-table'; // 'md.data.table'
 import 'angular-material-data-table/dist/md-data-table.min.css';
-import 'clipboard';
-import 'ngclipboard'; // 'ngclipboard'
 import 'angular-scroll'; // duScroll
 
 import runBlock from './core.run';
@@ -148,7 +146,6 @@ export default angular
 		'textAngular',
 		'xeditable',
 		'md.data.table',
-		'ngclipboard',
 		'duScroll',
 		fileSaver, // ngFileSaver
 	])

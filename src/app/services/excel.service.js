@@ -1,4 +1,7 @@
-import { patientsExport, appointmentsExport } from './excelExports';
+const {
+	patientsExport,
+	appointmentsExport,
+} = require('electron').remote.require('./backend/excelExports');
 
 export default class excelService {
 	constructor($http, AuthService, FileSaver, toastService) {

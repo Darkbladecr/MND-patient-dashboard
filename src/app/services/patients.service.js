@@ -1,13 +1,19 @@
-import { patient, patients } from './resolvers/query/restricted/patient';
-import {
-	createPatient as insertPatient,
-	updatePatient as modifyPatient,
-	deletePatient as removePatient,
-	addAppointment as insertAppointment,
-	updateAppointment as modifyAppointment,
-	deleteAppointment as removeAppointment,
-} from './resolvers/mutation/restricted/patients';
-import { PatientResolve } from './resolvers/population';
+const { patient, patients } = require('electron').remote.require(
+	'./backend/resolvers/query/restricted/patient'
+);
+const {
+	createPatient,
+	updatePatient,
+	deletePatient,
+	addAppointment,
+	updateAppointment,
+	deleteAppointment,
+} = require('electron').remote.require(
+	'./backend/resolvers/mutation/restricted/patients'
+);
+const { PatientResolve } = require('electron').remote.require(
+	'./backend/resolvers/population'
+);
 
 function nullDates(d) {
 	if (d instanceof Date && d === new Date(0)) {
@@ -124,7 +130,7 @@ export default class patientsService {
 	}
 	createPatient(patient) {
 		return new Promise(resolve => {
-			insertPatient({}, { patient }).then(
+			createPatient({}, { patient }).then(
 				p => {
 					this.toastService.simple('Patient created.');
 					return resolve(resolveDates(p));
@@ -172,7 +178,7 @@ export default class patientsService {
 			NHSnumber: patient.NHSnumber,
 		};
 		return new Promise(resolve => {
-			modifyPatient({}, { patient: update }).then(
+			updatePatient({}, { patient: update }).then(
 				p => {
 					this.toastService.simple('Patient updated.');
 					return resolve(resolveDates(p));
@@ -201,7 +207,7 @@ export default class patientsService {
 	}
 	deletePatient(patient) {
 		return new Promise(resolve => {
-			removePatient({}, { _id: patient._id }).then(
+			deletePatient({}, { _id: patient._id }).then(
 				p => {
 					this.toastService.simple('Patient deleted.');
 					return resolve(p._id);
@@ -236,7 +242,7 @@ export default class patientsService {
 	}
 	addAppointment(patientId, appointment) {
 		return new Promise(resolve => {
-			insertAppointment({}, { patientId, appointment }).then(
+			addAppointment({}, { patientId, appointment }).then(
 				p => {
 					PatientResolve.appointments(p).then(
 						appointments => {
@@ -290,7 +296,7 @@ export default class patientsService {
 	updateAppointment(appointment) {
 		const update = Object.assign({}, appointment);
 		return new Promise(resolve => {
-			modifyAppointment({}, { appointment: update }).then(
+			updateAppointment({}, { appointment: update }).then(
 				p => {
 					PatientResolve.appointments(p).then(
 						appointments => {
@@ -342,7 +348,7 @@ export default class patientsService {
 	}
 	deleteAppointment(appointmentId) {
 		return new Promise(resolve => {
-			removeAppointment({}, { appointmentId }).then(
+			deleteAppointment({}, { appointmentId }).then(
 				p => {
 					PatientResolve.appointments(p).then(
 						appointments => {
