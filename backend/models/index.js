@@ -11,10 +11,10 @@ const { app } = require('electron');
 
 const isWin = /^win/.test(process.platform);
 let dbpath;
-if(isWin){
+if (isWin) {
 	dbpath = path.join(app.getPath('exe'), '..', '..', 'database');
 } else {
-	dbpath = path.join(app.getPath('exe'), 'database');
+	dbpath = path.join(app.getAppPath(), '../../../../', 'database');
 }
 LinvoDB.defaults.store = { db };
 LinvoDB.dbpath = dbpath;
