@@ -1,6 +1,8 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const path = require('path');
 const url = require('url');
+const fs = require('fs');
+const os = require('os');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -59,3 +61,25 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 require('./backend/models');
+
+ipcMain.on('print-to-pdf', event => {
+	const pdfPath = path.join(os.tmpdir(), 'patientGraphs.pdf');
+	const win = BrowserWindow.fromWebContents(event.sender);
+	win.webContents.printToPDF(
+		{
+			marginsType: 1,
+			printBackground: false,
+			printSelectionOnly: false,
+			landscape: false,
+		},
+		(error, data) => {
+			if (error) throw error;
+			fs.writeFile(pdfPath, data, error => {
+				if (error) {
+					throw error;
+				}
+				shell.openExternal('file://' + pdfPath);
+			});
+		}
+	);
+});

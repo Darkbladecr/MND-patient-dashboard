@@ -104,7 +104,10 @@
 				<md-tab label="Graphs">
 					<!-- CONTENT CARD -->
 					<div class="widget-group" layout="column" style="padding-bottom:5%;" layout-padding flex>
-						<md-button ng-click="$ctrl.refreshGraphs()"><md-icon md-font-icon="icon-refresh" class="icon" aria-label="export"></md-icon> Refresh</md-button>
+						<div layout="center center">
+							<md-button ng-click="$ctrl.refreshGraphs()"><md-icon md-font-icon="icon-refresh" class="icon" aria-label="export"></md-icon> Refresh</md-button>
+							<!-- <md-button ng-click="$ctrl.printGraphs()"><md-icon md-font-icon="icon-printer" class="icon" aria-label="print"></md-icon> Print</md-button> -->
+						</div>
 						<ms-widget layout="column">
 							<ms-widget-front class="white-bg">
 								<div class="ph-8 pv-16 h-55" layout="row" layout-align="space-between center">

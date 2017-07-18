@@ -7,8 +7,9 @@ const db = require('leveldown');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const { app } = require('electron');
 
-const dbpath = path.join(process.cwd(), 'database');
+const dbpath = path.join(app.getPath('exe'), 'database');
 LinvoDB.defaults.store = { db };
 LinvoDB.dbpath = dbpath;
 

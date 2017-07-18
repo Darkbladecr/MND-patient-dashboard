@@ -2,6 +2,7 @@ import angular from 'angular';
 import d3 from 'd3';
 import clinicLetterTemplate from './dialogs/clinicLetter.html';
 import clinicLetterController from './dialogs/clinicLetter.controller';
+const ipc = require('electron').ipcRenderer;
 
 function chartOptions(str, legend) {
 	return {
@@ -99,6 +100,9 @@ class patientViewerController {
 		);
 		this.graphOptionsSpO2 = chartOptions('%');
 		this.graphApiSpO2.refreshWithTimeout(5);
+	}
+	printGraphs() {
+		ipc.send('print-to-pdf');
 	}
 	addAppointment(ev) {
 		this.selected = [
