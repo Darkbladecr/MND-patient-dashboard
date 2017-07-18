@@ -9,7 +9,13 @@ const jwt = require('jsonwebtoken');
 const path = require('path');
 const { app } = require('electron');
 
-const dbpath = path.join(app.getPath('exe'), 'database');
+const isWin = /^win/.test(process.platform);
+let dbpath;
+if(isWin){
+	dbpath = path.join(app.getPath('exe'), '..', '..', 'database');
+} else {
+	dbpath = path.join(app.getPath('exe'), 'database');
+}
 LinvoDB.defaults.store = { db };
 LinvoDB.dbpath = dbpath;
 

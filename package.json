@@ -11,7 +11,7 @@
     "webpack": "BABEL_ENV=development NODE_ENV=development webpack-dev-server --open --hot",
     "webpack:dev": "BABEL_DISABLE_CACHE=1 BABEL_ENV=development NODE_ENV=development webpack --display-modules --progress",
     "webpack:prod": "BABEL_ENV=development NODE_ENV=production webpack --display-modules --progress",
-    "webpack:prod-win": "$env:BABEL_ENV='development'; $env:NODE_ENV='production'; webpack --display-modules --progress",
+    "webpack:prod-win": "webpack --display-modules --progress",
     "webpack:stats": "webpack --json > stats.json",
     "build": "npm run webpack:prod && npm run copy-files",
     "build-backend": "BABEL_ENV=server babel server -d distServer",
