@@ -103,152 +103,161 @@
 							</md-content>
 						</md-tab>
 						<md-tab label="ALFRS">
-							<md-content layout="column" style="padding:45px;">
+							<md-content layout="column" style="padding:20px;font-size:1.2rem;">
 								<h2>ALSFRS - R</h2>
-								<p>Comparisons are made with the patient's status prior to the onset of the disease, not with status of the last visit.</p>
-								<p>Patient's response (on a 5-point scale) is recorded in relation to the question: "How are you doing at (…)?" for each of 12 functions listed in the ALSFRS</p>
+								<p>Comparisons are made with the patient's status prior to the onset of the disease, not with status of the last visit.
+
+									Patient's response (on a 5-point scale) is recorded in relation to the question: "How are you doing at (…)?" for each of 12 functions listed in the ALSFRS</p>
 								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Speech</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.speech">
-										<md-radio-button ng-value="4">4) Normal speech processes</md-radio-button>
-										<md-radio-button ng-value="3">3) Detectable speech disturbances</md-radio-button>
-										<md-radio-button ng-value="2">2) Intelligible with repeating</md-radio-button>
-										<md-radio-button ng-value="1">1) Speech combined with non-vocal communication</md-radio-button>
-										<md-radio-button ng-value="0">0) Loss of useful speech</md-radio-button>
-									</md-radio-group>
+								<div layout="row" flex>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Speech</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.speech">
+											<md-radio-button ng-value="4">4) Normal speech processes</md-radio-button>
+											<md-radio-button ng-value="3">3) Detectable speech disturbances</md-radio-button>
+											<md-radio-button ng-value="2">2) Intelligible with repeating</md-radio-button>
+											<md-radio-button ng-value="1">1) Speech combined with non-vocal communication</md-radio-button>
+											<md-radio-button ng-value="0">0) Loss of useful speech</md-radio-button>
+										</md-radio-group>
+									</div>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Salivation</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.salivation">
+											<md-radio-button ng-value="4">4) Normal</md-radio-button>
+											<md-radio-button ng-value="3">3) Slight but definite excess of saliva in mouth; may have night-time drooling</md-radio-button>
+											<md-radio-button ng-value="2">2) Moderately excessive saliva; may have minimal drooling</md-radio-button>
+											<md-radio-button ng-value="1">1) Marked excess of saliva with some drooling</md-radio-button>
+											<md-radio-button ng-value="0">0) Marked drooling; requires constant tissue or handkerchief</md-radio-button>
+										</md-radio-group>
+									</div>
 								</div>
 								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Salivation</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.salivation">
-										<md-radio-button ng-value="4">4) Normal</md-radio-button>
-										<md-radio-button ng-value="3">3) Slight but definite excess of saliva in mouth; may have night-time drooling</md-radio-button>
-										<md-radio-button ng-value="2">2) Moderately excessive saliva; may have minimal drooling</md-radio-button>
-										<md-radio-button ng-value="1">1) Marked excess of saliva with some drooling</md-radio-button>
-										<md-radio-button ng-value="0">0) Marked drooling; requires constant tissue or handkerchief</md-radio-button>
-									</md-radio-group>
+								<div layout="row" flex>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Swallowing</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.swallowing">
+											<md-radio-button ng-value="4">4) Normal eating habits</md-radio-button>
+											<md-radio-button ng-value="3">3) Early eating problems, occasional choking</md-radio-button>
+											<md-radio-button ng-value="2">2) Dietary consistency changes</md-radio-button>
+											<md-radio-button ng-value="1">1) Needs supplemental tube feeding</md-radio-button>
+											<md-radio-button ng-value="0">0) NPO (exclusively parenteral or enteral feeding)</md-radio-button>
+										</md-radio-group>
+									</div>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Handwriting</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.handwriting">
+											<md-radio-button ng-value="4">4) Normal</md-radio-button>
+											<md-radio-button ng-value="3">3) Slow or sloppy; all words are legible</md-radio-button>
+											<md-radio-button ng-value="2">2) Not all words are legible</md-radio-button>
+											<md-radio-button ng-value="1">1) Able to grip pen but unable to write</md-radio-button>
+											<md-radio-button ng-value="0">0) Unable to grip pen</md-radio-button>
+										</md-radio-group>
+									</div>
 								</div>
 								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Swallowing</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.swallowing">
-										<md-radio-button ng-value="4">4) Normal eating habits</md-radio-button>
-										<md-radio-button ng-value="3">3) Early eating problems, occasional choking</md-radio-button>
-										<md-radio-button ng-value="2">2) Dietary consistency changes</md-radio-button>
-										<md-radio-button ng-value="1">1) Needs supplemental tube feeding</md-radio-button>
-										<md-radio-button ng-value="0">0) NPO (exclusively parenteral or enteral feeding)</md-radio-button>
-									</md-radio-group>
+								<div layout="row" flex>
+									<div class="appointment-row-padding" layout="column" flex>
+										<md-checkbox ng-model="vm.gastrostomy" aria-label="patient with gastrostomy">Does the patient have a gastrostomy?</md-checkbox>
+										<div ng-if="!vm.gastrostomy">
+											<b>Cutting Food and Handling Utensils (patients without gastrostomy)</b>
+											<md-radio-group ng-model="vm.appointment.alsfrs.cutting">
+												<md-radio-button ng-value="4">4) Normal</md-radio-button>
+												<md-radio-button ng-value="3">3) Somewhat slow and clumsy, but no help needed</md-radio-button>
+												<md-radio-button ng-value="2">2) Can cut most foods, although clumsy and slow; some help needed</md-radio-button>
+												<md-radio-button ng-value="1">1) Food must be cut by someone, but can still feed slowly</md-radio-button>
+												<md-radio-button ng-value="0">0) Needs to be fed</md-radio-button>
+											</md-radio-group>
+										</div>
+										<div ng-if="vm.gastrostomy">
+											<b>Cutting Food and Handling Utensils (alternate scale for patients with gastrostomy)</b>
+											<md-radio-group ng-model="vm.appointment.alsfrs.cutting">
+												<md-radio-button ng-value="4">4) Normal</md-radio-button>
+												<md-radio-button ng-value="3">3) Clumsy but able to perform all manipulations independently</md-radio-button>
+												<md-radio-button ng-value="2">2) Some help needed with closures and fasteners</md-radio-button>
+												<md-radio-button ng-value="1">1) Provides minimal assistance to caregiver</md-radio-button>
+												<md-radio-button ng-value="0">0) Unable to perform any aspect of task</md-radio-button>
+											</md-radio-group>
+										</div>
+									</div>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Dressing and Hygiene</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.dressing">
+											<md-radio-button ng-value="4">4) Normal function</md-radio-button>
+											<md-radio-button ng-value="3">3) Independent and complete self-care with effort of decreased efficiency</md-radio-button>
+											<md-radio-button ng-value="2">2) Intermittent assistance or substitute methods</md-radio-button>
+											<md-radio-button ng-value="1">1) Needs attendant for self-care</md-radio-button>
+											<md-radio-button ng-value="0">0) Total dependence</md-radio-button>
+										</md-radio-group>
+									</div>
 								</div>
 								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Handwriting</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.handwriting">
-										<md-radio-button ng-value="4">4) Normal</md-radio-button>
-										<md-radio-button ng-value="3">3) Slow or sloppy; all words are legible</md-radio-button>
-										<md-radio-button ng-value="2">2) Not all words are legible</md-radio-button>
-										<md-radio-button ng-value="1">1) Able to grip pen but unable to write</md-radio-button>
-										<md-radio-button ng-value="0">0) Unable to grip pen</md-radio-button>
-									</md-radio-group>
+								<div layout="row" flex>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Turning in Bed and Adjusting Bed Clothes</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.turning">
+											<md-radio-button ng-value="4">4) Normal</md-radio-button>
+											<md-radio-button ng-value="3">3) Somewhat slow and clumsy, but no help needed</md-radio-button>
+											<md-radio-button ng-value="2">2) Can turn alone or adjust bed sheets, but with great difficulty</md-radio-button>
+											<md-radio-button ng-value="1">1) Can initiate, but not turn or adjust sheets alone</md-radio-button>
+											<md-radio-button ng-value="0">0) Helpless</md-radio-button>
+										</md-radio-group>
+									</div>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Walking</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.walking">
+											<md-radio-button ng-value="4">4) Normal</md-radio-button>
+											<md-radio-button ng-value="3">3) Early ambulation difficulties</md-radio-button>
+											<md-radio-button ng-value="2">2) Walks with assistance</md-radio-button>
+											<md-radio-button ng-value="1">1) Non-ambulatory functional movement</md-radio-button>
+											<md-radio-button ng-value="0">0) No purposeful left movement</md-radio-button>
+										</md-radio-group>
+									</div>
 								</div>
 								<md-divider class="appointment-form-divider"></md-divider>
-								<md-checkbox ng-model="vm.gastrostomy" aria-label="patient with gastrostomy">Does the patient have a gastrostomy?</md-checkbox>
-								<div ng-if="!vm.gastrostomy">
-									<b>Cutting Food and Handling Utensils (patients without gastrostomy)</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.cutting">
-										<md-radio-button ng-value="4">4) Normal</md-radio-button>
-										<md-radio-button ng-value="3">3) Somewhat slow and clumsy, but no help needed</md-radio-button>
-										<md-radio-button ng-value="2">2) Can cut most foods, although clumsy and slow; some help needed</md-radio-button>
-										<md-radio-button ng-value="1">1) Food must be cut by someone, but can still feed slowly</md-radio-button>
-										<md-radio-button ng-value="0">0) Needs to be fed</md-radio-button>
-									</md-radio-group>
-								</div>
-								<div ng-if="vm.gastrostomy">
-									<b>Cutting Food and Handling Utensils (alternate scale for patients with gastrostomy)</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.cutting">
-										<md-radio-button ng-value="4">4) Normal</md-radio-button>
-										<md-radio-button ng-value="3">3) Clumsy but able to perform all manipulations independently</md-radio-button>
-										<md-radio-button ng-value="2">2) Some help needed with closures and fasteners</md-radio-button>
-										<md-radio-button ng-value="1">1) Provides minimal assistance to caregiver</md-radio-button>
-										<md-radio-button ng-value="0">0) Unable to perform any aspect of task</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Dressing and Hygiene</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.dressing">
-										<md-radio-button ng-value="4">4) Normal function</md-radio-button>
-										<md-radio-button ng-value="3">3) Independent and complete self-care with effort of decreased efficiency</md-radio-button>
-										<md-radio-button ng-value="2">2) Intermittent assistance or substitute methods</md-radio-button>
-										<md-radio-button ng-value="1">1) Needs attendant for self-care</md-radio-button>
-										<md-radio-button ng-value="0">0) Total dependence</md-radio-button>
-									</md-radio-group>
+								<div layout="row" flex>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Climbing stairs</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.climbing">
+											<md-radio-button ng-value="4">4) Normal</md-radio-button>
+											<md-radio-button ng-value="3">3) Slow</md-radio-button>
+											<md-radio-button ng-value="2">2) Mild unsteadiness or fatigue</md-radio-button>
+											<md-radio-button ng-value="1">1) Needs assistance</md-radio-button>
+											<md-radio-button ng-value="0">0) Cannot do</md-radio-button>
+										</md-radio-group>
+									</div>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Dypnoea</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.dyspnea">
+											<md-radio-button ng-value="4">4) None</md-radio-button>
+											<md-radio-button ng-value="3">3) Occurs when walking</md-radio-button>
+											<md-radio-button ng-value="2">2) Occurs with one or more of the following: eating, bathing, dressing (ADL)</md-radio-button>
+											<md-radio-button ng-value="1">1) Occurs at rest, difficulty when either sitting or lying</md-radio-button>
+											<md-radio-button ng-value="0">0) Significant difficulty, considering using mechanical respiratory support</md-radio-button>
+										</md-radio-group>
+									</div>
 								</div>
 								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Turning in Bed and Adjusting Bed Clothes</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.turning">
-										<md-radio-button ng-value="4">4) Normal</md-radio-button>
-										<md-radio-button ng-value="3">3) Somewhat slow and clumsy, but no help needed</md-radio-button>
-										<md-radio-button ng-value="2">2) Can turn alone or adjust bed sheets, but with great difficulty</md-radio-button>
-										<md-radio-button ng-value="1">1) Can initiate, but not turn or adjust sheets alone</md-radio-button>
-										<md-radio-button ng-value="0">0) Helpless</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Walking</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.walking">
-										<md-radio-button ng-value="4">4) Normal</md-radio-button>
-										<md-radio-button ng-value="3">3) Early ambulation difficulties</md-radio-button>
-										<md-radio-button ng-value="2">2) Walks with assistance</md-radio-button>
-										<md-radio-button ng-value="1">1) Non-ambulatory functional movement</md-radio-button>
-										<md-radio-button ng-value="0">0) No purposeful left movement</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Climbing stairs</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.climbing">
-										<md-radio-button ng-value="4">4) Normal</md-radio-button>
-										<md-radio-button ng-value="3">3) Slow</md-radio-button>
-										<md-radio-button ng-value="2">2) Mild unsteadiness or fatigue</md-radio-button>
-										<md-radio-button ng-value="1">1) Needs assistance</md-radio-button>
-										<md-radio-button ng-value="0">0) Cannot do</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Dypnoea</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.dyspnea">
-										<md-radio-button ng-value="4">4) None</md-radio-button>
-										<md-radio-button ng-value="3">3) Occurs when walking</md-radio-button>
-										<md-radio-button ng-value="2">2) Occurs with one or more of the following: eating, bathing, dressing (ADL)</md-radio-button>
-										<md-radio-button ng-value="1">1) Occurs at rest, difficulty when either sitting or lying</md-radio-button>
-										<md-radio-button ng-value="0">0) Significant difficulty, considering using mechanical respiratory support</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Orthopnoea</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.orthopnea">
-										<md-radio-button ng-value="4">4) None</md-radio-button>
-										<md-radio-button ng-value="3">3) Some difficulty sleeping at night due to shortness of breath, does not routinely use more than 2 pillows</md-radio-button>
-										<md-radio-button ng-value="2">2) Needs extra pillows in order to sleep (more than two)</md-radio-button>
-										<md-radio-button ng-value="1">1) Can only sleep sitting up</md-radio-button>
-										<md-radio-button ng-value="0">0) Unable to sleep</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Respiratory insufficiency</b>
-									<md-radio-group ng-model="vm.appointment.alsfrs.respiratory">
-										<md-radio-button ng-value="4">4) None</md-radio-button>
-										<md-radio-button ng-value="3">3) Intermittent use of BiPAP</md-radio-button>
-										<md-radio-button ng-value="2">2) Continuous use of BiPAP during the night</md-radio-button>
-										<md-radio-button ng-value="1">1) Continuous use of BiPAP during the night and day</md-radio-button>
-										<md-radio-button ng-value="0">0) Invasive mechanical ventilation by intubation or tracheostomy</md-radio-button>
-									</md-radio-group>
+								<div layout="row" flex>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Orthopnoea</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.orthopnea">
+											<md-radio-button ng-value="4">4) None</md-radio-button>
+											<md-radio-button ng-value="3">3) Some difficulty sleeping at night due to shortness of breath, does not routinely use more than 2 pillows</md-radio-button>
+											<md-radio-button ng-value="2">2) Needs extra pillows in order to sleep (more than two)</md-radio-button>
+											<md-radio-button ng-value="1">1) Can only sleep sitting up</md-radio-button>
+											<md-radio-button ng-value="0">0) Unable to sleep</md-radio-button>
+										</md-radio-group>
+									</div>
+									<div class="appointment-row-padding" layout="column" flex>
+										<b>Respiratory insufficiency</b>
+										<md-radio-group ng-model="vm.appointment.alsfrs.respiratory">
+											<md-radio-button ng-value="4">4) None</md-radio-button>
+											<md-radio-button ng-value="3">3) Intermittent use of BiPAP</md-radio-button>
+											<md-radio-button ng-value="2">2) Continuous use of BiPAP during the night</md-radio-button>
+											<md-radio-button ng-value="1">1) Continuous use of BiPAP during the night and day</md-radio-button>
+											<md-radio-button ng-value="0">0) Invasive mechanical ventilation by intubation or tracheostomy</md-radio-button>
+										</md-radio-group>
+									</div>
 								</div>
 								<h2>Total: {{vm.appointment.alsfrs.total}}</h2>
 							</md-content>

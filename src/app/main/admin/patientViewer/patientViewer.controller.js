@@ -118,7 +118,7 @@ class patientViewerController {
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose: false,
-				fullscreen: false,
+				fullscreen: true,
 			})
 			.then(patient => {
 				this.selected = [];
@@ -133,7 +133,7 @@ class patientViewerController {
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose: false,
-				fullscreen: false,
+				fullscreen: true,
 			})
 			.then(patient => {
 				this.selected = [];
