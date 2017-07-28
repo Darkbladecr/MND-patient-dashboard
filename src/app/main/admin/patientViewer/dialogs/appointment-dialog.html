@@ -1,13 +1,12 @@
 <div style="visibility: hidden">
 	<div class="md-dialog-container" id="appointmentEditor">
-		<md-dialog aria-label="Appointment Editor" style="width: 80%">
+		<md-dialog aria-label="Appointment Editor">
 			<form name="appointmentForm">
 				<md-toolbar>
 					<div class="md-toolbar-tools">
 						<h2 ng-if="vm.appointment">
 					{{vm.appointment.hasOwnProperty('_id') ? 'Edit Appointment' : 'Add New Appointment'}}
 					<span ng-if="vm.selectedIndex === 1"> - ALSFRS Score: {{vm.appointment.alsfrs.total || 0}}</span>
-					<span ng-if="vm.selectedIndex === 2"> - ESS Score: {{vm.appointment.ess.total || 0}}</span>
 				</h2>
 						<span flex></span>
 						<md-button class="md-icon-button" ng-click="vm.cancelDialog()">
@@ -72,7 +71,10 @@
 								</div>
 								<h3>Specialised Scores</h3>
 								<md-button class="md-raised md-primary" ng-click="vm.selectedIndex = 1">ALSFRS-R ({{vm.appointment.alsfrs.total || 'Not set'}})</md-button>
-								<md-button class="md-raised md-primary" ng-click="vm.selectedIndex = 2">ESS ({{vm.appointment.ess.total || 'Not set'}})</md-button>
+								<md-input-container>
+									<label>ESS (Epworth Sleepiness Scale)</label>
+									<input type="number" name="ess" ng-model="vm.appointment.ess" autocomplete="off">
+								</md-input-container>
 								<md-input-container>
 									<label>Assessor</label>
 									<input type="text" name="assessor" ng-model="vm.appointment.assessor" autocomplete="off">
@@ -260,101 +262,6 @@
 									</div>
 								</div>
 								<h2>Total: {{vm.appointment.alsfrs.total}}</h2>
-							</md-content>
-						</md-tab>
-						<md-tab label="ESS">
-							<md-content layout="column" style="padding:45px">
-								<h2>Epworth Sleepiness Scale (ESS) Score</h2>
-								<p>During the past week, please rate how likely you were to doze off or fall asleep during the following situations (in contrast to feeling just tired).</p>
-								<p>This refers to your usual way of life in recent times. Even if you have not done some of these things recently, try to work out how they would have affected you.</p>
-								<p>Use the following scale to choose the most appropriate number for each situation:</p>
-								<ul>
-									<li>0 = would <b><em>never</em></b> doze</li>
-									<li>1 = <b><em>slight chance of dozing</li>
-							<li>2 = <b><em>moderate</em></b> chance of dozing</li>
-									<li>3 = <b><em>high</em></b> chance of dozing</li>
-								</ul>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Sitting and Reading</b>
-									<md-radio-group ng-model="vm.appointment.ess.sittingAndReading">
-										<md-radio-button ng-value="0">0</md-radio-button>
-										<md-radio-button ng-value="1">1</md-radio-button>
-										<md-radio-button ng-value="2">2</md-radio-button>
-										<md-radio-button ng-value="3">3</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Watching TV</b>
-									<md-radio-group ng-model="vm.appointment.ess.watching">
-										<md-radio-button ng-value="0">0</md-radio-button>
-										<md-radio-button ng-value="1">1</md-radio-button>
-										<md-radio-button ng-value="2">2</md-radio-button>
-										<md-radio-button ng-value="3">3</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Sitting, inactive in a public place (e.g. a theatre or a meeting)</b>
-									<md-radio-group ng-model="vm.appointment.ess.sittingInactive">
-										<md-radio-button ng-value="0">0</md-radio-button>
-										<md-radio-button ng-value="1">1</md-radio-button>
-										<md-radio-button ng-value="2">2</md-radio-button>
-										<md-radio-button ng-value="3">3</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>As a passenger in a car for an hour without a break</b>
-									<md-radio-group ng-model="vm.appointment.ess.carPassenger">
-										<md-radio-button ng-value="0">0</md-radio-button>
-										<md-radio-button ng-value="1">1</md-radio-button>
-										<md-radio-button ng-value="2">2</md-radio-button>
-										<md-radio-button ng-value="3">3</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Lying down to rest in the afternoon when circumstances permit</b>
-									<md-radio-group ng-model="vm.appointment.ess.lyingDown">
-										<md-radio-button ng-value="0">0</md-radio-button>
-										<md-radio-button ng-value="1">1</md-radio-button>
-										<md-radio-button ng-value="2">2</md-radio-button>
-										<md-radio-button ng-value="3">3</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Sitting and talking to someone</b>
-									<md-radio-group ng-model="vm.appointment.ess.sittingAndTalking">
-										<md-radio-button ng-value="0">0</md-radio-button>
-										<md-radio-button ng-value="1">1</md-radio-button>
-										<md-radio-button ng-value="2">2</md-radio-button>
-										<md-radio-button ng-value="3">3</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>Sitting quietly after a lunch without alcohol</b>
-									<md-radio-group ng-model="vm.appointment.ess.sittingAfterLunch">
-										<md-radio-button ng-value="0">0</md-radio-button>
-										<md-radio-button ng-value="1">1</md-radio-button>
-										<md-radio-button ng-value="2">2</md-radio-button>
-										<md-radio-button ng-value="3">3</md-radio-button>
-									</md-radio-group>
-								</div>
-								<md-divider class="appointment-form-divider"></md-divider>
-								<div>
-									<b>In a car, while stopped for a few minutes in the traffic</b>
-									<md-radio-group ng-model="vm.appointment.ess.carTraffic">
-										<md-radio-button ng-value="0">0</md-radio-button>
-										<md-radio-button ng-value="1">1</md-radio-button>
-										<md-radio-button ng-value="2">2</md-radio-button>
-										<md-radio-button ng-value="3">3</md-radio-button>
-									</md-radio-group>
-								</div>
-								<h2>Total: {{vm.appointment.ess.total}}</h2>
 							</md-content>
 						</md-tab>
 					</md-tabs>

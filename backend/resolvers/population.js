@@ -40,7 +40,7 @@ function graphValues(graphType, appointments) {
 				return { x: a.clinicDate, y: a[graphType] };
 			})
 			.sort((a, b) => a.x - b.x);
-		if (graphType === 'alsfrs' || graphType === 'ess') {
+		if (graphType === 'alsfrs') {
 			values = values.map(a => {
 				a.y = a.y.total || 0;
 				return a;

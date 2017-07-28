@@ -33,15 +33,8 @@ const AppointmentSchema = {
 		total: { type: Number, default: null },
 	},
 	ess: {
-		sittingAndReading: { type: Number, default: null },
-		watching: { type: Number, default: null },
-		sittingInactive: { type: Number, default: null },
-		carPassenger: { type: Number, default: null },
-		lyingDown: { type: Number, default: null },
-		sittingAndTalking: { type: Number, default: null },
-		sittingAfterLunch: { type: Number, default: null },
-		carTraffic: { type: Number, default: null },
-		total: { type: Number, default: null },
+		type: Number,
+		default: null,
 	},
 	fvc: {
 		sitting: { type: Number, default: null },

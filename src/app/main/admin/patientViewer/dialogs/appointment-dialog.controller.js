@@ -45,55 +45,6 @@ export default class AppointmentDialogController {
 			},
 			true
 		);
-
-		$scope.$watch(
-			'vm.appointment.alsfrs',
-			(newValue, oldValue) => {
-				if (newValue !== oldValue) {
-					if (this.appointment) {
-						if (this.appointment.alsfrs) {
-							const keys = Object.keys(
-								this.appointment.alsfrs
-							).filter(e => e !== 'total');
-							this.appointment.alsfrs.total = keys.reduce(
-								(sum, k) =>
-									k !== '__typename'
-										? sum + this.appointment.alsfrs[k]
-										: sum,
-								0
-							);
-						} else {
-							this.appointment.alsfrs.total = 0;
-						}
-					}
-				}
-			},
-			true
-		);
-		$scope.$watch(
-			'vm.appointment.ess',
-			(newValue, oldValue) => {
-				if (newValue !== oldValue) {
-					if (this.appointment) {
-						if (this.appointment.ess) {
-							const keys = Object.keys(
-								this.appointment.ess
-							).filter(e => e !== 'total');
-							this.appointment.ess.total = keys.reduce(
-								(sum, k) =>
-									k !== '__typename'
-										? sum + this.appointment.ess[k]
-										: sum,
-								0
-							);
-						} else {
-							this.appointment.ess.total = 0;
-						}
-					}
-				}
-			},
-			true
-		);
 	}
 	updateAppointment() {
 		const appointment = JSON.parse(angular.toJson(this.appointment));

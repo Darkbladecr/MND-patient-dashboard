@@ -4,7 +4,9 @@ const min = require('lodash/min');
 
 function stringifyDate(date) {
 	if (date) {
-		return `${date.getDay()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+		const str = `${date.getDay()}/${date.getMonth() +
+			1}/${date.getFullYear()}`;
+		return str;
 	} else {
 		return null;
 	}
@@ -83,8 +85,7 @@ const patientsExport = () => {
 								);
 								alsfrsAtDiagnosis =
 									p.appointments[diagIndex].alsfrs.total;
-								essAtDiagnosis =
-									p.appointments[diagIndex].ess.total;
+								essAtDiagnosis = p.appointments[diagIndex].ess;
 								weightAtDiagnosis =
 									p.appointments[diagIndex].weight;
 							} else {
@@ -99,7 +100,7 @@ const patientsExport = () => {
 								const rigIndex = rigDiff.indexOf(min(rigDiff));
 								alsfrsAtRIG =
 									p.appointments[rigIndex].alsfrs.total;
-								essAtRIG = p.appointments[rigIndex].ess.total;
+								essAtRIG = p.appointments[rigIndex].ess;
 								weightOnRIG = p.appointments[rigIndex].weight;
 							}
 							if (p.nivDate) {
@@ -109,7 +110,7 @@ const patientsExport = () => {
 								const nivIndex = nivDiff.indexOf(min(nivDiff));
 								alsfrsAtNIV =
 									p.appointments[nivIndex].alsfrs.total;
-								essAtNIV = p.appointments[nivIndex].ess.total;
+								essAtNIV = p.appointments[nivIndex].ess;
 								weightOnNIV = p.appointments[nivIndex].weight;
 							}
 						}
@@ -186,7 +187,7 @@ const appointmentsExport = _id => {
 								Height: a.height,
 								BMI: a.bmi,
 								'ALSFRS-R': a.alsfrs.total,
-								ESS: a.ess.total,
+								ESS: a.ess,
 								'FVC sitting(%)': a.fvc.sitting,
 								'FVC Supine (%)': a.fvc.supine,
 								'SNP Score': a.snp.score,

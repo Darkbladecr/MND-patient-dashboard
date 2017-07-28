@@ -17,8 +17,8 @@ export default class ClinicLetterController {
 				.alsfrs.climbing}/${a.alsfrs.dyspnea}/${a.alsfrs.orthopnea}/${a
 				.alsfrs.respiratory}). `;
 		}
-		if (a.ess.total && a.ess.total !== 0) {
-			outcomes += `ESS ${a.ess.total}. `;
+		if (a.ess !== 0) {
+			outcomes += `ESS ${a.ess}. `;
 		}
 		if (a.spO2) {
 			outcomes += `SpO2 ${a.spO2}%. `;
