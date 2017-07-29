@@ -37,7 +37,6 @@ const AppointmentSchema = {
 		supine: { type: Number, default: null },
 	},
 	snp: {
-		nostril: { type: String, default: null },
 		size: { type: Number, default: null },
 		score: { type: Number, default: null },
 	},

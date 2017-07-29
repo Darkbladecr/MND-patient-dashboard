@@ -192,7 +192,6 @@ const appointmentsExport = _id => {
 								'FVC Supine (%)': a.fvc.supine,
 								'SNP Score': a.snp.score,
 								'SNP Size': a.snp.size,
-								'SNP Nostril': a.snp.nostril,
 								SpO2: a.spO2,
 								pH: a.abg.pH,
 								pO2: a.abg.pO2,
