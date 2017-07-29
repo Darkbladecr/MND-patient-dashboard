@@ -15,30 +15,12 @@ export default class AppointmentDialogController {
 					if (
 						this.appointment &&
 						this.appointment.weight &&
-						this.appointment.height
+						this.patient &&
+						this.patient.height
 					) {
 						const bmi =
 							this.appointment.weight /
-							(this.appointment.height * this.appointment.height);
-						this.appointment.bmi = Number(bmi.toFixed(2));
-					}
-				}
-			},
-			true
-		);
-
-		$scope.$watch(
-			'vm.appointment.height',
-			(newValue, oldValue) => {
-				if (newValue !== oldValue) {
-					if (
-						this.appointment &&
-						this.appointment.weight &&
-						this.appointment.height
-					) {
-						const bmi =
-							this.appointment.weight /
-							(this.appointment.height * this.appointment.height);
+							(this.patient.height * this.patient.height / 10000);
 						this.appointment.bmi = Number(bmi.toFixed(2));
 					}
 				}
@@ -54,7 +36,7 @@ export default class AppointmentDialogController {
 				.then(appointment => this.closeDialog(appointment));
 		} else {
 			this.patientsService
-				.addAppointment(this.patientId, appointment)
+				.addAppointment(this.patient._id, appointment)
 				.then(appointment => this.closeDialog(appointment));
 		}
 	}

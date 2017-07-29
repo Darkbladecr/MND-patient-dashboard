@@ -169,6 +169,7 @@ export default class patientsService {
 			lastName: patient.lastName,
 			gender: patient.gender,
 			ethnicity: patient.ethnicity,
+			height: patient.height,
 			referredBy: patient.referredBy,
 			postcode: patient.postcode,
 			diagnosisDate: patient.diagnosisDate,

@@ -55,7 +55,7 @@ export default angular
 	})
 	.component('appointmentDialog', {
 		bindings: {
-			patientId: '<',
+			patient: '<',
 			appointment: '<',
 		},
 		controller: appointmentDialogController,

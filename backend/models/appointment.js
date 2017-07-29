@@ -4,10 +4,6 @@ const AppointmentSchema = {
 		type: Date,
 		default: Date.now,
 	},
-	height: {
-		type: Number,
-		default: null,
-	},
 	weight: {
 		type: Number,
 		default: null,
