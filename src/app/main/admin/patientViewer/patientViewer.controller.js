@@ -83,12 +83,18 @@ class patientViewerController {
 
 		const alsfrs = this.calculateRates('alsfrs', 'total');
 		const weight = this.calculateRates('weight');
-		const fvc = this.calculateRates('fvc', 'sitting');
+		const fvcSitting = this.calculateRates('fvc', 'sitting');
+		const fvcStanding = this.calculateRates('fvc', 'standing');
+		console.log(alsfrs);
 		this.rate = {
-			alsfrs: isNaN(alsfrs) ? null : alsfrs.toFixed(2) + '%',
-			weight: isNaN(weight) ? null : weight.toFixed(2) + '%',
-			fvc: isNaN(fvc) ? null : fvc.toFixed(2) + '%',
+			alsfrs: isNaN(alsfrs) ? 0 : Number(alsfrs.toFixed(2)),
+			weight: isNaN(weight) ? 0 : Number(weight.toFixed(2)),
+			fvcSitting: isNaN(fvcSitting) ? 0 : Number(fvcSitting.toFixed(2)),
+			fvcStanding: isNaN(fvcStanding)
+				? 0
+				: Number(fvcStanding.toFixed(2)),
 		};
+		console.log(this.rate);
 		$scope.$watch(
 			'$ctrl.patient.appointments',
 			(newValue, oldValue) => {
@@ -96,15 +102,27 @@ class patientViewerController {
 					if (this.patient.appointments) {
 						const alsfrs = this.calculateRates('alsfrs', 'total');
 						const weight = this.calculateRates('weight');
-						const fvc = this.calculateRates('fvc', 'sitting');
+						const fvcSitting = this.calculateRates(
+							'fvc',
+							'sitting'
+						);
+						const fvcStanding = this.calculateRates(
+							'fvc',
+							'standing'
+						);
 						this.rate = {
 							alsfrs: isNaN(alsfrs)
-								? null
-								: alsfrs.toFixed(2) + '%',
+								? 0
+								: Number(alsfrs.toFixed(2)),
 							weight: isNaN(weight)
-								? null
-								: weight.toFixed(2) + '%',
-							fvc: isNaN(fvc) ? null : fvc.toFixed(2) + '%',
+								? 0
+								: Number(weight.toFixed(2)),
+							fvcSitting: isNaN(fvcSitting)
+								? 0
+								: Number(fvcSitting.toFixed(2)),
+							fvcStanding: isNaN(fvcStanding)
+								? 0
+								: Number(fvcStanding.toFixed(2)),
 						};
 					}
 				}

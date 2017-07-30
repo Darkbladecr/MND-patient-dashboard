@@ -47,7 +47,7 @@ function graphValues(graphType, appointments) {
 			});
 		}
 		graphData = {
-			key: graphType,
+			key: graphType === 'ess' ? 'ESS' : graphType,
 			values,
 		};
 	}
