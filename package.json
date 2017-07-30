@@ -2,7 +2,7 @@
   "name": "MND-Patient-Dashboard",
   "productName": "MND Patient Dashboard",
   "author": "Stefan Mitrasinovic",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Dashboard for MND patients",
   "main": "main.js",
