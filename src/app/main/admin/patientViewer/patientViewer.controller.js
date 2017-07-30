@@ -85,7 +85,6 @@ class patientViewerController {
 		const weight = this.calculateRates('weight');
 		const fvcSitting = this.calculateRates('fvc', 'sitting');
 		const fvcStanding = this.calculateRates('fvc', 'standing');
-		console.log(alsfrs);
 		this.rate = {
 			alsfrs: isNaN(alsfrs) ? 0 : Number(alsfrs.toFixed(2)),
 			weight: isNaN(weight) ? 0 : Number(weight.toFixed(2)),
@@ -94,7 +93,6 @@ class patientViewerController {
 				? 0
 				: Number(fvcStanding.toFixed(2)),
 		};
-		console.log(this.rate);
 		$scope.$watch(
 			'$ctrl.patient.appointments',
 			(newValue, oldValue) => {
