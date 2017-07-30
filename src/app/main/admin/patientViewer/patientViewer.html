@@ -29,6 +29,21 @@
 								<div class="md-toolbar-tools">
 									<span>Appointments</span>
 									<span flex></span>
+									<span style="font-size:10px;">
+										Avg rate of change per month:
+									</span>
+									<md-input-container class="toolbar-input">
+										<label>ALSFRS-R</label>
+										<input type="text" name="rateALSFRS" ng-value="$ctrl.rate.aslfrs" disabled>
+									</md-input-container>
+									<md-input-container class="toolbar-input">
+										<label>Weight</label>
+										<input type="text" name="rateWeight" ng-value="$ctrl.rate.weight" disabled>
+									</md-input-container>
+									<md-input-container class="toolbar-input">
+										<label>FVC</label>
+										<input type="text" name="rateFVC" ng-value="$ctrl.rate.fvc" disabled>
+									</md-input-container>
 									<md-button class="md-raised" ng-click="$ctrl.exportAppointments()">
 										<md-icon md-font-icon="icon-export" class="icon" aria-label="export"></md-icon> Export
 									</md-button>

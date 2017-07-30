@@ -38,9 +38,6 @@ export default class AppointmentDialogController {
 								new Date(newValue.dateOfBirth).getFullYear()) *
 								0.026 -
 							4.34;
-						this.predictedFVC = Number(this.predictedFVC).tofixed(
-							2
-						);
 					} else {
 						this.predictedFVC =
 							newValue.height / 100 * 4.43 -
@@ -48,9 +45,6 @@ export default class AppointmentDialogController {
 								new Date(newValue.dateOfBirth).getFullYear()) *
 								0.026 -
 							2.89;
-						this.predictedFVC = Number(this.predictedFVC).tofixed(
-							2
-						);
 					}
 				}
 			},

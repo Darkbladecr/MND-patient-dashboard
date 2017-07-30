@@ -43,7 +43,7 @@ function chartOptions(str, legend) {
 }
 
 class patientViewerController {
-	constructor($mdDialog, patientsService, excelService, AuthService) {
+	constructor($mdDialog, patientsService, excelService, AuthService, $scope) {
 		'ngInject';
 		this.$mdDialog = $mdDialog;
 		this.patientsService = patientsService;
@@ -80,6 +80,37 @@ class patientViewerController {
 			e.key.includes('spO2')
 		);
 		this.graphOptionsSpO2 = chartOptions('%');
+
+		const alsfrs = this.calculateRates('alsfrs', 'total');
+		const weight = this.calculateRates('weight');
+		const fvc = this.calculateRates('fvc', 'sitting');
+		this.rate = {
+			alsfrs: isNaN(alsfrs) ? null : alsfrs.toFixed(2) + '%',
+			weight: isNaN(weight) ? null : weight.toFixed(2) + '%',
+			fvc: isNaN(fvc) ? null : fvc.toFixed(2) + '%',
+		};
+		$scope.$watch(
+			'$ctrl.patient.appointments',
+			(newValue, oldValue) => {
+				if (newValue !== oldValue) {
+					if (this.patient.appointments) {
+						const alsfrs = this.calculateRates('alsfrs', 'total');
+						const weight = this.calculateRates('weight');
+						const fvc = this.calculateRates('fvc', 'sitting');
+						this.rate = {
+							alsfrs: isNaN(alsfrs)
+								? null
+								: alsfrs.toFixed(2) + '%',
+							weight: isNaN(weight)
+								? null
+								: weight.toFixed(2) + '%',
+							fvc: isNaN(fvc) ? null : fvc.toFixed(2) + '%',
+						};
+					}
+				}
+			},
+			true
+		);
 	}
 	refreshGraphs() {
 		this.graphDataWeight = this.patient.graphData;
@@ -100,6 +131,29 @@ class patientViewerController {
 		);
 		this.graphOptionsSpO2 = chartOptions('%');
 		this.graphApiSpO2.refreshWithTimeout(5);
+	}
+	calculateRates(key, subkey) {
+		const rates = this.patient.appointments
+			.map((appointment, i, arr) => {
+				if (i - 1 > -1) {
+					const prevA = arr[i - 1];
+					const v = subkey
+						? appointment[key][subkey]
+						: appointment[key];
+					const prevV = subkey ? prevA[key][subkey] : prevA[key];
+					const monthMultiplier = Math.abs(
+						new Date(appointment.clinicDate).getMonth() -
+							new Date(prevA.clinicDate).getMonth()
+					);
+					return monthMultiplier === 0
+						? 0
+						: Math.abs(v - prevV) / v * 100 / monthMultiplier;
+				} else {
+					return 0;
+				}
+			})
+			.filter(n => n !== 0);
+		return rates.reduce((a, b) => a + b, 0) / rates.length;
 	}
 	printGraphs() {
 		ipc.send('print-to-pdf');
