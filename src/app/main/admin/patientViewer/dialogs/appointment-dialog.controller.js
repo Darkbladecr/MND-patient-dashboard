@@ -27,6 +27,35 @@ export default class AppointmentDialogController {
 			},
 			true
 		);
+		$scope.$watch(
+			'vm.patient',
+			(newValue, oldValue) => {
+				if (newValue !== oldValue) {
+					if (newValue.gender === 'male') {
+						this.predictedFVC =
+							newValue.height / 100 * 5.76 -
+							(new Date().getFullYear() -
+								new Date(newValue.dateOfBirth).getFullYear()) *
+								0.026 -
+							4.34;
+						this.predictedFVC = Number(this.predictedFVC).tofixed(
+							2
+						);
+					} else {
+						this.predictedFVC =
+							newValue.height / 100 * 4.43 -
+							(new Date().getFullYear() -
+								new Date(newValue.dateOfBirth).getFullYear()) *
+								0.026 -
+							2.89;
+						this.predictedFVC = Number(this.predictedFVC).tofixed(
+							2
+						);
+					}
+				}
+			},
+			true
+		);
 	}
 	updateAppointment() {
 		const appointment = JSON.parse(angular.toJson(this.appointment));

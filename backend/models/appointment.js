@@ -40,6 +40,7 @@ const AppointmentSchema = {
 		size: { type: Number, default: null },
 		score: { type: Number, default: null },
 	},
+	peakCough: { type: Number, default: null },
 	spO2: { type: Number, default: null },
 	abg: {
 		pH: {

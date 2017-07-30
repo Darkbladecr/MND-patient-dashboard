@@ -32,11 +32,15 @@
 									</md-input-container>
 									<md-input-container>
 										<label>BMI</label>
-										<input type="number" name="height" ng-model="vm.appointment.bmi" disabled>
+										<input type="number" name="height" ng-value="vm.appointment.bmi" disabled>
 									</md-input-container>
 								</div>
 								<h3>Respiratory Effort</h3>
 								<div>
+									<md-input-container style="width:200px;">
+										<label>Peak Cough Flow (L/min)</label>
+										<input type="number" name="peakCough" ng-model="vm.appointment.peakCough" autocomplete="off">
+									</md-input-container>
 									<md-input-container>
 										<label>FVC - Sitting</label>
 										<input type="number" name="fvcSitting" ng-model="vm.appointment.fvc.sitting" autocomplete="off">
@@ -44,6 +48,10 @@
 									<md-input-container>
 										<label>FVC - Supine</label>
 										<input type="number" name="fvcSupine" ng-model="vm.appointment.fvc.supine" autocomplete="off">
+									</md-input-container>
+									<md-input-container>
+										<label>Predicted FVC</label>
+										<input type="number" name="predictedFVC" disabled ng-value="vm.predictedFVC">
 									</md-input-container>
 									<md-input-container>
 										<label>spO2</label>
