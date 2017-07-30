@@ -3,6 +3,7 @@ const PatientSchema = {
 	lastName: { type: String },
 	gender: { type: String },
 	ethnicity: { type: String },
+	height: { type: Number, default: null },
 	postcode: { type: String, default: '' },
 	referredBy: { type: String, default: '' },
 	diagnosisDate: { type: Date, default: null },

@@ -11,10 +11,10 @@ const { app } = require('electron');
 
 const isWin = /^win/.test(process.platform);
 let dbpath;
-if(isWin){
+if (isWin) {
 	dbpath = path.join(app.getPath('exe'), '..', '..', 'database');
 } else {
-	dbpath = path.join(app.getPath('exe'), 'database');
+	dbpath = path.join(app.getAppPath(), '../../../../', 'database');
 }
 LinvoDB.defaults.store = { db };
 LinvoDB.dbpath = dbpath;
@@ -72,33 +72,6 @@ const Appointment = new LinvoDB('Appointment', AppointmentSchema, {
 	filename: path.join(dbpath, 'Appointment.db'),
 });
 
-// Patient.remove({}, { multi: true });
-// const appointment = {
-// 	clinicDate: new Date(),
-// 	weight: 72.6,
-// 	height: 1.78,
-// };
-// const patient = new Patient({
-// 	firstName: 'Joey',
-// 	lastName: 'Test',
-// 	dateOfBirth: new Date(1988, 6, 23),
-// 	ethnicity: 'british',
-// 	gender: 'male',
-// });
-// patient.save((err, patient) => {
-// 	console.log(patient.appointments);
-// 	Appointment.insert(appointment, (err, a) => {
-// 		Patient.update(
-// 			{
-// 				_id: patient._id,
-// 			},
-// 			{ $set: { appointments: [a._id] } },
-// 			{},
-// 			(err, num, patient) => {
-// 				console.log(patient.appointments);
-// 			}
-// 		);
-// 	});
-// });
-
 module.exports = { User, TempUser, Patient, Appointment };
+
+require('./modelChanges');

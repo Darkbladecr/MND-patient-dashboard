@@ -118,13 +118,18 @@ class patientViewerController {
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose: false,
-				fullscreen: false,
+				fullscreen: true,
 			})
-			.then(patient => {
-				this.selected = [];
-				this.patient = patient;
-				this.refreshGraphs();
-			});
+			.then(
+				patient => {
+					this.selected = [];
+					this.patient = patient;
+					this.refreshGraphs();
+				},
+				() => {
+					this.selected = [];
+				}
+			);
 	}
 	editAppointment(ev) {
 		this.$mdDialog
@@ -133,28 +138,41 @@ class patientViewerController {
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose: false,
-				fullscreen: false,
+				fullscreen: true,
 			})
-			.then(patient => {
-				this.selected = [];
-				this.patient = patient;
-				this.refreshGraphs();
-			});
+			.then(
+				patient => {
+					this.selected = [];
+					this.patient = patient;
+					this.refreshGraphs();
+				},
+				() => {
+					this.selected = [];
+				}
+			);
 	}
 	clinicLetter(ev, appointment) {
-		this.$mdDialog.show({
-			locals: {
-				event: ev,
-				appointment,
+		this.$mdDialog.show(
+			{
+				locals: {
+					event: ev,
+					appointment,
+				},
+				controller: clinicLetterController,
+				controllerAs: 'vm',
+				template: clinicLetterTemplate,
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose: false,
+				fullscreen: false,
 			},
-			controller: clinicLetterController,
-			controllerAs: 'vm',
-			template: clinicLetterTemplate,
-			parent: angular.element(document.body),
-			targetEvent: ev,
-			clickOutsideToClose: false,
-			fullscreen: false,
-		});
+			() => {
+				this.selected = [];
+			},
+			() => {
+				this.selected = [];
+			}
+		);
 	}
 	exportAppointments() {
 		const name = `${this.patient.firstName.charAt(0)}_${this.patient

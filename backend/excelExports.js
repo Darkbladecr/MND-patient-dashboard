@@ -4,7 +4,9 @@ const min = require('lodash/min');
 
 function stringifyDate(date) {
 	if (date) {
-		return `${date.getDay()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+		const str = `${date.getDay()}/${date.getMonth() +
+			1}/${date.getFullYear()}`;
+		return str;
 	} else {
 		return null;
 	}
@@ -83,8 +85,7 @@ const patientsExport = () => {
 								);
 								alsfrsAtDiagnosis =
 									p.appointments[diagIndex].alsfrs.total;
-								essAtDiagnosis =
-									p.appointments[diagIndex].ess.total;
+								essAtDiagnosis = p.appointments[diagIndex].ess;
 								weightAtDiagnosis =
 									p.appointments[diagIndex].weight;
 							} else {
@@ -99,7 +100,7 @@ const patientsExport = () => {
 								const rigIndex = rigDiff.indexOf(min(rigDiff));
 								alsfrsAtRIG =
 									p.appointments[rigIndex].alsfrs.total;
-								essAtRIG = p.appointments[rigIndex].ess.total;
+								essAtRIG = p.appointments[rigIndex].ess;
 								weightOnRIG = p.appointments[rigIndex].weight;
 							}
 							if (p.nivDate) {
@@ -109,7 +110,7 @@ const patientsExport = () => {
 								const nivIndex = nivDiff.indexOf(min(nivDiff));
 								alsfrsAtNIV =
 									p.appointments[nivIndex].alsfrs.total;
-								essAtNIV = p.appointments[nivIndex].ess.total;
+								essAtNIV = p.appointments[nivIndex].ess;
 								weightOnNIV = p.appointments[nivIndex].weight;
 							}
 						}
@@ -132,6 +133,7 @@ const patientsExport = () => {
 							'ESS at diagnosis': essAtDiagnosis,
 							'ESS at RIG': essAtRIG,
 							'ESS at NIV': essAtNIV,
+							'Height (cm)': p.height,
 							'Weight at Diagnosis': weightAtDiagnosis,
 							'Weight on RIG date': weightOnRIG,
 							'Weight on NIV date': weightOnNIV,
@@ -183,15 +185,13 @@ const appointmentsExport = _id => {
 								'RIG date': stringifyDate(a.gastrostomyDate),
 								'NIV date': stringifyDate(a.nivDate),
 								Weight: a.weight,
-								Height: a.height,
 								BMI: a.bmi,
 								'ALSFRS-R': a.alsfrs.total,
-								ESS: a.ess.total,
+								ESS: a.ess,
 								'FVC sitting(%)': a.fvc.sitting,
 								'FVC Supine (%)': a.fvc.supine,
 								'SNP Score': a.snp.score,
 								'SNP Size': a.snp.size,
-								'SNP Nostril': a.snp.nostril,
 								SpO2: a.spO2,
 								pH: a.abg.pH,
 								pO2: a.abg.pO2,

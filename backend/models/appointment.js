@@ -4,10 +4,6 @@ const AppointmentSchema = {
 		type: Date,
 		default: Date.now,
 	},
-	height: {
-		type: Number,
-		default: null,
-	},
 	weight: {
 		type: Number,
 		default: null,
@@ -33,25 +29,18 @@ const AppointmentSchema = {
 		total: { type: Number, default: null },
 	},
 	ess: {
-		sittingAndReading: { type: Number, default: null },
-		watching: { type: Number, default: null },
-		sittingInactive: { type: Number, default: null },
-		carPassenger: { type: Number, default: null },
-		lyingDown: { type: Number, default: null },
-		sittingAndTalking: { type: Number, default: null },
-		sittingAfterLunch: { type: Number, default: null },
-		carTraffic: { type: Number, default: null },
-		total: { type: Number, default: null },
+		type: Number,
+		default: null,
 	},
 	fvc: {
 		sitting: { type: Number, default: null },
 		supine: { type: Number, default: null },
 	},
 	snp: {
-		nostril: { type: String, default: null },
 		size: { type: Number, default: null },
 		score: { type: Number, default: null },
 	},
+	peakCough: { type: Number, default: null },
 	spO2: { type: Number, default: null },
 	abg: {
 		pH: {

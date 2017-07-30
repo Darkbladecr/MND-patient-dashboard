@@ -17,19 +17,16 @@ export default class ClinicLetterController {
 				.alsfrs.climbing}/${a.alsfrs.dyspnea}/${a.alsfrs.orthopnea}/${a
 				.alsfrs.respiratory}). `;
 		}
-		if (a.ess.total && a.ess.total !== 0) {
-			outcomes += `ESS ${a.ess.total}. `;
+		if (a.ess !== 0) {
+			outcomes += `ESS ${a.ess}. `;
 		}
 		if (a.spO2) {
 			outcomes += `SpO2 ${a.spO2}%. `;
 		}
 		outcomes += a.spO2 ? `SpO2 ${a.spO2}%. ` : '';
-		if (a.snp.score || a.snp.size || a.snp.nostril) {
+		if (a.snp.score || a.snp.size) {
 			outcomes += a.snp.score ? `SNP ${a.snp.score} ` : '';
-			outcomes += a.snp.size ? `- Size ${a.snp.size} ` : '';
-			outcomes += a.snp.nostril
-				? `in the ${a.snp.nostril} nostril). `
-				: '';
+			outcomes += a.snp.size ? `- Size ${a.snp.size}). ` : '';
 		}
 		if (a.abg.pH || a.abg.pO2 || a.abg.pCO2 || a.abg.be || a.abg.HCO3) {
 			outcomes += 'ABG - ';

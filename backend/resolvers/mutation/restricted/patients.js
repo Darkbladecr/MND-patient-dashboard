@@ -17,12 +17,17 @@ function updatePatient(obj, args) {
 		const _id = args.patient._id;
 		delete args.patient._id;
 		const patient = Object.assign({}, args.patient);
-		Patient.update({ _id }, patient, {}, (err, numReplaced, patient) => {
-			if (err) {
-				return reject(err);
+		Patient.update(
+			{ _id },
+			{ $set: patient },
+			{},
+			(err, numReplaced, patient) => {
+				if (err) {
+					return reject(err);
+				}
+				return resolve(patient);
 			}
-			return resolve(patient);
-		});
+		);
 	});
 }
 

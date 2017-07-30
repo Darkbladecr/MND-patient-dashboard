@@ -15,80 +15,42 @@ export default class AppointmentDialogController {
 					if (
 						this.appointment &&
 						this.appointment.weight &&
-						this.appointment.height
+						this.patient &&
+						this.patient.height
 					) {
 						const bmi =
 							this.appointment.weight /
-							(this.appointment.height * this.appointment.height);
+							(this.patient.height * this.patient.height / 10000);
 						this.appointment.bmi = Number(bmi.toFixed(2));
 					}
 				}
 			},
 			true
 		);
-
 		$scope.$watch(
-			'vm.appointment.height',
+			'vm.patient',
 			(newValue, oldValue) => {
 				if (newValue !== oldValue) {
-					if (
-						this.appointment &&
-						this.appointment.weight &&
-						this.appointment.height
-					) {
-						const bmi =
-							this.appointment.weight /
-							(this.appointment.height * this.appointment.height);
-						this.appointment.bmi = Number(bmi.toFixed(2));
-					}
-				}
-			},
-			true
-		);
-
-		$scope.$watch(
-			'vm.appointment.alsfrs',
-			(newValue, oldValue) => {
-				if (newValue !== oldValue) {
-					if (this.appointment) {
-						if (this.appointment.alsfrs) {
-							const keys = Object.keys(
-								this.appointment.alsfrs
-							).filter(e => e !== 'total');
-							this.appointment.alsfrs.total = keys.reduce(
-								(sum, k) =>
-									k !== '__typename'
-										? sum + this.appointment.alsfrs[k]
-										: sum,
-								0
-							);
-						} else {
-							this.appointment.alsfrs.total = 0;
-						}
-					}
-				}
-			},
-			true
-		);
-		$scope.$watch(
-			'vm.appointment.ess',
-			(newValue, oldValue) => {
-				if (newValue !== oldValue) {
-					if (this.appointment) {
-						if (this.appointment.ess) {
-							const keys = Object.keys(
-								this.appointment.ess
-							).filter(e => e !== 'total');
-							this.appointment.ess.total = keys.reduce(
-								(sum, k) =>
-									k !== '__typename'
-										? sum + this.appointment.ess[k]
-										: sum,
-								0
-							);
-						} else {
-							this.appointment.ess.total = 0;
-						}
+					if (newValue.gender === 'male') {
+						this.predictedFVC =
+							newValue.height / 100 * 5.76 -
+							(new Date().getFullYear() -
+								new Date(newValue.dateOfBirth).getFullYear()) *
+								0.026 -
+							4.34;
+						this.predictedFVC = Number(this.predictedFVC).tofixed(
+							2
+						);
+					} else {
+						this.predictedFVC =
+							newValue.height / 100 * 4.43 -
+							(new Date().getFullYear() -
+								new Date(newValue.dateOfBirth).getFullYear()) *
+								0.026 -
+							2.89;
+						this.predictedFVC = Number(this.predictedFVC).tofixed(
+							2
+						);
 					}
 				}
 			},
@@ -103,7 +65,7 @@ export default class AppointmentDialogController {
 				.then(appointment => this.closeDialog(appointment));
 		} else {
 			this.patientsService
-				.addAppointment(this.patientId, appointment)
+				.addAppointment(this.patient._id, appointment)
 				.then(appointment => this.closeDialog(appointment));
 		}
 	}

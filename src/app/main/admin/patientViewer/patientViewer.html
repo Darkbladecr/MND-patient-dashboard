@@ -81,7 +81,7 @@
 													<td md-cell>{{appointment.weight | number:1}}</td>
 													<td md-cell>{{appointment.bmi | number:1}}</td>
 													<td md-cell>{{appointment.alsfrs.total | number:0}}</td>
-													<td md-cell>{{appointment.ess.total | number:0}}</td>
+													<td md-cell>{{appointment.ess | number:0}}</td>
 													<td md-cell>{{appointment.fvc.sitting | number:0}}</td>
 													<td md-cell>{{appointment.fvc.supine | number:0}}</td>
 													<td md-cell>{{appointment.snp.score | number:0}}</td>
@@ -148,4 +148,4 @@
 		<!-- / CONTENT -->
 	</div>
 </div>
-<appointment-dialog patient-id="$ctrl.patient._id" appointment="$ctrl.selected[0]"></appointment-dialog>
+<appointment-dialog patient="$ctrl.patient" appointment="$ctrl.selected[0]"></appointment-dialog>
