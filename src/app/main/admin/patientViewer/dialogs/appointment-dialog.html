@@ -6,7 +6,7 @@
 					<div class="md-toolbar-tools">
 						<h2 ng-if="vm.appointment">
 					{{vm.appointment.hasOwnProperty('_id') ? 'Edit Appointment' : 'Add New Appointment'}}
-					<span ng-if="vm.selectedIndex === 1"> - ALSFRS Score: {{vm.appointment.alsfrs.total || 0}}</span>
+					<span ng-if="vm.selectedIndex === 1"> - ALSFRS-R Score: {{vm.appointment.alsfrs.total || 0}}</span>
 				</h2>
 						<span flex></span>
 						<md-button class="md-icon-button" ng-click="vm.cancelDialog()">
@@ -37,24 +37,32 @@
 								</div>
 								<h3>Respiratory Effort</h3>
 								<div>
+									<md-input-container>
+										<label>FVC - Sitting</label>
+										<input type="number" name="fvcSitting" ng-model="vm.appointment.fvc.sitting" autocomplete="off">
+									</md-input-container>
+									<md-input-container style="width:200px;">
+										<label>Predicted FVC - Sitting (%)</label>
+										<input type="number" name="predictedFvcSitting" ng-model="vm.appointment.predictedFvc.sitting">
+									</md-input-container>
+								</div>
+								<div>
+									<md-input-container>
+										<label>FVC - Supine</label>
+										<input type="number" name="fvcSupine" ng-model="vm.appointment.fvc.supine" autocomplete="off">
+									</md-input-container>
+									<md-input-container style="width:200px;">
+										<label>Predicted FVC - Supine (%)</label>
+										<input type="number" name="predictedFvcSupine" ng-model="vm.appointment.predictedFvc.supine">
+									</md-input-container>
+								</div>
+								<div>
 									<md-input-container style="width:200px;">
 										<label>Peak Cough Flow (L/min)</label>
 										<input type="number" name="peakCough" ng-model="vm.appointment.peakCough" autocomplete="off">
 									</md-input-container>
 									<md-input-container>
-										<label>FVC - Sitting</label>
-										<input type="number" name="fvcSitting" ng-model="vm.appointment.fvc.sitting" autocomplete="off">
-									</md-input-container>
-									<md-input-container>
-										<label>FVC - Supine</label>
-										<input type="number" name="fvcSupine" ng-model="vm.appointment.fvc.supine" autocomplete="off">
-									</md-input-container>
-									<md-input-container>
-										<label>Predicted FVC (%)</label>
-										<input type="number" name="predictedFVC" disabled ng-value="vm.predictedFVC | number:2">
-									</md-input-container>
-									<md-input-container>
-										<label>spO2</label>
+										<label>SpO2</label>
 										<input type="number" name="spO2" ng-model="vm.appointment.spO2" autocomplete="off">
 									</md-input-container>
 									<md-input-container>

@@ -37,16 +37,16 @@
 										<span>Weight:</span>
 									</div>
 									<div class="toolbar-input" layout="column" flex>
-										<span>{{$ctrl.rate.alsfrs}}%</span>
-										<span>{{$ctrl.rate.weight}}%</span>
+										<span>{{$ctrl.rate.alsfrs}}</span>
+										<span>{{$ctrl.rate.weight}}</span>
 									</div>
 									<div class="toolbar-input" layout="column" flex>
 										<span>FVC Standing:</span>
 										<span>FVC Sitting:</span>
 									</div>
 									<div class="toolbar-input" layout="column" flex>
-										<span>{{$ctrl.rate.fvcStanding}}%</span>
-										<span>{{$ctrl.rate.fvcSitting}}%</span>
+										<span>{{$ctrl.rate.fvcStanding}}</span>
+										<span>{{$ctrl.rate.fvcSitting}}</span>
 									</div>
 									<md-button class="md-raised" ng-click="$ctrl.exportAppointments()">
 										<md-icon md-font-icon="icon-export" class="icon" aria-label="export"></md-icon> Export
@@ -101,11 +101,11 @@
 													<td md-cell>{{appointment.bmi | number:1}}</td>
 													<td md-cell>{{appointment.alsfrs.total | number:0}}</td>
 													<td md-cell>{{appointment.ess | number:0}}</td>
-													<td md-cell>{{appointment.fvc.sitting | number:0}}</td>
-													<td md-cell>{{appointment.fvc.supine | number:0}}</td>
+													<td md-cell>{{appointment.fvc.sitting | number:2}}</td>
+													<td md-cell>{{appointment.fvc.supine | number:2}}</td>
 													<td md-cell>{{appointment.snp.score | number:0}}</td>
 													<td md-cell>{{appointment.spO2 | number:0}}</td>
-													<td md-cell>{{appointment.abg.pH ? 'true' : 'false'}}</td>
+													<td md-cell>{{appointment.abg.pH ? 'Completed' : 'Not done'}}</td>
 													</td>
 												</tr>
 											</tbody>

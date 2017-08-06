@@ -163,7 +163,7 @@ class patientViewerController {
 					);
 					return monthMultiplier === 0
 						? 0
-						: Math.abs(v - prevV) / v * 100 / monthMultiplier;
+						: Math.abs(v - prevV) / monthMultiplier;
 				} else {
 					return 0;
 				}

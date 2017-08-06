@@ -36,6 +36,10 @@ const AppointmentSchema = {
 		sitting: { type: Number, default: null },
 		supine: { type: Number, default: null },
 	},
+	predictedFvc: {
+		sitting: { type: Number, default: null },
+		supine: { type: Number, default: null },
+	},
 	snp: {
 		size: { type: Number, default: null },
 		score: { type: Number, default: null },
