@@ -73,5 +73,3 @@ const Appointment = new LinvoDB('Appointment', AppointmentSchema, {
 });
 
 module.exports = { User, TempUser, Patient, Appointment };
-
-require('./modelChanges');
