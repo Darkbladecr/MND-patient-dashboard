@@ -27,6 +27,22 @@ export default class AppointmentDialogController {
 			},
 			true
 		);
+		$scope.$watch(
+			'vm.appointment.alsfrs',
+			(newValue, oldValue) => {
+				if (newValue !== oldValue) {
+					const alsfrsValues = Object.assign(
+						{},
+						this.appointment.alsfrs
+					);
+					delete alsfrsValues.total;
+					this.appointment.alsfrs.total = Object.values(
+						alsfrsValues
+					).reduce((a, b) => a + b, 0);
+				}
+			},
+			true
+		);
 	}
 	updateAppointment() {
 		const appointment = JSON.parse(angular.toJson(this.appointment));
