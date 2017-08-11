@@ -11,34 +11,52 @@ function patient(obj, { _id }) {
 	});
 }
 
+const isnum = /^\d+$/;
+
 function patients(obj, { search }) {
 	return new Promise((resolve, reject) => {
-		let patients;
 		if (search && search.length > 1) {
-			const regex = new RegExp(search);
-			patients = Patient.find(
-				{
-					$or: [
-						{ firstName: { $regex: regex } },
-						{ lastName: { $regex: regex } },
-					],
-				},
-				(err, patients) => {
-					if (err) {
-						return reject(err);
-					}
-					return resolve(patients);
+			if (isnum.test(search)) {
+				if (search.length === 10) {
+					Patient.find({ NHSnumber: search }, (err, patient) => {
+						if (err) {
+							return reject(err);
+						}
+						return resolve(patient);
+					});
+				} else {
+					Patient.find({ patientNumber: search }, (err, patient) => {
+						if (err) {
+							return reject(err);
+						}
+						return resolve(patient);
+					});
 				}
-			);
-		} else {
-			patients = Patient.find({});
-		}
-		patients.exec((err, patients) => {
-			if (err) {
-				return reject(err);
+			} else {
+				const regex = new RegExp(search);
+				Patient.find(
+					{
+						$or: [
+							{ firstName: { $regex: regex } },
+							{ lastName: { $regex: regex } },
+						],
+					},
+					(err, patients) => {
+						if (err) {
+							return reject(err);
+						}
+						return resolve(patients);
+					}
+				);
 			}
-			return resolve(patients);
-		});
+		} else {
+			Patient.find({}, (err, patients) => {
+				if (err) {
+					return reject(err);
+				}
+				return resolve(patients);
+			});
+		}
 	});
 }
 

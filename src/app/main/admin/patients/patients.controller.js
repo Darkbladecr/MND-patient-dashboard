@@ -72,6 +72,7 @@ export default class UsersController {
 		container.scrollTop(0);
 	}
 	getPatients(search) {
+		this.selected = [];
 		const deferred = this.$q.defer();
 		this.promise = deferred.promise;
 		this.patientsService.getPatients(search).then(patients => {

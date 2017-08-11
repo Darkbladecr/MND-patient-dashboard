@@ -68,6 +68,8 @@ TempUser.method('setPassword', function(password) {
 const Patient = new LinvoDB('Patient', PatientSchema, {
 	filename: path.join(dbpath, 'Patient.db'),
 });
+Patient.ensureIndex({ fieldName: 'NHSnumber', unique: true });
+Patient.ensureIndex({ fieldName: 'patientNumber', unique: true });
 const Appointment = new LinvoDB('Appointment', AppointmentSchema, {
 	filename: path.join(dbpath, 'Appointment.db'),
 });
