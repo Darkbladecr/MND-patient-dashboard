@@ -17,7 +17,7 @@
 		"build-backend": "BABEL_ENV=server babel server -d distServer",
 		"copy-files": "cp -R src/assets build",
 		"package": "build",
-		"package-win": "eletron-builder --win --ia32",
+		"package-win": "electron-builder --win --ia32",
 		"postinstall": "electron-builder install-app-deps"
 	},
 	"build": {
