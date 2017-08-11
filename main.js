@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, shell, Menu } = require('electron');
 const path = require('path');
 const url = require('url');
 const fs = require('fs');
@@ -28,6 +28,31 @@ function createWindow() {
 
 	// Open the DevTools.
 	// win.webContents.openDevTools();
+	const template = [
+		{
+			label: 'Edit',
+			submenu: [
+				{ label: 'Cut', accelerator: 'CmdOrCtrl+X', selector: 'cut:' },
+				{
+					label: 'Copy',
+					accelerator: 'CmdOrCtrl+C',
+					selector: 'copy:',
+				},
+				{
+					label: 'Paste',
+					accelerator: 'CmdOrCtrl+V',
+					selector: 'paste:',
+				},
+			],
+		},
+	];
+	if (process.platform === 'darwin') {
+		template.unshift({
+			label: app.getName(),
+			submenu: [{ role: 'quit' }],
+		});
+	}
+	Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
 	// Emitted when the window is closed.
 	win.on('closed', () => {
