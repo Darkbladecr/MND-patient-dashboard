@@ -2,6 +2,8 @@ import angular from 'angular';
 import d3 from 'd3';
 import clinicLetterTemplate from './dialogs/clinicLetter.html';
 import clinicLetterController from './dialogs/clinicLetter.controller';
+import appointmentDialogController from './dialogs/appointment-dialog.controller';
+import appointmentDialogTemplate from './dialogs/appointment-dialog.html';
 const ipc = require('electron').ipcRenderer;
 
 function chartOptions(str, legend) {
@@ -184,7 +186,13 @@ class patientViewerController {
 		];
 		this.$mdDialog
 			.show({
-				contentElement: '#appointmentEditor',
+				locals: {
+					patient: this.patient,
+					appointment: angular.copy(this.selected[0]),
+				},
+				template: appointmentDialogTemplate,
+				controller: appointmentDialogController,
+				controllerAs: 'vm',
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose: false,
@@ -204,7 +212,13 @@ class patientViewerController {
 	editAppointment(ev) {
 		this.$mdDialog
 			.show({
-				contentElement: '#appointmentEditor',
+				locals: {
+					patient: this.patient,
+					appointment: angular.copy(this.selected[0]),
+				},
+				template: appointmentDialogTemplate,
+				controller: appointmentDialogController,
+				controllerAs: 'vm',
 				parent: angular.element(document.body),
 				targetEvent: ev,
 				clickOutsideToClose: false,

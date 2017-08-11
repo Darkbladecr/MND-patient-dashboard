@@ -1,10 +1,12 @@
 import angular from 'angular';
 export default class AppointmentDialogController {
-	constructor($mdDialog, patientsService, $scope) {
+	constructor($mdDialog, patientsService, $scope, appointment, patient) {
 		'ngInject';
 		this.$mdDialog = $mdDialog;
 		this.alfrsDialog = $mdDialog;
 		this.patientsService = patientsService;
+		this.appointment = appointment;
+		this.patient = patient;
 
 		this.minDate = new Date(1900, 0, 1);
 
